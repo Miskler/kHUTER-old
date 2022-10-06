@@ -1,0 +1,156 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Tecture/Modeli/hatl/no_open_hatl.png" type="Texture" id=1]
+[ext_resource path="res://Tecture/Modeli/hatl/open_hatl.png" type="Texture" id=2]
+[ext_resource path="res://Script/NPS/hatl.gd" type="Script" id=3]
+[ext_resource path="res://Sceni/Interface/hatlInterfes.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Tecture/Modeli/fire/fire_4.png" type="Texture" id=5]
+[ext_resource path="res://Tecture/Modeli/fire/fire_2.png" type="Texture" id=6]
+[ext_resource path="res://Tecture/Modeli/fire/fire_1.png" type="Texture" id=7]
+[ext_resource path="res://Tecture/Modeli/fire/fire_3.png" type="Texture" id=8]
+[ext_resource path="res://Tecture/Modeli/svet.jpg" type="Texture" id=9]
+[ext_resource path="res://shader/fire.shader" type="Shader" id=10]
+
+
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "sacrit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "otcrit",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 52.5579, 92.4408 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 30.0266, 3.18996 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "polet",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 10 )
+shader_param/transparent = Color( 0, 0, 0, 0 )
+shader_param/inner = Color( 1, 0, 0, 1 )
+shader_param/outer = Color( 1, 0, 0, 1 )
+shader_param/inner_threshold = 0.04
+shader_param/outer_threshold = 0.08
+shader_param/soft_edge = 0.09
+shader_param/center = Vector2( 0.5, 0.8 )
+shader_param/OCTAVES = 7
+
+[node name="shatl" type="KinematicBody2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "sacrit"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 0, 89.2201 )
+shape = SubResource( 3 )
+disabled = true
+one_way_collision = true
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 31
+collision_mask = 31
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2( 3, 3 )
+smoothing_enabled = true
+smoothing_speed = 10.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CanvasLayer" parent="Camera2D" instance=ExtResource( 4 )]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 0, 35.492 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 6.00001, -2 )
+rotation = -6.25004
+scale = Vector2( 5.84274, 6.56671 )
+texture = ExtResource( 9 )
+color = Color( 0.25098, 0.439216, 0.0862745, 1 )
+energy = 16.0
+mode = 3
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("..")
+
+[node name="AnimatedSprite2" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="AnimatedSprite2"]
+visible = false
+position = Vector2( -3.33786e-06, 117.031 )
+scale = Vector2( 0.880945, 1 )
+frames = SubResource( 4 )
+animation = "polet"
+frame = 3
+speed_scale = 2.0
+
+[node name="ColorRect" type="ColorRect" parent="AnimatedSprite2"]
+material = SubResource( 5 )
+margin_left = 49.8582
+margin_top = 220.741
+margin_right = 148.858
+margin_bottom = 349.741
+rect_rotation = 180.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SdorovHp" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="SleepEvent" type="Timer" parent="."]
+wait_time = 10.0
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="SdorovHp" to="." method="SdorovHp_timeout"]
+[connection signal="timeout" from="SleepEvent" to="." method="SleepEvent"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/USSR_1.ogg-468018f423633e703c6cdbf23700ea98.oggstr"
+
+[deps]
+
+source_file="res://aydio/music/USSR_1.ogg"
+dest_files=[ "res://.import/USSR_1.ogg-468018f423633e703c6cdbf23700ea98.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

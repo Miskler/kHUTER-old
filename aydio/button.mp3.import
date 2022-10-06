@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/button.mp3-7a3c331830bc1743924059a88addc97d.mp3str"
+
+[deps]
+
+source_file="res://aydio/button.mp3"
+dest_files=[ "res://.import/button.mp3-7a3c331830bc1743924059a88addc97d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,2517 @@
+[gd_scene load_steps=74 format=2]
+
+[ext_resource path="res://Foud/fog.shader" type="Shader" id=1]
+[ext_resource path="res://19104.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Script/Meny.gd" type="Script" id=3]
+[ext_resource path="res://Tecture/Modeli/non_nebo.png" type="Texture" id=4]
+[ext_resource path="res://Tecture/Modeli/no_texture.png" type="Texture" id=5]
+[ext_resource path="res://aydio/menu_aydio.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Foud/Del_button_dynamicfont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Foud/MenyD.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Tecture/image-removebg-preview.png" type="Texture" id=9]
+[ext_resource path="res://aydio/meny_sadem.anim" type="Animation" id=10]
+[ext_resource path="res://Foud/20703.otf" type="DynamicFontData" id=11]
+[ext_resource path="res://Script/Interfes/StoriScriptMenu.gd" type="Script" id=12]
+[ext_resource path="res://aydio/bookPlace1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Tecture/Modeli/fire/fire_3.png" type="Texture" id=14]
+[ext_resource path="res://Tecture/Modeli/fire/fire_4.png" type="Texture" id=15]
+[ext_resource path="res://Tecture/Modeli/fire/fire_2.png" type="Texture" id=16]
+[ext_resource path="res://Tecture/Modeli/fire/fire_1.png" type="Texture" id=17]
+[ext_resource path="res://Tecture/Modeli/hatl/no_open_hatl.png" type="Texture" id=18]
+[ext_resource path="res://Foud/def.theme" type="Theme" id=19]
+[ext_resource path="res://shader/fire.shader" type="Shader" id=20]
+[ext_resource path="res://icon.png" type="Texture" id=21]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 20 )
+shader_param/transparent = Color( 0, 0, 0, 0 )
+shader_param/inner = Color( 1, 0, 0, 1 )
+shader_param/outer = Color( 1, 0, 0, 1 )
+shader_param/inner_threshold = 0.04
+shader_param/outer_threshold = 0.08
+shader_param/soft_edge = 0.09
+shader_param/center = Vector2( 0.5, 0.8 )
+shader_param/OCTAVES = 7
+
+[sub_resource type="DynamicFont" id=3]
+size = 130
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 1 )
+shader_param/color = Vector3( 1, 1.16, 1.8 )
+shader_param/OCTAVES = 2
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 11 )
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Control
+
+func changed(value):
+	G.fps_limit = value
+	Engine.set_target_fps(value)
+"
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 11 )
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends Control
+
+func dir_selected(dir):
+	$LineEdit.text = dir
+	G.save_path = dir
+
+func pressed():
+	get_node(\"/root/Node2D/FileDialog\").popup()
+
+func text_changed(new_text):
+	G.save_path = new_text
+"
+
+[sub_resource type="DynamicFont" id=9]
+size = 15
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=12]
+default_font = SubResource( 11 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 26
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=14]
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=15]
+default_font = SubResource( 14 )
+
+[sub_resource type="GDScript" id=16]
+script/source = "extends Button
+
+onready var AU = $\"/root/Node2D/AudioStreamPlayer2D2\"
+
+func _pressed():
+	$\"../../../Control2\".hide()
+	AU.play()
+
+func Button2_pressed():
+	$\"/root/Node2D/load_game\".show()
+	AU.play()
+
+func Button_pressed():
+	G.loadSCN = \"res://Sceni/LVL/Map1.tscn\"
+	$\"/root/Node2D/AnimationPlayer\".play(\"zatem\")
+	AU.play()
+
+func TextureButton_pressed():
+	$\"../../../Control2\".hide()
+	AU.play()
+"
+
+[sub_resource type="DynamicFont" id=17]
+font_data = ExtResource( 11 )
+
+[sub_resource type="Animation" id=18]
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer2D:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1.76558e-26 ),
+"update": 0,
+"values": [ -8.139, -30.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorRect2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Setting:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 28.3853, 107.06 ), Vector2( -988.965, 107.06 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ButtCont:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 618.337 ), Vector2( 0, 564 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=21]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1541.56, 288.181 ), Vector2( 490.306, 259.64 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Setting:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -988.965, 107.06 ), Vector2( 28.3853, 107.06 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ButtCont:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 564 ), Vector2( 0, 618.337 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 3, 3.7, 3.8, 6.5, 6.7, 6.8, 7.5, 7.6, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 25.0218, 831.805 ), Vector2( 25.0218, 831.805 ), Vector2( 25.0218, 831.805 ), Vector2( 916.039, -165.246 ), Vector2( -175.08, -143.46 ), Vector2( -165.641, 139.702 ), Vector2( 1614.51, 683.374 ), Vector2( 1621.23, 829.69 ), Vector2( 1621.23, 829.69 ), Vector2( 2008.34, -160.761 ), Vector2( 2008.34, -160.761 ), Vector2( 560.182, 718.88 ), Vector2( 560.182, 718.88 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Position2D:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 3, 3.7, 3.8, 6.5, 6.7, 6.8, 7.5, 7.6, 9, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 30.0, 30.0, 104.336, 104.336, 104.336, 104.336, 14.2028, 14.2028, -123.753, -123.753, -123.753 ]
+}
+
+[sub_resource type="GDScript" id=24]
+script/source = "extends Control
+
+var servers = {}
+
+const way = \"user://SaveGame/servers.json\"
+var file = File.new()
+var peer = NetworkedMultiplayerENet.new()
+
+func _ready():
+	$ItemList.clear()
+	get_tree().connect(\"connection_failed\", self, \"failed\")
+	get_tree().connect(\"connected_to_server\", self, \"go\")
+	if !file.file_exists(way): 
+		file.file_exists(way)
+	else:
+		file.open(way, File.READ)
+		servers = parse_json(file.get_as_text())
+		file.close()
+		respavn()
+
+func _exit_tree():
+	file.open(way, File.WRITE)
+	file.store_line(to_json(servers))
+	file.close()
+
+func respavn():
+	_exit_tree()
+	$ItemList.clear()
+	for i in range(servers.size()):
+		var id = servers.keys()[i]
+		$ItemList.add_item(servers[id])
+	if servers.size() > 0:
+		$ItemList.select(0)
+
+func cansel():
+	$\".\".hide()
+
+func adres():
+	$connect.show()
+
+func no():
+	$add_server.hide()
+	$connect.hide()
+
+func add_server():
+	$add_server.show()
+	$add_server/Label.text = \"Добавление сервера\"
+	$add_server/LineEdit.text = \"Сервер HUTER\"
+	$add_server/LineEdit2.text = \"\"
+
+func edit_server():
+	if $ItemList.get_selected_items().size() > 0:
+		$add_server.show()
+		$add_server/Label.text = \"Изменение сервера\"
+		var keys = servers.keys()
+		$add_server/LineEdit.text = servers[keys[$ItemList.get_selected_items()[0]]]
+		$add_server/LineEdit2.text = keys[$ItemList.get_selected_items()[0]]
+
+func yes():
+	$add_server.hide()
+	if $add_server/LineEdit.text != \"\" and $add_server/LineEdit2.text != \"\":
+		servers[$add_server/LineEdit2.text] = $add_server/LineEdit.text
+		respavn()
+
+func del_server():
+	if $ItemList.get_selected_items().size() > 0:
+		servers.erase(servers.keys()[$ItemList.get_selected_items()[0]])
+		respavn()
+
+func connect_select_server():
+	if $ItemList.get_selected_items().size() > 0:
+		peer = NetworkedMultiplayerENet.new()
+		
+		peer.create_client(servers.keys()[$ItemList.get_selected_items()[0]], G.game_settings[\"port\"])
+		get_tree().network_peer = peer
+		$\"../Control3\".show()
+		printt(get_tree().network_peer, servers.keys()[$ItemList.get_selected_items()[0]], G.game_settings[\"port\"])
+
+func connect_server():
+	$connect.hide()
+	if $connect/LineEdit.text != \"\":
+		peer = NetworkedMultiplayerENet.new()
+		
+		peer.create_client($connect/LineEdit.text, G.game_settings[\"port\"])
+		get_tree().network_peer = peer
+		$\"../Control3\".show()
+		printt(get_tree().network_peer, $connect/LineEdit.text, G.game_settings[\"port\"])
+
+func failed():
+	print(\"failed\")
+	get_tree().network_peer = null
+	$\"../Control3\".hide()
+	$\"../AcceptDialog\".popup_centered()
+
+func go():
+	print(\"go\")
+	get_tree().change_scene(\"res://Sceni/rootGame.tscn\")
+
+func stop():
+	$\"../Control3\".hide()
+	get_tree().network_peer = null
+"
+
+[sub_resource type="DynamicFont" id=25]
+size = 23
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=26]
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=27]
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=28]
+size = 25
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=29]
+size = 18
+font_data = ExtResource( 11 )
+
+[sub_resource type="GDScript" id=30]
+script/source = "extends Control
+
+func _ready():
+	add_element()
+
+func add_element():
+	var dir = Directory.new()
+	if dir.open(\"user://SaveGame/Worlds\") == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != \"\":
+			var file = File.new()
+			if file_name != \".\" and dir.current_is_dir() and file.file_exists(\"user://SaveGame/Worlds/\" + file_name + \"/map.huter\"):
+				print(1)
+				var item = get_node(\"ScrollContainer/VBoxContainer/S*ample\").duplicate()
+				print(item)
+				
+				item.name = file_name
+				item.get_node(\"Label\").text = file_name
+				
+				var image = Image.new()
+				var err = image.load(\"user://SaveGame/Worlds/\" + file_name + \"/screenshot.png\")
+				if err == OK:
+					item.get_node(\"TextureRect\").texture = ImageTexture.new()
+					item.get_node(\"TextureRect\").texture.create_from_image(image, 0)
+				else:
+					item.get_node(\"TextureRect\").texture = load(\"res://Tecture/Modeli/no_texture.png\")
+				
+				if file.open(\"user://SaveGame/Worlds/\" + file_name + \"/data.json\", File.READ) == OK:
+					file.open(\"user://SaveGame/Worlds/\" + file_name + \"/data.json\", File.READ)
+					var data = str2var(file.get_as_text())
+					file.close()
+					item.get_node(\"Label2\").text = \"Версия игры \" + data[0] + \", дата создания \" + str(data[2][\"day\"])+\".\"+str(data[2][\"month\"])+\".\"+str(data[2][\"year\"]) + \", автор \" + data[1]
+				else:
+					item.get_node(\"Label2\").text = \"Данные отцуцтвуют!\"
+				
+				item.show()
+				get_node(\"ScrollContainer/VBoxContainer\").add_child(item)
+				item.get_node(\"Button3\").connect(\"dir_load_pressed\", self, \"dir_load_game\")
+				item.get_node(\"Button\").connect(\"dir_open_pressed\", self, \"dir_open\")
+				item.get_node(\"Button2\").connect(\"dir_del_pressed\", self, \"dir_del_game\")
+			file_name = dir.get_next()
+
+func del_all_element():
+	for i in $\"ScrollContainer/VBoxContainer\".get_children():
+		if i.name != \"S*ample\":
+			i.queue_free()
+
+func list_reload():
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+	del_all_element()
+	yield(get_tree(),\"idle_frame\")
+	add_element()
+
+func dir_del_game(name_save):
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+	$\"/root/Node2D/ConfirmationDialog\".window_title = name_save
+	$\"/root/Node2D/ConfirmationDialog\".dialog_text = \"Вы точно хотите удалить \\\"\" + name_save + \"\\\"?\"
+	$\"/root/Node2D/ConfirmationDialog\".popup_centered()
+
+func dir_load_game(name_save):
+	G.loadSCN = \"user://SaveGame/Worlds/\" + name_save + \"/map.huter\"
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+	$\"/root/Node2D/AnimationPlayer\".play(\"zatem\")
+
+func dir_open(name_save):
+	OS.shell_open(str(OS.get_user_data_dir()) + \"/SaveGame/Worlds/\" + name_save)
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+
+func close():
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+	self.hide()
+
+func del_dir_accept():
+	var directory = Directory.new()
+	var path = str(OS.get_user_data_dir()) + \"/SaveGame/Worlds/\" + str($\"/root/Node2D/ConfirmationDialog\".window_title)
+	G.remove_recursive(path)
+	list_reload()
+
+func load_scene():
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+	$FileDialog.popup_centered()
+
+func file_selected(path):
+	G.loadSCN = path
+	$\"/root/Node2D/AudioStreamPlayer2D2\".play()
+	$\"/root/Node2D/AnimationPlayer\".play(\"zatem\")
+"
+
+[sub_resource type="DynamicFont" id=31]
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=32]
+default_font = SubResource( 31 )
+
+[sub_resource type="DynamicFont" id=33]
+size = 30
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=34]
+size = 19
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=35]
+font_data = ExtResource( 11 )
+
+[sub_resource type="GDScript" id=36]
+script/source = "extends Button
+
+signal dir_open_pressed(save_name)
+
+func _ready():
+	self.connect(\"button_down\", self, \"dir_open_signal\")
+
+func dir_open_signal():
+	emit_signal(\"dir_open_pressed\", get_parent().name)
+"
+
+[sub_resource type="GDScript" id=37]
+script/source = "extends Button
+
+signal dir_del_pressed(del_name)
+
+func _ready():
+	self.connect(\"button_down\", self, \"dir_del_signal\")
+
+func dir_del_signal():
+	emit_signal(\"dir_del_pressed\", get_parent().name)
+"
+
+[sub_resource type="GDScript" id=38]
+script/source = "extends Button
+
+signal dir_load_pressed(load_name)
+
+func _ready():
+	self.connect(\"button_down\", self, \"dir_load_signal\")
+
+func dir_load_signal():
+	emit_signal(\"dir_load_pressed\", get_parent().name)
+"
+
+[sub_resource type="DynamicFont" id=39]
+size = 15
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=40]
+default_font = SubResource( 39 )
+
+[sub_resource type="DynamicFont" id=41]
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=42]
+default_font = SubResource( 41 )
+
+[sub_resource type="DynamicFont" id=43]
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=44]
+default_font = SubResource( 43 )
+
+[sub_resource type="Shader" id=45]
+code = "shader_type canvas_item;
+
+uniform float blur : hint_range(0, 6) = 100.0;
+
+void fragment() {
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, blur);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=46]
+shader = SubResource( 45 )
+shader_param/blur = 2.529
+
+[sub_resource type="DynamicFont" id=47]
+size = 30
+font_data = ExtResource( 11 )
+
+[sub_resource type="Animation" id=48]
+length = 3.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 100.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Label:visible_characters")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4, 2.7, 3, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 31, 32, 33, 30, 31, 32, 33, 30, 31, 32, 33 ]
+}
+
+[sub_resource type="DynamicFont" id=49]
+size = 29
+font_data = ExtResource( 11 )
+
+[sub_resource type="GDScript" id=50]
+script/source = "extends Control
+
+onready var Au = $\"../AudioStreamPlayer2D2\"
+
+func pressed_statistics_hide():
+	hide()
+	Au.play()
+
+func pressed_statistics_show():
+	update_statistics()
+	show()
+	Au.play()
+"
+
+[sub_resource type="DynamicFont" id=51]
+size = 40
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=52]
+size = 20
+font_data = ExtResource( 11 )
+
+[node name="Node2D" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = -14.9782
+margin_top = 0.196625
+margin_right = 25.0218
+margin_bottom = 40.1966
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="non_nebo4" type="Sprite" parent="Control"]
+position = Vector2( 757.483, 171.188 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo3" type="Sprite" parent="Control"]
+position = Vector2( 781.591, 452.913 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo5" type="Sprite" parent="Control"]
+position = Vector2( 781.591, 452.913 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo6" type="Sprite" parent="Control"]
+position = Vector2( 1343.46, 172.863 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo7" type="Sprite" parent="Control"]
+position = Vector2( 1350.95, 510.863 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo8" type="Sprite" parent="Control"]
+position = Vector2( 1815.42, 443.863 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo9" type="Sprite" parent="Control"]
+position = Vector2( 1950.27, 94.8634 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo2" type="Sprite" parent="Control"]
+position = Vector2( 305.022, 427.534 )
+texture = ExtResource( 4 )
+
+[node name="non_nebo" type="Sprite" parent="Control"]
+position = Vector2( 291.645, 132.275 )
+texture = ExtResource( 4 )
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 25.0218, 831.805 )
+
+[node name="no_open_hatl" type="Sprite" parent="Position2D"]
+position = Vector2( 0, -20.3007 )
+texture = ExtResource( 18 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Position2D"]
+visible = false
+position = Vector2( 0, 95.365 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="ColorRect" type="ColorRect" parent="Position2D"]
+material = SubResource( 2 )
+margin_left = 39.0
+margin_top = 210.757
+margin_right = 119.0
+margin_bottom = 352.757
+rect_rotation = 180.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 625.0
+margin_right = 1018.0
+margin_bottom = 153.0
+custom_fonts/font = SubResource( 3 )
+text = "Huter"
+align = 2
+valign = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 4 )
+margin_left = -13.0
+margin_top = -8.0
+margin_right = 2051.0
+margin_bottom = 613.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 4 )
+margin_left = 1026.0
+margin_top = 0.196999
+margin_right = 2052.0
+margin_bottom = 602.197
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtCont" type="HBoxContainer" parent="."]
+margin_top = 564.0
+margin_right = 1018.0
+margin_bottom = 590.0
+alignment = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="ButtCont"]
+visible = false
+margin_left = 229.0
+margin_right = 337.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "language"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Button" parent="ButtCont"]
+margin_left = 341.0
+margin_right = 566.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "история изменении"
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button7" type="Button" parent="ButtCont"]
+margin_left = 570.0
+margin_right = 708.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "статистика"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="ButtCont"]
+margin_left = 712.0
+margin_right = 797.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "Играть"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button6" type="Button" parent="ButtCont"]
+margin_left = 801.0
+margin_right = 931.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "настроики"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="ButtCont"]
+margin_left = 935.0
+margin_right = 1018.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "Выити"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 515, 312.275 )
+stream = ExtResource( 6 )
+volume_db = -8.139
+autoplay = true
+attenuation = 0.466516
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Setting" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -988.965
+margin_top = 107.06
+margin_right = -22.9653
+margin_bottom = 574.06
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Setting"]
+margin_left = -40.116
+margin_top = -106.863
+margin_right = 985.884
+margin_bottom = 495.137
+focus_mode = 0
+enabled_focus_mode = 0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="Setting"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -474.0
+margin_top = -245.5
+margin_right = 496.0
+margin_bottom = 218.5
+color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Setting"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Setting"]
+margin_left = 9.0
+margin_top = 8.0
+margin_right = 333.0
+margin_bottom = 457.0
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Setting/ScrollContainer"]
+margin_right = 304.0
+margin_bottom = 416.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_right = 304.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/text"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 5 )
+text = "Общие"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 304.0
+margin_bottom = 79.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 7 )
+enabled_focus_mode = 0
+text = "На весь экран"
+
+[node name="CheckBox4" type="CheckBox" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 83.0
+margin_right = 304.0
+margin_bottom = 108.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 7 )
+enabled_focus_mode = 0
+text = "Низкие настройки графики"
+
+[node name="fps_limit" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 112.0
+margin_right = 304.0
+margin_bottom = 142.0
+rect_min_size = Vector2( 0, 30 )
+script = SubResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="Setting/ScrollContainer/VBoxContainer/fps_limit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -74.0
+margin_bottom = -1.90735e-06
+color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/fps_limit"]
+anchor_right = 1.0
+margin_left = 2.0
+margin_right = -75.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 7 )
+text = "Ограничение фпс:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Setting/ScrollContainer/VBoxContainer/fps_limit"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -157.0
+margin_right = -74.0
+margin_bottom = 29.0
+min_value = 30.0
+max_value = 240.0
+value = 60.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text2" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 146.0
+margin_right = 304.0
+margin_bottom = 196.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/text2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 5 )
+text = "Меню"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox3" type="CheckBox" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 200.0
+margin_right = 304.0
+margin_bottom = 225.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 7 )
+enabled_focus_mode = 0
+text = "Пропускать экран приветствия"
+
+[node name="CheckBox2" type="CheckBox" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 229.0
+margin_right = 304.0
+margin_bottom = 254.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 7 )
+enabled_focus_mode = 0
+text = "Музыка в меню"
+
+[node name="text3" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 258.0
+margin_right = 304.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 90 )
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/text3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 5 )
+text = "Мультиплеер и
+редактор карт"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="save_path" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+visible = false
+margin_top = 352.0
+margin_right = 304.0
+margin_bottom = 442.0
+rect_min_size = Vector2( 0, 90 )
+script = SubResource( 8 )
+
+[node name="ColorRect" type="ColorRect" parent="Setting/ScrollContainer/VBoxContainer/save_path"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/save_path"]
+anchor_right = 1.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 7 )
+text = "Путь сохранений:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Setting/ScrollContainer/VBoxContainer/save_path"]
+margin_top = 21.0
+margin_right = 312.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 9 )
+text = "C:\\Users\\ПК\\AppData\\Roaming\\Godot\\app_userdata\\Huter\\SaveGame"
+
+[node name="Button" type="Button" parent="Setting/ScrollContainer/VBoxContainer/save_path"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -74.0
+margin_top = -31.0
+margin_right = 75.0
+margin_bottom = -5.00001
+custom_fonts/font = SubResource( 10 )
+text = "Выбрать другой"
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="port_server" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 352.0
+margin_right = 304.0
+margin_bottom = 382.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="ColorRect" type="ColorRect" parent="Setting/ScrollContainer/VBoxContainer/port_server"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -114.0
+color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/port_server"]
+anchor_right = 1.0
+margin_left = 2.0
+margin_right = -75.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 7 )
+text = "Порт сервера:"
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Setting/ScrollContainer/VBoxContainer/port_server"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -188.0
+margin_right = -114.0
+margin_bottom = 29.0
+min_value = 1000.0
+max_value = 9999.0
+value = 7732.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="player" type="Control" parent="Setting/ScrollContainer/VBoxContainer"]
+margin_top = 386.0
+margin_right = 304.0
+margin_bottom = 416.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="ColorRect" type="ColorRect" parent="Setting/ScrollContainer/VBoxContainer/player"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -114.0
+color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Setting/ScrollContainer/VBoxContainer/player"]
+anchor_right = 1.0
+margin_left = 2.0
+margin_right = -75.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 7 )
+text = "Имя игрока:"
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="LineEdit" parent="Setting/ScrollContainer/VBoxContainer/player"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -210.0
+margin_right = -114.0
+margin_bottom = 29.0
+theme = SubResource( 12 )
+text = "Player1234"
+max_length = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Setting"]
+margin_left = 522.045
+margin_top = 434.727
+margin_right = 960.045
+margin_bottom = 460.727
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Setting/HBoxContainer"]
+margin_left = 363.0
+margin_right = 438.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "связь"
+
+[node name="Button2" type="Button" parent="Setting/HBoxContainer"]
+visible = false
+margin_left = 268.0
+margin_right = 438.0
+margin_bottom = 26.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "редактор карт"
+
+[node name="Control" type="Control" parent="Setting"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Setting/Control"]
+margin_left = 367.0
+margin_top = 20.0
+margin_right = 946.0
+margin_bottom = 318.0
+color = Color( 0.0313726, 0.0313726, 0.0313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="Setting/Control"]
+margin_left = 336.0
+margin_top = 337.0
+margin_right = 634.0
+margin_bottom = 404.0
+color = Color( 0.0313726, 0.0313726, 0.0313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Setting/Control"]
+margin_left = 335.0
+margin_top = 385.0
+margin_right = 962.0
+margin_bottom = 430.0
+color = Color( 0.0313726, 0.0313726, 0.0313726, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Setting/Control/ColorRect2"]
+margin_right = 630.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 8 )
+text = "C:\\Users\\ПК\\AppData\\Roaming\\Godot\\app_userdata\\Huter"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Setting/Control"]
+margin_left = 374.73
+margin_top = 31.94
+margin_right = 932.73
+margin_bottom = 304.94
+custom_fonts/font = ExtResource( 8 )
+text = "Управление:
+
+w-прыжок
+a-на лево
+s-на право
+d-вниз
+
+e-взаимоде	йствие
+q-инвентарь
+пкм-стельба (нужно сначало скрафтить и выбрать
+оружие)
+esc-меню"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelENG" type="Label" parent="Setting/Control"]
+visible = false
+margin_left = 374.73
+margin_top = 31.94
+margin_right = 932.73
+margin_bottom = 304.94
+custom_fonts/font = ExtResource( 8 )
+text = "Control:
+
+w-jump
+a-left
+s-right
+d-down
+
+e-interaction
+q-event
+pkm-stelba (you first need to craft and choose
+weapon)
+esc-menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Setting/Control"]
+margin_left = 341.341
+margin_top = 337.0
+margin_right = 728.341
+margin_bottom = 376.0
+custom_fonts/font = SubResource( 13 )
+text = "path to save folder:"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 814.822, 83.2537 )
+scale = Vector2( 1.16769, 1.11594 )
+texture = ExtResource( 9 )
+
+[node name="Control2" type="Control" parent="."]
+visible = false
+margin_left = 354.698
+margin_top = 177.349
+margin_right = 693.698
+margin_bottom = 431.349
+theme = SubResource( 15 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -363.0
+margin_top = -187.0
+margin_right = 338.0
+margin_bottom = 178.0
+color = Color( 0, 0, 0, 0.439216 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -363.0
+margin_top = -187.0
+margin_right = 343.0
+margin_bottom = 190.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.815686 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="Control2"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control2/Control2"]
+margin_left = 81.0
+margin_top = 14.0
+margin_right = 332.0
+margin_bottom = 199.0
+custom_constants/separation = 27
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control2/Control2/VBoxContainer"]
+margin_top = 26.0
+margin_right = 251.0
+margin_bottom = 52.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "кампания"
+
+[node name="Button2" type="Button" parent="Control2/Control2/VBoxContainer"]
+margin_top = 79.0
+margin_right = 251.0
+margin_bottom = 105.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "продолжить"
+
+[node name="Button4" type="Button" parent="Control2/Control2/VBoxContainer"]
+margin_top = 132.0
+margin_right = 251.0
+margin_bottom = 158.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 8 )
+enabled_focus_mode = 0
+text = "подключится"
+
+[node name="Button" type="Button" parent="Control2/Control2"]
+margin_left = 247.655
+margin_top = 221.009
+margin_right = 334.655
+margin_bottom = 248.009
+focus_mode = 0
+custom_colors/font_color_hover = Color( 1, 0.498039, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.164706, 0.164706, 1 )
+custom_fonts/font = ExtResource( 7 )
+enabled_focus_mode = 0
+text = "закрыть"
+script = SubResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stori" type="Control" parent="."]
+margin_left = 1026.0
+margin_right = 2052.0
+margin_bottom = 602.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="stori"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 0
+enabled_focus_mode = 0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="stori"]
+margin_left = 61.0
+margin_top = 71.0
+margin_right = 967.0
+margin_bottom = 552.0
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 0" type="Tabs" parent="stori/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 0"]
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 890.0
+margin_bottom = 434.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "появилось это меню)))
+
+Добавлена анимацию появления меню настроек
+
+Добавлена анимацию затухания меню настроек
+
+Игра сохраняет себя в отдельную папку
+
+Добавлены штаны
+
+Добавлена нагрудная защита
+
+Добавлена механика брони (закончено на 100%)
+
+Добавлена пометка управления в настройки
+
+Добавлена пометка пути сохранения в настройки
+
+Исправлен баг бессмертия
+
+Игрок не может загрузится если не имеет сохранения
+
+Починил анимации в главном меню"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 1" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 1"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Новый транспорт шатл
+Новый верстак радио
+Новая глобальная локация
+Перевод главного меню, опять...
+Реболанс способности персонажа отпрыгивает от стен
+Новая механика голода"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 2" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 2"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Шатл полностью готов
+Теперь пуля наносит урон в зависимости из какого оружия была запущена
+Обновлен экран загрузки
+Теперь шатл летают по меню
+Теперь при нажатии кнопок в меню будет воспроизводиться звук нажатия
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 3" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 3"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Добавлена \"снайперка\":
+Пробивает несколько целей одновременно увеличивает дальность видимости, но весит сама по себе очень много (а именно 20), а ещё накладывает эффект замедления при носке в руках
+
+Также я изменил стоимость крафта, если коротко: вы больше не сможете из сосиски автомат сделать :)
+
+Изменён вес предметов некоторые весят больше теперь некоторые меньше, но суммарно вес добавился (в будущем добавлю челнок с сундуком (челнок это летающие здание считайте))
+
+Игра оптимизирована и исправлено несколько багов с крафтом
+
+Изменена вероятность спавна предметов (смотреть процент спавна выше, либо в закрепе)
+
+Сохранённые скриншоты теперь идут по пути: 
+	C:\\Users\\ПК\\Pictures\\CreenshotHuter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 4" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 4"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Добавлен челнок
+Исправлено МОРЕ багов
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 5" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 5"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Нарисовано 40% текстур для игры
+Добавлен редактор карт
+Полностью выпилил сохранения игры"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 6" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 6"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Редактор заработал! (там было много багов)
+
+Также, переименовал вкладку нпс(теперь \"сущности\") и добавил зум(- и + на клавиатуре)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 7" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 7"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Добавлено дерево объектов в редакторе карт
+
+Добавлены функции взаимодействия с деревом в редакторе карт
+
+Добавлены настройки карты в редакторе карт
+
+Добавлен инструмент \"зоны\" в редакторе карт
+
+Добавлен инструмент \"фоны\" в редакторе карт
+
+Добавлен инструмент \"показать в дереве\" в редакторе карт
+
+Улучшена работа инструмента \"удалить\"
+
+Добавлена настройка \"ограничение фпс\"
+
+Добавлено сохранение, а также настройка куда сохранять
+
+Улучшена работа зума
+
+Исправлено пару багов связанных с редактором и его объектами
+
+Добавлена потребность \"сон\", чем больше игроку хочется спать тем более размыт экран
+
+Переписана функция сна - теперь изменение ваших жизненных параметров зависит от количества часов сна. Также теперь тайм даун кровати не фиксирован, а зависит от количества часов которые вы проспали.
+
+Исправлена работа сохранений настроек игры
+
+Теперь анимация огня шатла в меню зависит от настроек графики в игре"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0 1 9" type="Tabs" parent="stori/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="stori/TabContainer/0 1 9"]
+margin_left = 6.0
+margin_right = 890.0
+margin_bottom = 426.0
+custom_fonts/normal_font = ExtResource( 7 )
+text = "Исправлена работа мультиплеера
+
+Исправлена работа редактора карт
+
+Добавлена жажда
+
+Добавлено пару шейдеров
+
+Добавлена смена дня и ночи
+
+Добавлены нпс \"зомби\"
+
+Убрал пару костылей у интерфейса игрока
+
+Подправил управление у спектатора
+
+Теперь стол для крафта имеет доп текстуру
+
+Исправил во многих местах размер шрифтов"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 4.33823
+margin_right = 158.338
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 17 )
+text = "Версия игры: ?.?.?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_left = 15.0
+margin_top = 34.0
+margin_right = 1010.0
+margin_bottom = 582.0
+theme = ExtResource( 19 )
+window_title = "Открыть каталог"
+mode = 2
+access = 2
+current_dir = "/"
+current_path = "/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/zatem = SubResource( 18 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/zatem = ExtResource( 10 )
+
+[node name="readi" type="AnimationPlayer" parent="."]
+autoplay = "di"
+anims/di = SubResource( 19 )
+
+[node name="sett" type="AnimationPlayer" parent="."]
+anims/hide = SubResource( 20 )
+anims/otladca = SubResource( 21 )
+anims/show = SubResource( 22 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 490.306, 259.64 )
+current = true
+limit_left = 0
+limit_top = 0
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -21.224
+
+[node name="pasic" type="AnimationPlayer" parent="."]
+autoplay = "pasic"
+anims/pasic = SubResource( 23 )
+
+[node name="Control4" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1026.0
+margin_bottom = 602.0
+script = SubResource( 24 )
+
+[node name="ColorRect" type="ColorRect" parent="Control4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.08105
+margin_right = -3.08105
+color = Color( 0.027451, 0.027451, 0.027451, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ItemList" type="ItemList" parent="Control4"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 1008.0
+margin_bottom = 471.0
+custom_fonts/font = SubResource( 25 )
+items = [ "Сервер Huter", ExtResource( 21 ), false, "Сервер Huter (не доступен)", ExtResource( 21 ), true, "Сервер Huter", null, false, "Сервер Huter (не доступен)", null, true ]
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.703
+margin_top = 199.349
+margin_right = 83.2975
+margin_bottom = 253.349
+custom_fonts/font = SubResource( 26 )
+text = "Подключится"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -487.978
+margin_top = 199.349
+margin_right = -360.978
+margin_bottom = 253.349
+custom_fonts/font = SubResource( 26 )
+text = "Добавить"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -190.411
+margin_top = 199.349
+margin_right = -63.4106
+margin_bottom = 253.349
+custom_fonts/font = SubResource( 26 )
+text = "Удалить"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 103.0
+margin_top = 199.0
+margin_right = 232.0
+margin_bottom = 253.0
+custom_fonts/font = SubResource( 26 )
+text = "По адресу"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button6" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 254.326
+margin_top = 199.349
+margin_right = 381.326
+margin_bottom = 253.349
+custom_fonts/font = SubResource( 26 )
+text = "Отмена"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button7" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 403.0
+margin_top = 199.0
+margin_right = 478.0
+margin_bottom = 253.0
+custom_fonts/font = SubResource( 26 )
+text = "Обновить"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="Control4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -339.0
+margin_top = 199.349
+margin_right = -212.0
+margin_bottom = 253.349
+custom_fonts/font = SubResource( 26 )
+text = "Изменить"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="add_server" type="Control" parent="Control4"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -177.5
+margin_top = -122.0
+margin_right = 177.5
+margin_bottom = 122.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control4/add_server"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.105882, 0.105882, 0.105882, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LineEdit" type="LineEdit" parent="Control4/add_server"]
+margin_left = 11.0
+margin_top = 81.0
+margin_right = 272.0
+margin_bottom = 119.0
+custom_fonts/font = SubResource( 27 )
+text = "Сервер HUTER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit2" type="LineEdit" parent="Control4/add_server"]
+margin_left = 11.0
+margin_top = 161.0
+margin_right = 273.0
+margin_bottom = 199.0
+custom_fonts/font = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control4/add_server"]
+margin_right = 354.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 28 )
+text = "Добавление сервера"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control4/add_server"]
+margin_left = 17.0
+margin_top = 54.0
+margin_right = 113.0
+margin_bottom = 77.0
+custom_fonts/font = SubResource( 29 )
+text = "Название:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control4/add_server"]
+margin_left = 17.0
+margin_top = 129.943
+margin_right = 167.0
+margin_bottom = 152.943
+custom_fonts/font = SubResource( 29 )
+text = "Адрес сервера:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control4/add_server"]
+margin_left = 117.0
+margin_top = 208.0
+margin_right = 249.0
+margin_bottom = 239.0
+custom_fonts/font = SubResource( 29 )
+text = "Подтвердить"
+
+[node name="Button2" type="Button" parent="Control4/add_server"]
+margin_left = 17.0
+margin_top = 208.0
+margin_right = 100.0
+margin_bottom = 239.0
+custom_fonts/font = SubResource( 29 )
+text = "Отмена"
+
+[node name="connect" type="Control" parent="Control4"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -177.0
+margin_top = -122.0
+margin_right = 178.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Control4/connect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.105882, 0.105882, 0.105882, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LineEdit" type="LineEdit" parent="Control4/connect"]
+margin_left = 11.0
+margin_top = 81.0
+margin_right = 272.0
+margin_bottom = 119.0
+custom_fonts/font = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control4/connect"]
+margin_right = 354.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 28 )
+text = "Подключение по адресу"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control4/connect"]
+margin_left = 17.0
+margin_top = 54.0
+margin_right = 113.0
+margin_bottom = 77.0
+custom_fonts/font = SubResource( 29 )
+text = "Адрес сервера:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control4/connect"]
+margin_left = 110.613
+margin_top = 129.943
+margin_right = 249.613
+margin_bottom = 160.943
+custom_fonts/font = SubResource( 29 )
+text = "Подтвердить"
+
+[node name="Button2" type="Button" parent="Control4/connect"]
+margin_left = 11.0
+margin_top = 130.0
+margin_right = 94.0
+margin_bottom = 161.0
+custom_fonts/font = SubResource( 29 )
+text = "Отмена"
+
+[node name="Timer" type="Timer" parent="Control4"]
+
+[node name="load_game" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1026.0
+margin_bottom = 602.0
+script = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="load_game"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.08105
+margin_right = -3.08105
+color = Color( 0.027451, 0.027451, 0.027451, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Button" parent="load_game"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 200.0
+margin_top = 207.0
+margin_right = 300.0
+margin_bottom = 261.0
+hint_tooltip = "Выбрать файл в проводнике и запустить."
+theme = SubResource( 32 )
+custom_fonts/font = SubResource( 26 )
+text = "На прямую"
+
+[node name="Button6" type="Button" parent="load_game"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 306.0
+margin_top = 207.0
+margin_right = 381.0
+margin_bottom = 261.0
+custom_fonts/font = SubResource( 26 )
+text = "Отмена"
+
+[node name="Button7" type="Button" parent="load_game"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 388.0
+margin_top = 207.0
+margin_right = 481.0
+margin_bottom = 261.0
+custom_fonts/font = SubResource( 26 )
+text = "Обновить"
+
+[node name="Timer" type="Timer" parent="load_game"]
+
+[node name="ColorRect2" type="ColorRect" parent="load_game"]
+margin_left = 15.0
+margin_top = 14.0
+margin_right = 1009.0
+margin_bottom = 471.0
+color = Color( 0.137255, 0.137255, 0.137255, 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="load_game"]
+visible = false
+margin_left = 15.0
+margin_top = 16.0
+margin_right = 1008.0
+margin_bottom = 471.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="load_game/ScrollContainer"]
+margin_bottom = 105.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S*ample" type="Control" parent="load_game/ScrollContainer/VBoxContainer"]
+margin_bottom = 105.0
+rect_min_size = Vector2( 0, 105 )
+
+[node name="TextureRect" type="TextureRect" parent="load_game/ScrollContainer/VBoxContainer/S*ample"]
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_right = 190.0
+margin_bottom = -1.00001
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="load_game/ScrollContainer/VBoxContainer/S*ample"]
+margin_left = 197.0
+margin_top = 6.0
+margin_right = 987.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 33 )
+text = "Авто сохранение"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="load_game/ScrollContainer/VBoxContainer/S*ample"]
+margin_left = 197.0
+margin_top = 48.0
+margin_right = 979.0
+margin_bottom = 74.0
+custom_colors/font_color = Color( 0.607843, 0.607843, 0.607843, 1 )
+custom_fonts/font = SubResource( 34 )
+text = "Версия игры 0.2.1, дата создания 13.11.2021, автор Pandaren"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="load_game/ScrollContainer/VBoxContainer/S*ample"]
+margin_left = 197.0
+margin_top = 74.0
+margin_right = 258.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 35 )
+text = "папка"
+script = SubResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="load_game/ScrollContainer/VBoxContainer/S*ample"]
+margin_left = 264.708
+margin_top = 74.0
+margin_right = 325.708
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 35 )
+text = "удалить"
+script = SubResource( 37 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="load_game/ScrollContainer/VBoxContainer/S*ample"]
+margin_left = 353.353
+margin_top = 74.0
+margin_right = 434.353
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 35 )
+text = "загрузить"
+script = SubResource( 38 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="load_game"]
+margin_top = 20.0
+margin_right = 1024.0
+margin_bottom = 600.0
+theme = SubResource( 40 )
+window_title = "Открыть файл"
+dialog_text = "Выберете файл который будет запущен как сцена"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.huter", "*.tscn", "*.scn", "*.res" )
+show_hidden_files = true
+current_dir = "/Users/ПК/Documents/Huter vet Z"
+current_path = "/Users/ПК/Documents/Huter vet Z/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+margin_left = 334.086
+margin_top = 200.403
+margin_right = 651.086
+margin_bottom = 333.403
+theme = SubResource( 42 )
+window_title = "Удалить?"
+dialog_text = "Вы точно хотите удалить \"Авто сохранение\"?"
+dialog_autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+margin_left = 316.6
+margin_top = 144.978
+margin_right = 672.6
+margin_bottom = 375.978
+theme = SubResource( 44 )
+window_title = "Сопряжение не удалось!"
+dialog_text = "Это может быть по следущим причинам:
+1) Вы ввели СЕРЫЙ IP вместо
+БЕЛОГО IP
+
+2) Порт сервер-клиент не совпадают
+
+3) Сервер не существует или игра
+не имеет доступ в интернет"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1026.0
+margin_bottom = 602.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control3"]
+material = SubResource( 46 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Control3"]
+margin_left = 229.0
+margin_top = 275.06
+margin_right = 851.0
+margin_bottom = 313.06
+custom_fonts/font = SubResource( 47 )
+text = "Идет попытка подключения к серверу..."
+
+[node name="ProgressBar" type="ProgressBar" parent="Control3"]
+margin_top = 526.0
+margin_right = 1026.0
+margin_bottom = 595.0
+value = 77.43
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control3"]
+autoplay = "def"
+anims/def = SubResource( 48 )
+
+[node name="Button" type="Button" parent="Control3"]
+margin_left = 452.698
+margin_top = 369.06
+margin_right = 579.698
+margin_bottom = 411.06
+focus_mode = 0
+custom_fonts/font = SubResource( 49 )
+button_mask = 7
+enabled_focus_mode = 0
+text = "Отмена"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control5" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 114.098
+margin_top = 67.5851
+margin_right = 905.098
+margin_bottom = 520.585
+script = SubResource( 50 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Control5"]
+margin_left = -121.0
+margin_top = -72.0
+margin_right = 920.0
+margin_bottom = 538.0
+color = Color( 0.12549, 0.12549, 0.12549, 0.627451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Control5"]
+margin_left = -127.0
+margin_top = -76.0
+margin_right = 922.0
+margin_bottom = 549.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Control5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control5"]
+margin_left = 159.0
+margin_top = 15.0
+margin_right = 563.0
+margin_bottom = 81.0
+custom_fonts/font = SubResource( 51 )
+text = "Статистика!!! :з"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Control5"]
+margin_left = 10.0
+margin_top = 65.0
+margin_right = 776.0
+margin_bottom = 444.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Control5/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.129412, 0.129412, 0.129412, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control5/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 4.0
+margin_right = -6.0
+margin_bottom = -4.0
+custom_fonts/normal_font = SubResource( 52 )
+text = "Прыжков: 134
+Разрущенных блоков: 10
+Поставленых блоков: 2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Control5/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+border_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+editor_only = false
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_right = 1026.0
+margin_bottom = 602.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="ButtCont/Button4" to="." method="ysac_pressed"]
+[connection signal="pressed" from="ButtCont/Button7" to="Control5" method="pressed_statistics_show"]
+[connection signal="pressed" from="ButtCont/Button2" to="." method="pressed_play"]
+[connection signal="pressed" from="ButtCont/Button6" to="." method="nastoici_show_pressed"]
+[connection signal="pressed" from="ButtCont/Button" to="." method="pressed_exited"]
+[connection signal="pressed" from="Setting/TextureButton" to="." method="nastroici_hide_pressed"]
+[connection signal="pressed" from="Setting/ScrollContainer/VBoxContainer/CheckBox" to="." method="CheckBox_pressed_full_sren"]
+[connection signal="pressed" from="Setting/ScrollContainer/VBoxContainer/CheckBox4" to="." method="pressed_grafic_loy"]
+[connection signal="value_changed" from="Setting/ScrollContainer/VBoxContainer/fps_limit/SpinBox" to="Setting/ScrollContainer/VBoxContainer/fps_limit" method="changed"]
+[connection signal="pressed" from="Setting/ScrollContainer/VBoxContainer/CheckBox3" to="." method="CheckBox3_pressed_prop_ecran"]
+[connection signal="pressed" from="Setting/ScrollContainer/VBoxContainer/CheckBox2" to="." method="CheckBox2_pressed_aydio"]
+[connection signal="text_changed" from="Setting/ScrollContainer/VBoxContainer/save_path/LineEdit" to="Setting/ScrollContainer/VBoxContainer/save_path" method="text_changed"]
+[connection signal="pressed" from="Setting/ScrollContainer/VBoxContainer/save_path/Button" to="Setting/ScrollContainer/VBoxContainer/save_path" method="pressed"]
+[connection signal="value_changed" from="Setting/ScrollContainer/VBoxContainer/port_server/SpinBox" to="." method="port_server_changed"]
+[connection signal="text_changed" from="Setting/ScrollContainer/VBoxContainer/player/SpinBox" to="." method="player_name_changed"]
+[connection signal="pressed" from="Setting/HBoxContainer/Button" to="." method="linc_pressed"]
+[connection signal="pressed" from="Setting/HBoxContainer/Button2" to="." method="map_editor_pressed"]
+[connection signal="pressed" from="Control2/TextureButton" to="Control2/Control2/Button" method="TextureButton_pressed"]
+[connection signal="pressed" from="Control2/Control2/VBoxContainer/Button" to="Control2/Control2/Button" method="Button_pressed"]
+[connection signal="pressed" from="Control2/Control2/VBoxContainer/Button2" to="Control2/Control2/Button" method="Button2_pressed"]
+[connection signal="pressed" from="Control2/Control2/VBoxContainer/Button4" to="." method="client_on"]
+[connection signal="pressed" from="stori/TextureButton" to="." method="otladca_hide"]
+[connection signal="dir_selected" from="FileDialog" to="Setting/ScrollContainer/VBoxContainer/save_path" method="dir_selected"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="pressed" from="Control4/Button" to="Control4" method="connect_select_server"]
+[connection signal="pressed" from="Control4/Button2" to="Control4" method="add_server"]
+[connection signal="pressed" from="Control4/Button3" to="Control4" method="del_server"]
+[connection signal="pressed" from="Control4/Button5" to="Control4" method="adres"]
+[connection signal="pressed" from="Control4/Button6" to="Control4" method="cansel"]
+[connection signal="pressed" from="Control4/Button7" to="Control4" method="respavn"]
+[connection signal="pressed" from="Control4/Button4" to="Control4" method="edit_server"]
+[connection signal="pressed" from="Control4/add_server/Button" to="Control4" method="yes"]
+[connection signal="pressed" from="Control4/add_server/Button2" to="Control4" method="no"]
+[connection signal="pressed" from="Control4/connect/Button" to="Control4" method="connect_server"]
+[connection signal="pressed" from="Control4/connect/Button2" to="Control4" method="no"]
+[connection signal="button_down" from="load_game/Button5" to="load_game" method="load_scene"]
+[connection signal="button_down" from="load_game/Button6" to="load_game" method="close"]
+[connection signal="button_down" from="load_game/Button7" to="load_game" method="list_reload"]
+[connection signal="file_selected" from="load_game/FileDialog" to="load_game" method="file_selected"]
+[connection signal="confirmed" from="ConfirmationDialog" to="load_game" method="del_dir_accept"]
+[connection signal="pressed" from="Control3/Button" to="Control4" method="stop"]
+[connection signal="pressed" from="Control5/TextureButton" to="Control5" method="pressed_statistics_hide"]

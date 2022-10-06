@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/7robot.mp3-a5315267628a8d26313daa4049b93559.mp3str"
+
+[deps]
+
+source_file="res://aydio/Guider/7robot.mp3"
+dest_files=[ "res://.import/7robot.mp3-a5315267628a8d26313daa4049b93559.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

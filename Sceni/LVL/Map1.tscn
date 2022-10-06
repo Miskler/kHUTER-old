@@ -1,0 +1,3645 @@
+[gd_scene load_steps=132 format=2]
+
+[ext_resource path="res://Sceni/TileMap.res" type="PackedScene" id=1]
+[ext_resource path="res://Script/Item/SettingData.gd" type="Script" id=2]
+[ext_resource path="res://Texture/Other/sphere_os/sphere_os_2.png" type="Texture" id=3]
+[ext_resource path="res://Texture/Other/sphere_os/sphere_os_1.png" type="Texture" id=4]
+[ext_resource path="res://Texture/Other/unknown.png" type="Texture" id=5]
+[ext_resource path="res://Texture/Other/sphere_screen/sphere_screen_1.png" type="Texture" id=6]
+[ext_resource path="res://Texture/Other/sphere_screen/sphere_screen_0.png" type="Texture" id=7]
+[ext_resource path="res://Texture/Other/sphere_screen/sphere_screen_3.png" type="Texture" id=8]
+[ext_resource path="res://Texture/Other/sphere_screen/sphere_screen_2.png" type="Texture" id=9]
+[ext_resource path="res://Texture/Other/notebook.png" type="Texture" id=10]
+[ext_resource path="res://Texture/Other/ladder/ladder_up.png" type="Texture" id=11]
+[ext_resource path="res://Script/lvl/Map1.gd" type="Script" id=12]
+[ext_resource path="res://Texture/Other/ladder/ladder_center.png" type="Texture" id=13]
+[ext_resource path="res://Texture/Other/ladder/ladder_bottom.png" type="Texture" id=14]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_1.png" type="Texture" id=15]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_5.png" type="Texture" id=16]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_2.png" type="Texture" id=17]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_4.png" type="Texture" id=18]
+[ext_resource path="res://Texture/Other/sphere_error/error_1.png" type="Texture" id=19]
+[ext_resource path="res://Texture/Other/sphere_error/error_2.png" type="Texture" id=20]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_6.png" type="Texture" id=21]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_3.png" type="Texture" id=22]
+[ext_resource path="res://Texture/Other/sphere_ok/ok_7.png" type="Texture" id=23]
+[ext_resource path="res://Texture/Other/sphere_error/error_3.png" type="Texture" id=24]
+[ext_resource path="res://Foud/20703.otf" type="DynamicFontData" id=25]
+[ext_resource path="res://Texture/Other/Repairman/Station/Wait/wait_2.png" type="Texture" id=26]
+[ext_resource path="res://Texture/Other/Repairman/Station/Work/work_2.png" type="Texture" id=27]
+[ext_resource path="res://Texture/Other/Repairman/Station/Work/work_3.png" type="Texture" id=28]
+[ext_resource path="res://Texture/Other/Repairman/Station/Work/work_4.png" type="Texture" id=29]
+[ext_resource path="res://Texture/Other/Repairman/Station/Work/work_1.png" type="Texture" id=30]
+[ext_resource path="res://Texture/Other/Repairman/Station/Wait/wait_4.png" type="Texture" id=31]
+[ext_resource path="res://Texture/Other/Repairman/Station/Wait/wait_1.png" type="Texture" id=32]
+[ext_resource path="res://Texture/Other/Repairman/Station/Wait/wait_3.png" type="Texture" id=33]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Straight/straight_1.png" type="Texture" id=34]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Straight/straight_3.png" type="Texture" id=35]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_4.png" type="Texture" id=36]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Up/up_1.png" type="Texture" id=37]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Up/up_3.png" type="Texture" id=38]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Down/down_1.png" type="Texture" id=39]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Down/down_2.png" type="Texture" id=40]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Down/down_3.png" type="Texture" id=41]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_1.png" type="Texture" id=42]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Up/up_2.png" type="Texture" id=43]
+[ext_resource path="res://Texture/Other/Repairman/Bot/Straight/straight_2.png" type="Texture" id=44]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_2.png" type="Texture" id=45]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_3.png" type="Texture" id=46]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_5.png" type="Texture" id=47]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_6.png" type="Texture" id=48]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_7.png" type="Texture" id=49]
+[ext_resource path="res://Texture/Other/Repairman/Passage/passage_8.png" type="Texture" id=50]
+[ext_resource path="res://Texture/Other/Repairman/Station/Ok/ok_1.png" type="Texture" id=51]
+[ext_resource path="res://Texture/Other/Repairman/Station/Ok/ok_3.png" type="Texture" id=52]
+[ext_resource path="res://Texture/Other/Repairman/Station/Ok/ok_2.png" type="Texture" id=53]
+[ext_resource path="res://aydio/Guider/2robot.mp3" type="AudioStream" id=54]
+[ext_resource path="res://Texture/Other/Cryocapsule/bottom.png" type="Texture" id=55]
+[ext_resource path="res://Texture/Other/Cryocapsule/top.png" type="Texture" id=56]
+[ext_resource path="res://19104.ttf" type="DynamicFontData" id=57]
+[ext_resource path="res://aydio/game2.mp3" type="AudioStream" id=58]
+[ext_resource path="res://Sceni/NPS/Mob.res" type="PackedScene" id=59]
+[ext_resource path="res://Texture/People/Guider/guider_2.png" type="Texture" id=60]
+[ext_resource path="res://aydio/Guider/1robot.mp3" type="AudioStream" id=61]
+[ext_resource path="res://Texture/People/Guider/guider_1.png" type="Texture" id=62]
+[ext_resource path="res://aydio/Guider/4robot.mp3" type="AudioStream" id=63]
+[ext_resource path="res://aydio/Guider/7robot.mp3" type="AudioStream" id=64]
+[ext_resource path="res://aydio/Guider/6robot.mp3" type="AudioStream" id=65]
+[ext_resource path="res://aydio/Guider/5robot.mp3" type="AudioStream" id=66]
+[ext_resource path="res://aydio/Guider/8robot.mp3" type="AudioStream" id=67]
+[ext_resource path="res://aydio/Guider/3robot.mp3" type="AudioStream" id=68]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > -400:
+		player.global_position = Vector2(-1450, -500)
+	else:
+		player.global_position = Vector2(-1440, -50)
+"
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 21.4957
+height = 199.467
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 31.9873
+height = 0.0
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 40:
+		player.global_position = Vector2(-1600, -50)
+	else:
+		player.global_position = Vector2(-1600, 260)
+"
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 23.7415
+height = 183.069
+
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 23.7415
+height = 15.8065
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 350:
+		player.global_position = Vector2(-1090, 250)
+	else:
+		player.global_position = Vector2(-1090, 540)
+"
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 23.7415
+height = 124.438
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 600:
+		player.global_position = Vector2(-1217, 540)
+	else:
+		player.global_position = Vector2(-1217, 790)
+"
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 600:
+		player.global_position = Vector2(-1860, 540)
+	else:
+		player.global_position = Vector2(-1860, 790)
+"
+
+[sub_resource type="GDScript" id=11]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 600:
+		player.global_position = Vector2(-2350, 540)
+	else:
+		player.global_position = Vector2(-2350, 790)
+"
+
+[sub_resource type="GDScript" id=12]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 350:
+		player.global_position = Vector2(-2500, 250)
+	else:
+		player.global_position = Vector2(-2500, 540)
+"
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > 100:
+		player.global_position = Vector2(-2350, 0)
+	else:
+		player.global_position = Vector2(-2350, 260)
+"
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > -150:
+		player.global_position = Vector2(-2500, -250)
+	else:
+		player.global_position = Vector2(-2500, 0)
+"
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends Area2D
+
+func use(player, _net_id):
+	if player.global_position.y > -400:
+		player.global_position = Vector2(-2365, -500)
+	else:
+		player.global_position = Vector2(-2365, -250)
+"
+
+[sub_resource type="GDScript" id=16]
+script/source = "extends Area2D
+
+var dialog = {
+	\"Я говорю\":
+	[
+		\"\",
+		\"Странный компьютер\",
+		\"Я - Автомат Поддержания Жизни, версия 3. Чем я могу помочь тебе, СР?\",
+		[], #Тут будут плюшки от ответа
+		{
+			\"Кто я?\": [
+				\"Кто я?\",
+				\"АПЖ\",
+				\"Вы система ремонта этого коробля. Желаете продолжить полёт?\",
+				[],
+				{\"Нет\": [[]],
+				\"Да\": [[\"use_func\", [\"go\", \"/root/rootGame/Node/Area2D\"]]]}
+			],
+			\"Где я?\": [
+				\"Где я?\",
+				\"АПЖ\",
+				\"Вы находитесь на эвакуационном корабле. Желаете продолжить полёт?\",
+				[],
+				{\"Нет\": [[]],
+				\"Да\": [[\"use_func\", [\"go\", \"/root/rootGame/Node/Area2D\"]]]}
+			],
+			\"Я плохо себя чувстую.\": [
+				\"Я плохо себя чувстую.\",
+				\"АПЖ\",
+				\"После столкновения с гелем ваша система охлаждения начала протикать, а батарея больше не функционирует. Пейте воду чтобы восполнить недостаток хладогента и ешьте биосырьё чтобы не отключится. Желаете продолжить полёт?\",
+				[],
+				{\"Нет\": [[]],
+				\"Да\": [[\"use_func\", [\"go\", \"/root/rootGame/Node/Area2D\"]]]}
+			],
+		}
+	]
+}
+
+var dialog_two = {
+	\"Я говорю\":
+	[
+		\"\",
+		\"АПЖ\",
+		\"Желаете продолжить полёт?\",
+		[], #Тут будут плюшки от ответа
+		{
+			\"Нет\": [[]],
+			\"Да\": [[\"use_func\", [\"go\", \"/root/rootGame/Node/Area2D\"]]]
+		}
+	]
+}
+
+var dat = true
+
+func use(player, _net_id):
+	if dat == true:
+		dat = false
+		player.show_dialogue(dialog)
+	else:
+		player.show_dialogue(dialog_two)
+
+func go():
+	$\"../SettingData\".map_settings[\"creation_position\"] = Vector2(-500, -50)
+	
+	$\"../Player\".global_position = Vector2(-500, -50)
+	
+	$\"../SettingData\".map_settings[\"dehumidification_frequency\"] = 30
+	$\"../SettingData\".map_settings[\"taking_away_hunger\"] = 20
+"
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "pass",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "error",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 17 ), ExtResource( 22 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "ok",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=18]
+radius = 85.097
+height = 0.0
+
+[sub_resource type="GDScript" id=19]
+script/source = "extends Area2D
+
+var standart = {
+	\" \":
+	[
+		\"\",
+		\"АПЖ\",
+		\"Я просмотрел все дискеты в вашем инвентаре. Выберите дискету которую хотите просмотреть.\",
+		[], #Тут будут плюшки от ответа
+		{}
+	]
+}
+
+var disket_one = [
+	\"*клик*\",
+	\"Pr0lt\",
+	\"Валь. Какого черта ты перезаписал все документации?\",
+	[], #Тут будут плюшки от ответа
+	{
+		\"Далее\": [
+			\"\",
+			\"Val3r\",
+			\"Ой да ладно тебе. Там все равно ничего важного. А у меня память в коммуньке кончалась.\",
+			[],
+			{
+				\"Далее\": [
+					\"\",
+					\"Pr0lt\",
+					\"А вдруг кто-нибудь захочет что-то починить, а увидит эти бесполезные записи разговорчиков?\",
+					[],
+					{
+						\"Далее\": [
+							\"\",
+							\"Val3r\",
+							\"Если б этот кто-то захотел бы что-нибудь починить с помошью документаций, то и так бы пролетел. Настолько они \\\"полезны\\\". Один \\\"Свет\\\" чего стоит... На крайняк Дурика запустим\",
+							[],
+							{
+								\"Далее\": [
+									\"\",
+									\"Pr0lt\",
+									\"Дурика?\",
+									[],
+									{
+										\"Далее\": [
+											\"\",
+											\"Val3r\",
+											\"Дурика. Ну... Дрон Ремонтный. ДР. Дурик. Он же ж древний. Покумекает он там с машинами, пофлиртует... Авось заново заработают\",
+											[],
+											{
+												\"Далее\": [
+													\"\",
+													\"Pr0lt\",
+													\"Ты же в курсе, что он АЭР. Аппарат Экстренного Ремонта, мать вашу! С хрена ли одна из ценнейших древних машин в нашем распоряжении, от которой зависят наши жизни, зовется Дуриком!? Это оскорбление и наших предков, и чести техников, и меня в частности.\",
+													[],
+													{
+														\"Далее\": [
+															\"\",
+															\"Val3r\",
+															\"Ладно, успокойся. Да и не АЭР он больше, учитывая его способности \\\"летуна\\\". Не Дурика, так Мордашек запустим\",
+															[],
+															{
+																\"Далее\": [
+																	\"\",
+																	\"Pr0lt\",
+																	\"Какие еще Мордашки?\",
+																	[],
+																	{
+																		\"Далее\": [
+																			\"\",
+																			\"Val3r\",
+																			\"Ну... Малые ремонтные дроны. МоРДашки\",
+																			[],
+																			{
+																				\"Далее\": [
+																					\"\",
+																					\"Pr0lt\",
+																					\"Так... Ты случаем не про тех бесполезных Буляк, которые сделать то ничего не могут без кучи команд и указаний?\",
+																					[],
+																					{
+																						\"Далее\": [
+																							\"\",
+																							\"Val3r\",
+																							\"Буляк? И это человек, который задвигает мне за неуважение к машинам и предкам...\",
+																							[],
+																							{
+																								\"Далее\": [
+																									\"\",
+																									\"Pr0lt\",
+																									\"Проехали\",
+																									[],
+																									{
+																										\"Закрыть\": [[]]
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
+
+var disket_two = [
+	\"*клик*\",
+	\"Pr0lt\",
+	\"Поздравляем вас, счастливых обладателей системы освещения SaintLum от OrbCorp!\\nНаша компания гордится качеством своих товаров и их доступностью. Наша компания существует уже не одну сотню лет, начиная с основания в 2050 в виде небольшого магазинчика по продаже бытовой техники и до сегодняшних дней, когда мы способны предоставить вам любой товар и услугу! От кофеварки, до космической станции!\\nСистема освещения, находящаяся перед вами, является одним из наших произведений искусства! Надежная, многофункциональная и легкая в ремонте!\\nНаша система не только хорошо осветит ваш дом, но и, благодаря системе \\\"умного света\\\":\\n-Разбудит вас по утру\\n-Создаст подходящую обстановку для любой атмосферы\\n-Предупредит, если к вам влезет злоумышленник или будет угрожать любая другая опасность.\\nИ всё это за малую цену!\\nЕсли ваша система будет неисправной, во что мы почти не верим, то нажмите красную кнопку на задней панели и с ближайшего к вам дронодрома вылетит наш высококлассный ремонтник!(стоимость ремонта зависит от степени повреждений. наша компания не гарантирует успешность ремонта. мы не возвращаем деньги ни под какими предлогами)\",
+	[], #Тут будут плюшки от ответа
+	{
+		\"Далее\": [
+			\"\",
+			\"Val3r\",
+			\"...\",
+			[],
+			{
+				\"Далее\": [
+					\"\",
+					\"Val3r\",
+					\"Это... Даже слов нет.\",
+					[],
+					{
+						\"Далее\": [
+							\"\",
+							\"Val3r\",
+							\"Шедевр! Это ШЕДЕВР! Я даже тереть это не буду. Это... Это нужно сохранить! Из поколения в поколение передавать! Чтобы каждый, открывший вот... это вот, мог как поржать, так и ужаснуться.\",
+							[],
+							{
+								\"Далее\": [
+									\"\",
+									\"Val3r\",
+									\"Казалось бы. OrbCorp. Когда-то крупнейшая компания, а ныне являющиеся объектом чего-то поклонения, чья техника до сих пор живет и работает на нашей Сфере. Компания, в чью честь улицы называют. Да блин! Я вырос в поселке с названием Орбин! И тут такое...\",
+									[],
+									{
+										\"Далее\": [
+											\"\",
+											\"Val3r\",
+											\"Да даже совет из разряда:\\n1)Выключи\\n2)Помолись\\n3)Включи и надейся на лучшее\\nПолезнее будет, чем весь этот рекламный бред, выданный за документацию!\",
+											[],
+											{
+												\"Далее\": [
+													\"\",
+													\"Val3r\",
+													\"Эх...\",
+													[],
+													{
+														\"Далее\": [
+															\"\",
+															\"Val3r\",
+															\"К счастью, у нас есть Дурик и Мордашки. Ну и я с Пролтом и Меной. Отличная команда...\",
+															[],
+															{
+																\"Далее\": [
+																	\"\",
+																	\"Val3r\",
+																	\"Надеюсь, меня не повяжут за критику и порчу \\\"священных текстов\\\"...\",
+																	[],
+																	{
+																		\"Закрыть\": [[]]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
+
+var disket_three = [
+	\"*клик*\",
+	\"Pr0lt\",
+	\"Мена, в каком состоянии наша птичка?\",
+	[], #Тут будут плюшки от ответа
+	{
+		\"Далее\": [
+			\"\",
+			\"M3na\",
+			\"Полетать сможет. Диагностика ничего смертельного не вывела. Так... Всего лишь пара желтеньких предупреждений... Однако, все ключевые части были освящены Орбовым словом. Так что все в порядке. Осталось только закончить переоборудование и можно будет взлетать. Но пара вопросов возникло\",
+			[],
+			{
+				\"Далее\": [
+					\"\",
+					\"Pr0lt\",
+					\"Они случаем не связаны со вторым техником?\",
+					[],
+					{
+						\"Далее\": [
+							\"\",
+							\"M3na\",
+							\"По нему тоже есть пара вопросов. К примеру, почему он нарядил несколько МРД шапочками и начал пытаться научить их танцевать? Но сейчас не об этом. АЭРа знаете ведь?\",
+							[],
+							{
+								\"Далее\": [
+									\"\",
+									\"Pr0lt\",
+									\"Ну и? Что с ним? Опять включился без видимых причин?\",
+									[],
+									{
+										\"Далее\": [
+											\"\",
+											\"M3na\",
+											\"Нет. Не в этом дело. Знаете ведь, что  большая часть функций у него было утеряно? Ну так вот. Я нашла способ вернуть ему способность к полету. Если заинтересованы, могу продолжить\",
+											[],
+											{
+												\"Далее\": [
+													\"\",
+													\"Pr0lt\",
+													\"Дай ка угадаю... Твоим решением будет: увеличить энергопроводность системы питания прыжковой системы? Гиблое дело.\",
+													[],
+													{
+														\"Далее\": [
+															\"\",
+															\"M3na\",
+															\"Но... Почему? Это ж решит всю проблему! И, раз вы уже знали, то почему не исправили?\",
+															[],
+															{
+																\"Далее\": [
+																	\"\",
+																	\"Pr0lt\",
+																	\"А подумать? Напоминаю. У него очень в хреновом состоянии и батарея, и система охлаждения. На кой ему еще одна дополнительная нагрузка? И так немалую часть функций и систем было демонтировано, чтобы он хоть как-то работал больше пары минут и не сгорал при этом\",
+																	[],
+																	{
+																		\"Далее\": [
+																			\"\",
+																			\"M3na\",
+																			\"Но... Если снять с него плащ, разве проблема с охлаждением не уменьшиться? Он же тепло удерживает\",
+																			[],
+																			{
+																				\"Далее\": [
+																					\"\",
+																					\"Pr0lt\",
+																					\"Во-первых, это придурь Вали. А с ним бороться бесполезно. Пробовал. Во-вторых, плащ немного помогает с проблемой батарей, ибо разряжаться стали они медленней. Так что смысла убирать не вижу. Лучше машина, \\\"пьющая\\\" легкодоступную воду, чем машина, постоянно \\\"жрущая\\\" не такую уж и легкодоступную органику\",
+																					[],
+																					{
+																						\"Далее\": [
+																							\"\",
+																							\"Pr0lt\",
+																							\"Да и, если честно, по некоторым вещам я не скучаю. По голосовому модулю, к примеру. Никто не оценил нарциссические наклонности Аэра\",
+																							[],
+																							{
+																								\"Далее\": [
+																									\"\",
+																									\"Pr0lt\",
+																									\"Кстати... А откуда у тебя эта дискета?\",
+																									[],
+																									{
+																										\"Далее\": [
+																											\"\",
+																											\"M3na\",
+																											\"... То-о-очно-о не одна из дискет, изъятых у Вали во имя святого Орба и искупления греха, совершенного этим невеждой...\",
+																											[],
+																											{
+																												\"Далее\": [
+																													\"\",
+																													\"Pr0lt\",
+																													\"Ещё одна...\",
+																													[],
+																													{
+																														\"Закрыть\": [[]]
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
+
+var disket_four = [
+	\"*клик*\",
+	\"АПЖ\",
+	\"Братья и сестры,\\nМы находимся на пороге увядания и погибели.\\nС каждым годом ресурсов становится все меньше и меньше. Святому Орбу нужна новая плоть. Плоть другой сферы. Сферы, впавшей в ересь. Мертвой сферы.\\nТолько поглотив мертвого, мы можем очистить его и дать ему покой. Из сферы мы пришли, в сферу мы уйдем.\\nДа найдем же мы мертвую сферу и принесем ее в жертву! Ведь нет ничего более благородного, чем продлить чью-то жизнь, когда твоя жизнь будет окончена.\\nБравые капитаны священных энергосборщиков готовы взять на борт всех тех, кто согласен принять участие в этом освободительном походе. Всех, чьи имена будут передаваться из поколения в поколения, как имена героев, спасших и нас, и Святого Орба от неминуемой гибели!\\nДа прибудет с вами Орбово слово!\",
+	[], #Тут будут плюшки от ответа
+	{
+		\"Далее\": [
+			\"\",
+			\"Pr0lt\",
+			\"Валь...\",
+			[],
+			{
+				\"Далее\": [
+					\"\",
+					\"Val3r\",
+					\"Че Валь то сразу? Вот эта стремная хрень не моя\",
+					[],
+					{
+						\"Далее\": [
+							\"\",
+							\"Pr0lt\",
+							\"То есть, вся остальная, твоя?\",
+							[],
+							{
+								\"Далее\": [
+									\"\",
+									\"Val3r\",
+									\"Это... Ложь, поклеп и провокация! Вот...\",
+									[],
+									{
+										\"Далее\": [
+											\"\",
+											\"Val3r\",
+											\"И вообще. Меня подставили! Не моя эта дискета! \",
+											[],
+											{
+												\"Далее\": [
+													\"\",
+													\"M3na\",
+													\"Это мое. Пожалуйста, верните\",
+													[],
+													{
+														\"Далее\": [
+															\"\",
+															\"Val3r\",
+															\"... Чаво? Зачем?\",
+															[],
+															{
+																\"Далее\": [
+																	\"\",
+																	\"Pr0lt\",
+																	\"Эх... Кому я доверил свой сборщик!?\",
+																	[],
+																	{
+																		\"Далее\": [
+																			\"\",
+																			\"Pr0lt\",
+																			\"Один раздолбай, у которого шило все никак не вылазит. Вторая излишне религиозна. Почти до фанатизма доходит! До сих пор помню тот случай с Орбовым алтарем. Сутки нельзя было складом воспользоваться!\",
+																			[],
+																			{
+																				\"Далее\": [
+																					\"\",
+																					\"Val3r\",
+																					\"И один древний старик\",
+																					[],
+																					{
+																						\"Далее\": [
+																							\"\",
+																							\"Pr0lt\",
+																							\"Валь, что ты только что произнес?! Давно корпус не драил?\",
+																							[],
+																							{
+																								\"Далее\": [
+																									\"\",
+																									\"M3na\",
+																									\"Да ладно вам. Успокойтесь, капитан Пролт. Да и с алтарем не все так было однозначно... Кто ж знал, что у вас отсутствует нормальная вентиляция. Как и нет хороших мест для сжигания. Пришлось импровизировать.\",
+																									[],
+																									{
+																										\"Далее\": [
+																											\"\",
+																											\"Pr0lt\",
+																											\"Цирк. Цирк да и только.\",
+																											[],
+																											{
+																												\"Зыкрыть\": [[]]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
+
+var disket_five = [
+	\"*клик*\",
+	\"АПЖ\",
+	\"Вы пичинили все системы! Теперь двери в норме! Теперь ваша задача - найти терминал криосна и разбудить выживших.\",
+	[], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+var stori = [
+	\"*клик*\",
+	\"Кто-то\",
+	\"Дорогой... дневник? Дискета? Касета?\",
+	[], #Тут будут плюшки от ответа
+	{
+		\"Далее\": [
+			\"\",
+			\"Кто-то\",
+			\"Сколько ни пишу, так и не могу определиться, как тебя называть...\",
+			[],
+			{
+				\"Далее\": [
+					\"\",
+					\"Кто-то\",
+					\"Ладно. Пусть будет дневник.\",
+					[],
+					{
+						\"Далее\": [
+							\"\",
+							\"Кто-то\",
+							\"Итак. Дорогой дневник. Сегодня...какой-то день недели месяца. Я не знаю, текущую дату.\",
+							[],
+							{
+								\"Далее\": [
+									\"\",
+									\"Кто-то\",
+									\"Слишком трудно вести счет времени без часов. Пусть будет среда.\",
+									[],
+									{
+										\"Далее\": [
+											\"\",
+											\"Кто-то\",
+											\"Всегда любил среды...\",
+											[],
+											{
+												\"Далее\": [
+													\"\",
+													\"Кто-то\",
+													\"Итак. Сейчас...день. Да. День. Раз я не сплю, значит день.\",
+													[],
+													{
+														\"Далее\": [
+															\"\",
+															\"Кто-то\",
+															\"А точнее, вечер, так как скоро пойду спать...\",
+															[],
+															{
+																\"Далее\": [
+																	\"\",
+																	\"Кто-то\",
+																	\"Итак. Хехе. Снова итак... Итак, да этак...\",
+																	[],
+																	{
+																		\"Далее\": [
+																			\"\",
+																			\"Кто-то\",
+																			\"Короче. Сегодня был насыщенный день. На завтрак у меня был мох.\",
+																			[],
+																			{
+																				\"Далее\": [
+																					\"\",
+																					\"Кто-то\",
+																					\"Запивал я его льдом. На обед - Лед со мхом. А на ужин, мое самое любимое, лед во мхе! Мдам... Звучит удручающе, но сдругой стороны, чем ЕЩЕ ПИТАТЬСЯ В ЭТОМ ПРОКЛЯТОМ ПОДЗЕМЕЛЬЕ! Фух... Такс. Я вроде успокоился. Да... Спокоен...\",
+																					[],
+																					{
+																						\"Далее\": [
+																							\"\",
+																							\"Кто-то\",
+																							\"Что еще сегодня произошло? Ну... Я ходил в потемках...\",
+																							[],
+																							{
+																								\"Далее\": [
+																									\"\",
+																									\"Кто-то\",
+																									\"Ходил во тьме... Искал... А что я ищу? Так... Ищу... Ищу...\",
+																									[],
+																									{
+																										\"Далее\": [
+																											\"\",
+																											\"Кто-то\",
+																											\"Во! Вспомнил! Я ищу! Что-то ищу! А раз ищу, значит это что-то важное.\",
+																											[],
+																											{
+																												\"Далее\": [
+																													\"\",
+																													\"Кто-то\",
+																													\"И когда найду! Тогда найду! Хехехехе...\",
+																													[],
+																													{
+																														\"Далее\": [
+																															\"\",
+																															\"Кто-то\",
+																															\"Такс... Что еще сегодня было? Я встретил странных существ, которых раньше здесь не было...\",
+																															[],
+																															{
+																																\"Далее\": [
+																																	\"\",
+																																	\"Кто-то\",
+																																	\"Как они выглядят, спрашиваешь? Что ж... Представь себе мягкий камень, из которого растут оранжевые чуть-чуть светящиеся наросты. И этот камешек...\",
+																																	[],
+																																	{
+																																		\"Далее\": [
+																																			\"\",
+																																			\"Кто-то\",
+																																			\"Ползает. Да. Просто ползает. Иногда прыгает. И таких камешков много...\",
+																																			[],
+																																			{
+																																				\"Далее\": [
+																																					\"\",
+																																					\"Кто-то\",
+																																					\"Хмм... Интересно. А их можно кушать? Да... Надо будет попробовать...\",
+																																					[],
+																																					{
+																																						\"Далее\": [
+																																							\"\",
+																																							\"Кто-то\",
+																																							\"Подожди меня чутка! Тут как раз один ползает...\",
+																																							[],
+																																							{
+																																								\"Зыкрыть\": [[]]
+																																							}
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
+
+func use(user, _id):
+	var f = standart.duplicate(true)
+	var data = user.get_items()
+	for i in range(data.size()):
+		if data[i].size() > 2 and data[i][1].has(\"id_disket\"):
+			if data[i][1][\"id_disket\"] == 0:
+				f[\" \"][4][\"Дискета 1 из 5\"] = disket_one
+			elif data[i][1][\"id_disket\"] == 1:
+				f[\" \"][4][\"Дискета 2 из 5\"] = disket_two
+			elif data[i][1][\"id_disket\"] == 2:
+				f[\" \"][4][\"Дискета 3 из 5\"] = disket_three
+			elif data[i][1][\"id_disket\"] == 3:
+				f[\" \"][4][\"Дискета 4 из 5\"] = disket_four
+			elif data[i][1][\"id_disket\"] == 4:
+				f[\" \"][4][\"Дискета 5 из 5\"] = disket_five
+			elif data[i][1][\"id_disket\"] == 5:
+				f[\" \"][4][\"История\"] = stori
+	f[\" \"][4][\"Отмена\"] = [[]]
+	
+	user.show_dialogue(f)
+
+func _process(_delta):
+	for i in range($\"..\".sistem.size()):
+		if $\"..\".sistem[i] == true and get_node(\"AnimatedSprite\" + str(i)).animation != \"ok\":
+			get_node(\"AnimatedSprite\" + str(i)).play(\"ok\")
+		elif $\"..\".sistem[i] == null and get_node(\"AnimatedSprite\" + str(i)).animation != \"pass\":
+			get_node(\"AnimatedSprite\" + str(i)).play(\"pass\")
+"
+
+[sub_resource type="GDScript" id=20]
+script/source = "extends Area2D
+
+var standart = {
+	\" \":
+	[
+		\"\",
+		\"АР\",
+		\"Вот список систем требующих ремонта. Пожалуйста выберите одну из систем и запустите ремонт.\",
+		[], #Тут будут плюшки от ответа
+		{}
+	]
+}
+
+var dialogue_one = [
+	\"*клик*\",
+	\"АР\",
+	\"Для начала ремонта вам потребуются следующие ресурсы:\\nЖелезо - 6 штук\\nМедь - 3 штуки\\nКомпоненты - 6 штук\",
+	[], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+var dialogue_two = [
+	\"*клик*\",
+	\"АР\",
+	\"Для начала ремонта вам потребуются следующие ресурсы:\\nЖелезо - 3 штуки\\nМедь - 6 штук\\nКомпоненты - 5 штук\",
+	[], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+var dialogue_three = [
+	\"*клик*\",
+	\"АР\",
+	\"Для начала ремонта вам потребуются следующие ресурсы:\\nЖелезо - 2 штуки\\nМедь - 1 штука\\nКомпоненты - 1 штука\",
+	[], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+var dialogue_four = [
+	\"*клик*\",
+	\"АР\",
+	\"Для начала ремонта вам потребуются следующие ресурсы:\\nЖелезо - 4 штуки\\nМедь - 2 штуки\\nКомпоненты - 3 штуки\",
+	[], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+var dialogue_five = [
+	\"*клик*\",
+	\"АР\",
+	\"Для начала ремонта вам потребуются следующие ресурсы:\\nЖелезо - 3 штуки\\nМедь - 2 штуки\\nКомпоненты - 2 штуки\",
+	[], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+
+var dialogue_ok = [
+	\"*клик*\",
+	\"АР\",
+	\"Ремонтный дрон запущен, пожалуйства подождите несколько минут...\",
+	[[\"use_func\", [\"pla\", \"/root/rootGame/Node/Area2D4\", []]]], #Тут будут плюшки от ответа
+	{\"Ок\": [[]]}
+]
+
+var dialogue_error = {
+	\" \":
+	[
+		\"\",
+		\"АР\",
+		\"Ремонтный дрон уже запущен, пожалуйста подождите когда он закончит работу.\",
+		[], #Тут будут плюшки от ответа
+		{
+			\"Ок\": [[]]
+		}
+	]
+}
+
+func _ready():
+	$AnimationPlayer.connect(\"animation_finished\", self, \"finish\")
+
+var dron_work = false
+
+var permission = [
+	{\"iron\": 6, \"copper\": 3, \"details\": 6},
+	{\"iron\": 3, \"copper\": 6, \"details\": 5},
+	{\"iron\": 2, \"copper\": 1, \"details\": 1},
+	{\"iron\": 4, \"copper\": 2, \"details\": 3},
+	{\"iron\": 3, \"copper\": 2, \"details\": 2}
+]
+
+func use(user, _id):
+	if not $\"..\".sistem.has(false): return
+	
+	var f = standart.duplicate(true)
+	var data = user.get_items()
+	if dron_work is bool:
+		if $\"..\".sistem[0] == false:
+			if checking(user, permission[0]):
+				var d = dialogue_ok.duplicate(true)
+				d[3][0][1][2] = 0
+				f[\" \"][4][\"Управление дверьми\"] = d
+			else:
+				f[\" \"][4][\"Управление дверьми (отказ)\"] = dialogue_one
+		if $\"..\".sistem[1] == false:
+			if checking(user, permission[1]):
+				var d = dialogue_ok.duplicate(true)
+				d[3][0][1][2] = 1
+				f[\" \"][4][\"Управление освещением\"] = d
+			else:
+				f[\" \"][4][\"Управление освещением (отказ)\"] = dialogue_three
+		if $\"..\".sistem[2] == false:
+			if checking(user, permission[2]):
+				var d = dialogue_ok.duplicate(true)
+				d[3][0][1][2] = 2
+				f[\" \"][4][\"Управление навигацией\"] = d
+			else:
+				f[\" \"][4][\"Управление навигацией (отказ)\"] = dialogue_two
+		if $\"..\".sistem[3] == false:
+			if checking(user, permission[3]):
+				var d = dialogue_ok.duplicate(true)
+				d[3][0][1][2] = 3
+				f[\" \"][4][\"Управление климатом\"] = d
+			else:
+				f[\" \"][4][\"Управление климатом (отказ)\"] = dialogue_four
+		if $\"..\".sistem[4] == false:
+			if checking(user, permission[4]):
+				var d = dialogue_ok.duplicate(true)
+				d[3][0][1][2] = 4
+				f[\" \"][4][\"Управление атмосферой\"] = d
+			else:
+				f[\" \"][4][\"Управление атмосферой (отказ)\"] = dialogue_five
+		f[\" \"][4][\"Отмена\"] = [[]]
+	else:
+		f = dialogue_error.duplicate(true)
+	
+	user.show_dialogue(f)
+
+func pla(id):
+	local_pla(id)
+	if get_tree().network_peer != null: rpc(\"local_pla\", id)
+remote func local_pla(id):
+	$station.play(\"work\")
+	$AnimationPlayer.play(str(id))
+	dron_work = id
+	delet(permission[dron_work])
+
+func finish(_anim):
+	$\"..\".sistem[dron_work] = true
+	
+	if $\"..\".sistem.has(false):
+		$station.play(\"wait\")
+	else:
+		$station.play(\"ok\")
+	
+	if dron_work == 0: open_doors()
+	
+	var f = [
+		\"res://Texture/Other/Items/Diskette/diskette_blue.png\",
+		\"res://Texture/Other/Items/Diskette/diskette_yellow.png\",
+		\"res://Texture/Other/Items/Diskette/diskette_green.png\",
+		\"res://Texture/Other/Items/Diskette/diskette_red.png\",
+		\"res://Texture/Other/Items/Diskette/diskette_white.png\",
+	]
+	
+	var random_bloc = load(\"res://Sceni/item/ItemInWorld.scn\").instance()
+	
+	random_bloc.get_node(\"SlotInWorld\").significant_data = {\"item\": \"diskette\", \"animation\": {\"event\": 1, \"frames\": [f[dron_work]]}, \"id_disket\": dron_work}
+	random_bloc.get_node(\"SlotInWorld\").insignificant_data = {\"uni_quantity\": 1}
+	
+	random_bloc.global_position = Vector2(-925, -100)
+	random_bloc.name = \"diskette\" + str(dron_work)
+	
+	dron_work = false
+	
+	get_node(\"/root/rootGame/Node\").add_child(random_bloc)
+
+func open_doors():
+	var tiles = get_node(\"/root/rootGame/Node/TileMap\")
+	var datas = [\"door_up\", \"door_center\", \"door_bottom\"]
+	
+	tiles.edit_tile(Vector2(-35, -7), {\"tile_name\": {\"operation\": 0, \"value\": datas[0]}})
+	tiles.edit_tile(Vector2(-35, -6), {\"tile_name\": {\"operation\": 0, \"value\": datas[2]}})
+	
+	tiles.clear_tile(Vector2(-35, -9))
+	tiles.clear_tile(Vector2(-35, -8))
+	
+	tiles.edit_tile(Vector2(-27, -7), {\"tile_name\": {\"operation\": 0, \"value\": datas[0]}})
+	tiles.edit_tile(Vector2(-27, -6), {\"tile_name\": {\"operation\": 0, \"value\": datas[2]}})
+	tiles.clear_tile(Vector2(-27, -8))
+	
+	tiles.edit_tile(Vector2(-28, -1), {\"tile_name\": {\"operation\": 0, \"value\": datas[0]}})
+	tiles.edit_tile(Vector2(-28, 0), {\"tile_name\": {\"operation\": 0, \"value\": datas[1]}})
+	tiles.edit_tile(Vector2(-28, 1), {\"tile_name\": {\"operation\": 0, \"value\": datas[2]}})
+	tiles.clear_tile(Vector2(-28, 2))
+	tiles.clear_tile(Vector2(-28, 3))
+	tiles.clear_tile(Vector2(-28, 4))
+	
+	
+	tiles.edit_tile(Vector2(-22, 5), {\"tile_name\": {\"operation\": 0, \"value\": datas[0]}})
+	tiles.edit_tile(Vector2(-22, 6), {\"tile_name\": {\"operation\": 0, \"value\": datas[1]}})
+	tiles.edit_tile(Vector2(-22, 7), {\"tile_name\": {\"operation\": 0, \"value\": datas[2]}})
+	tiles.clear_tile(Vector2(-22, 4))
+	
+	tiles.edit_tile(Vector2(-24, 9), {\"tile_name\": {\"operation\": 0, \"value\": datas[0]}})
+	tiles.edit_tile(Vector2(-24, 10), {\"tile_name\": {\"operation\": 0, \"value\": datas[2]}})
+	tiles.clear_tile(Vector2(-24, 11))
+	tiles.clear_tile(Vector2(-24, 12))
+	
+	tiles.edit_tile(Vector2(-2, 1), {\"tile_name\": {\"operation\": 0, \"value\": datas[0]}})
+	tiles.edit_tile(Vector2(-2, 2), {\"tile_name\": {\"operation\": 0, \"value\": datas[1]}})
+	tiles.edit_tile(Vector2(-2, 3), {\"tile_name\": {\"operation\": 0, \"value\": datas[1]}})
+	tiles.edit_tile(Vector2(-2, 4), {\"tile_name\": {\"operation\": 0, \"value\": datas[2]}})
+	tiles.clear_tile(Vector2(-2, 5))
+	tiles.clear_tile(Vector2(-2, 6))
+
+
+func checking(player, dat: Dictionary): #{\"iron\": 7}
+	dat = dat.duplicate(true)
+	var data = player.get_items()
+	for i in data:
+		if i[1].has(\"item\") and i[1][\"item\"] in dat.keys():
+			dat[i[1][\"item\"]] -= i[2][\"uni_quantity\"]
+			
+			if dat[i[1][\"item\"]] <= 0:
+				dat.erase(i[1][\"item\"])
+	if dat.size() <= 0: return true
+	else: return false
+
+func delet(dat: Dictionary): #{\"iron\": 7}
+	var player = get_node(\"/root/rootGame/Node/Player\")
+	for i in dat.keys():
+		player.edit_items(i, dat[i] * -1)
+"
+
+[sub_resource type="SpriteFrames" id=21]
+animations = [ {
+"frames": [ ExtResource( 37 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 38 ) ],
+"loop": true,
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ), ExtResource( 26 ), ExtResource( 33 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "wait",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 51 ), ExtResource( 53 ), ExtResource( 52 ) ],
+"loop": true,
+"name": "ok",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 36 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ) ],
+"loop": true,
+"name": "passage",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 30 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ) ],
+"loop": true,
+"name": "work",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 35 ), ExtResource( 34 ), ExtResource( 44 ), ExtResource( 34 ) ],
+"loop": true,
+"name": "straight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 41 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 39 ) ],
+"loop": true,
+"name": "down",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 78.2239, 62.6534 )
+
+[sub_resource type="Animation" id=23]
+
+[sub_resource type="Animation" id=24]
+
+[sub_resource type="Animation" id=25]
+tracks/0/type = "value"
+tracks/0/path = NodePath("passage:frames")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1.24771e-10, 30.91 ),
+"update": 1,
+"values": [ SubResource( 21 ), SubResource( 21 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("passage:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=26]
+
+[sub_resource type="Animation" id=27]
+
+[sub_resource type="GDScript" id=28]
+script/source = "extends Node
+
+export var new_sample_item = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"item\": \"ground\", #Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Tecture/tileset/ground_icon.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Почва\", #Имя на русском
+		\"description\": \"Грязная, не прочная порода...\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var explosive_crystal = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/explosive crystal.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Критилл\", #Имя на русском
+		\"description\": \"Кристал умеющий взрываться.\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 15, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var arm = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/arm.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Рука\", #Имя на русском
+		\"description\": \"3 пальца легче нарисовать, чем 5 :З\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 1, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"sword\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 15, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var diskette = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/Diskette/diskette_white.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Дискета\", #Имя на русском
+		\"description\": \"Интересно, что будет если засунуть её в АПЖ?\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 1, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var details = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/details.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Детали\", #Имя на русском
+		\"description\": \"Старые, но их можно использовать в ремонте.\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var stone = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/stone.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Камень\", #Имя на русском
+		\"description\": \"Безполезен, только для стротельства и годится.\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 12, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"stone\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var ground = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/ground_item.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Земля\", #Имя на русском
+		\"description\": \"Сухая... Даже воды из неё не достать :(\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 12, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"ground\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var bread = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/food.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Хлеб\", #Имя на русском
+		\"description\": \"Я не знаю что в него намешали, \\nно этот хлеб не портится. Вкус отвратный!\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 1, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var ice = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/ice_item.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Лёд\", #Имя на русском
+		\"description\": \"Можно растопить с помощью критилла и получить воду.\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var moss = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/moss.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Мох\", #Имя на русском
+		\"description\": \"Какая-то биомасса...\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var water = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [[{\"del_item\": true}, {\"item\": \"explosive_crystal\"}, {\"uni_quantity\": Vector2(1, -1)}], [{\"del_item\": true}, {\"item\": \"explosive_crystal\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 1
+		\"slot1\": [[{\"del_item\": true}, {\"item\": \"ice\"}, {\"uni_quantity\": Vector2(1, -1)}], [{\"del_item\": true}, {\"item\": \"ice\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 2
+		\"slot2\": [[{\"del_item\": true}, {\"item\": \"flask\"}, {\"uni_quantity\": Vector2(1, -1)}], [{\"del_item\": true}, {\"item\": \"water\", \"health\": Vector2(1, 99)}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/water.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Вода\", #Имя на русском
+		\"description\": \"Урина вода...\\n\\nМеньше знаешь, крепче спишь, закрывши глазки,\\nЛишь в две дырочки сопишь,\\nВидишь сны, как сказки :(\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 1, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var flask = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 6
+		\"slot6\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 7
+		\"slot7\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 8
+		\"slot8\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/flask.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Пустая фляга\", #Имя на русском
+		\"description\": \"Фляга для житкости, можно наполнить.\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 1, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var iron = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/iron.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Железо\", #Имя на русском
+		\"description\": \"Раз наука двигатель прогресса, то железа - его топливо!\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var copper = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/coping.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Медь\", #Имя на русском
+		\"description\": \"Самая навороченная разработка древности!\\nОна хорошо проводит ток, а ещё умеет менять цвет!\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 4, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 0, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var remotedrill = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [], #Что должно содержаться в слоте 1
+		\"slot1\": [], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [[{\"del_item\": true}, {\"item\": \"details\"}, {\"uni_quantity\": Vector2(2, -1)}]], #Что должно содержаться в слоте 5
+		\"slot5\": [[{\"del_item\": true}, {\"item\": \"copper\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 6
+		\"slot6\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(2, -1)}]], #Что должно содержаться в слоте 7
+		\"slot7\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 8
+		\"slot8\": [[{\"del_item\": true}, {\"item\": \"copper\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"quantity\": 1, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/distancedrill.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Дистанционная дрель\", #Имя на русском
+		\"description\": \"Пушка сделанная на коленке.\\nЛучше чем нечего! Да?\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 1, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"weapon\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 25, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+
+export var standart_bullet = {
+	#Рецепт
+	#Пример
+	#[[{\"del_item\": false}, {\"item\": \"govno\", \"name_in_game\": \"говно\", \"health\": {\"current\": 1, \"maximum\": 100}, {\"uni_qunityti\": 1}]]
+		\"slot0\": [[{\"del_item\": true}, {\"item\": \"explosive_crystal\"}, {\"uni_quantity\": Vector2(1, -1)}], [{\"del_item\": true}, {\"item\": \"explosive_crystal\"}, {\"uni_quantity\": Vector2(1, -1)}]], #Что должно содержаться в слоте 1
+		\"slot1\": [[{\"del_item\": true}, {\"item\": \"iron\"}, {\"uni_quantity\": Vector2(1, -1)}], [{\"del_item\": true}, {\"item\": \"copper\"}, {\"uni_quantity\": Vector2(2, -1)}]], #Что должно содержаться в слоте 2
+		\"slot2\": [], #Что должно содержаться в слоте 3
+		\"slot3\": [], #Что должно содержаться в слоте 4
+		\"slot4\": [], #Что должно содержаться в слоте 5
+		\"slot5\": [], #Что должно содержаться в слоте 6
+		\"slot6\": [], #Что должно содержаться в слоте 7
+		\"slot7\": [], #Что должно содержаться в слоте 8
+		\"slot8\": [], #Что должно содержаться в слоте 9
+	
+	#Получаймый предмет
+		\"item\": \"standart_bullet\", #Получаймый предмет
+		\"quantity\": 2, #Число предметов которые можно получить с 1 рецепта
+		\"animation\": {\"event\": 1, \"frames\": [\"res://Texture/Other/Items/bullet.png\"]}, #Текстура итога крафта
+	
+	#Свойства
+		\"name_in_game\": \"Пуля\", #Имя на русском
+		\"description\": \"Ей можно стрелять из дистанционной дрели.\", #Описание предмета, оставить \"\" если нет
+		\"creature\": 1, #Вероятность с которой предмет будет выбран \"блоком случая\"
+		\"maximum_number\": 6, #Максимальное число предметов в одном слоте
+	
+	#Особые свойства
+		\"type\": \"thing\", #thing/weapon/sword/protection - предмет/пушка/меч/защита
+		\"number\": 20, #Оно будет использовано как уровень защиты
+		#Если пуст будет использована обычная анимация
+		\"special_animation\": \"res://Texture/Other/Items/flying_bullet.png\", #Будет использоваться при активации (текстура пули, оружие в руках)
+		\"permission_to_install\": \"\", #Если не пуст и блок найден, можно установить связанный с предметом блок на карту
+		
+		\"bullets_needed\": [\"standart_bullet\"], #Требуемая пуля (если пуст, стреляет чем попало)
+}
+"
+
+[sub_resource type="GDScript" id=29]
+script/source = "extends Node
+
+func use_item(slot, significant, insignificant):
+	var procent = round((significant[\"health\"][\"maximum\"] * 0.1) / insignificant[\"uni_quantity\"])
+	
+	if 0 < (slot.significant_data[\"health\"][\"current\"] - procent):
+		slot.change_health(procent)
+	else:
+		var qu = slot.insignificant_data[\"uni_quantity\"]
+		
+		slot.significant_data = slot.default_significant_data
+		slot.insignificant_data = slot.default_insignificant_data
+		
+		var d = slot.data_repair({\"item\": \"flask\"}, {\"uni_quantity\": qu})
+		
+		slot.significant_data = d[0]
+		slot.insignificant_data = d[1]
+		
+		slot.installation_item()
+	
+	get_node(\"/root/rootGame/Node/Player\").effect_thirst(-10)
+"
+
+[sub_resource type="GDScript" id=30]
+script/source = "extends Node
+
+func use_item(slot, significant, insignificant):
+	var procent = round((significant[\"health\"][\"maximum\"] * 0.1) / insignificant[\"uni_quantity\"])
+	
+	slot.change_health(procent)
+	
+	get_node(\"/root/rootGame/Node/Player\").effect_hunger(10)
+"
+
+[sub_resource type="GDScript" id=44]
+script/source = "extends Node
+
+func use_item(slot, significant, insignificant):
+	$\"../bread\".use_item(slot, significant, insignificant)
+"
+
+[sub_resource type="DynamicFont" id=31]
+size = 26
+font_data = ExtResource( 25 )
+
+[sub_resource type="DynamicFont" id=32]
+size = 21
+font_data = ExtResource( 25 )
+
+[sub_resource type="DynamicFont" id=33]
+size = 26
+font_data = ExtResource( 25 )
+
+[sub_resource type="GDScript" id=34]
+script/source = "extends Area2D
+
+var no = {
+	\"\": [
+		\"\",
+		\"Терминал Криосна\",
+		\"Некоторые системы коробля сломаны, я не могу допустить разморозку экипажа! Для ознакомления с проблемами обратитесь в терминал ремонта, он находится в рубке капитана.\",
+		[],
+		{
+			\"Ок\": [[]]
+		}
+	]
+}
+
+var yes = {
+	\"\": [
+		\"\",
+		\"Терминал Криосна\",
+		\"Запустить протокол разморозки? (на данный момент это конец игры)\",
+		[],
+		{
+			\"Да\": [[\"use_func\", [\"end\", \"/root/rootGame/Node/Area2D2\"]]],
+			\"Нет\": [[]]
+		}
+	]
+}
+
+func use(user, _id):
+	if $\"..\".sistem.has(false):
+		user.show_dialogue(no)
+	else:
+		user.show_dialogue(yes)
+
+func end():
+	get_node(\"/root/rootGame\").game_win(\"Спасибо за игру!\", \"Вы прошли игру! Следите за развитием игры, мы активно разрабатываем игру! \\n\\nwww.linktr.ee/miskler\")
+	get_node(\"/root/rootGame\").rpc(\"game_win\", \"Спасибо за игру!\", \"Вы прошли игру! Следите за развитием игры, мы активно разрабатываем игру! \\n\\nwww.linktr.ee/miskler\")
+"
+
+[sub_resource type="CircleShape2D" id=35]
+radius = 255.403
+
+[sub_resource type="SpriteFrames" id=36]
+animations = [ {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=37]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "destroyed",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "in progress",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=38]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "destroyed",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "in progress",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=39]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "destroyed",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "in progress",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=40]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "destroyed",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "in progress",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=41]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "destroyed",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "in progress",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=42]
+size = 40
+font_data = ExtResource( 57 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 32
+font_data = ExtResource( 57 )
+
+[sub_resource type="GDScript" id=61]
+script/source = "extends Node
+
+var cur = 1
+
+func _ready():
+	$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/1robot.mp3\")
+
+func _input(event):
+	if cur == 1 and Input.is_action_just_pressed(\"OpenInvetori\"):
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/2robot.mp3\")
+		get_node(\"/root/rootGame/Node/Player\").well_being[\"thirst\"] = 0.0
+		$AnimationPlayer.play(\"2\")
+		cur = 2
+	elif cur == 2 and Input.is_action_just_pressed(\"OpenInvetori\"):
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/3robot.mp3\")
+		$AnimationPlayer.play(\"3\")
+		cur = 3
+		get_node(\"/root/rootGame/Node/Player\").well_being[\"thirst\"] = 0.5
+		
+		get_node(\"/root/rootGame/Node/TileMap\").edit_tile(Vector2(-136, -74), {\"instruction\": {\"operation\": 0, \"value\": [[{}, {\"item\": \"water\"}, {}]]}})
+	elif cur == 3 and get_node(\"/root/rootGame/Node/Player\").global_position.x >= -8900.0:
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/4robot.mp3\")
+		$AnimationPlayer.play(\"4\")
+		cur = 4
+	elif cur >= 3 and cur < 7 and get_node(\"/root/rootGame/Node/Player\").well_being[\"thirst\"] < 0.5:
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/7robot.mp3\")
+		$AnimationPlayer.play(\"7\")
+		cur = 7
+	elif cur == 5:
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/6robot.mp3\")
+		for i in get_node(\"/root/rootGame/Node/Player\").get_items():
+			if i[1].has(\"item\") and i[1][\"item\"] == \"water\":
+				$AnimationPlayer.play(\"6\")
+				cur = 6
+	elif cur == 7 and Input.is_action_just_pressed(\"OpenInvetori\"):
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/8robot.mp3\")
+		$AnimationPlayer.play(\"8\")
+		cur = 8
+
+func fife():
+	if cur == 4:
+		$\"AudioStreamPlayer\".stream = load(\"res://aydio/Guider/5robot.mp3\")
+		$AnimationPlayer.play(\"5\")
+		cur = 5
+"
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 62 )
+region = Rect2( 0, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 60 )
+region = Rect2( 40, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 60 )
+region = Rect2( 120, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 62 )
+region = Rect2( 40, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 62 )
+region = Rect2( 80, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 60 )
+region = Rect2( 80, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 60 )
+region = Rect2( 0, 0, 40, 40 )
+
+[sub_resource type="SpriteFrames" id=52]
+animations = [ {
+"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
+"loop": true,
+"name": "def",
+"speed": 2.0
+} ]
+
+[sub_resource type="Animation" id=53]
+resource_name = "1"
+length = 22.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 61 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 21.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3.1, 22.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8759, -4720.21 ), Vector2( -9488.74, -4720.21 ), Vector2( -9488.74, -4720.21 ) ]
+}
+
+[sub_resource type="Animation" id=54]
+resource_name = "2"
+length = 6.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 54 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 6.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 6.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -9488.74, -4720.21 ), Vector2( -9488.74, -4720.21 ) ]
+}
+
+[sub_resource type="Animation" id=55]
+resource_name = "3"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 68 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 17 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 16.3, 19.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -9488.74, -4720.21 ), Vector2( -9488.74, -4720.21 ), Vector2( -8800, -4800 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bot/AnimatedSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1, 16.3, 19.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+
+[sub_resource type="Animation" id=56]
+resource_name = "4"
+length = 14.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 63 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 13.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 13.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8800, -4800 ), Vector2( -8800, -4800 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bot/AnimatedSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1, 13.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=57]
+resource_name = "5"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 66 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 6.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8800, -4800 ), Vector2( -8800, -4800 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bot/AnimatedSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.2, 0.7, 1.3, 1.9, 2.8, 3.3, 4.1, 4.5, 5.5, 6.4, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Bot/AnimatedSprite:flip_v")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.2, 1.1, 3.1, 5.4, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false ]
+}
+
+[sub_resource type="Animation" id=58]
+resource_name = "6"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 65 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.4, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8800, -4800 ), Vector2( -8610, -4825 ), Vector2( -8610, -4825 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bot/AnimatedSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=59]
+resource_name = "7"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 64 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8610, -4825 ), Vector2( -8610, -4825 ) ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "8"
+length = 16.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayer:stream")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 67 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 15.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Bot:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 5, 7.1, 16 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8610, -4825 ), Vector2( -8610, -4825 ), Vector2( -9150, -4785 ), Vector2( -9150, -4785 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bot/AnimatedSprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 7.1, 16 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Bot/AnimatedSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 15.6, 16 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../Area2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 9.1, 9.3, 16 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false, false ]
+}
+
+[sub_resource type="GDScript" id=62]
+script/source = "extends KinematicBody2D
+
+signal tyt()
+
+func use(_d, _b):
+	emit_signal(\"tyt\")
+"
+
+[sub_resource type="RectangleShape2D" id=63]
+extents = Vector2( 31.9564, 31.9622 )
+
+[node name="Node" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 12 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -12101.5
+margin_top = -6335.49
+margin_right = -6372.46
+margin_bottom = -3056.49
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="unknown" type="Sprite" parent="."]
+position = Vector2( -9658.57, -4778.28 )
+scale = Vector2( 0.822628, 0.891195 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown5" type="Sprite" parent="."]
+position = Vector2( -10045.9, -4788.88 )
+scale = Vector2( 0.822628, 0.891195 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown7" type="Sprite" parent="."]
+position = Vector2( -9926.05, -5090.73 )
+scale = Vector2( 0.822628, 0.638131 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown6" type="Sprite" parent="."]
+position = Vector2( -10378.5, -4785.23 )
+scale = Vector2( 0.822628, 0.891195 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown2" type="Sprite" parent="."]
+position = Vector2( -9282.45, -4776.97 )
+scale = Vector2( 0.822628, 0.891195 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown3" type="Sprite" parent="."]
+position = Vector2( -8905.14, -4776.08 )
+scale = Vector2( 0.822628, 0.891195 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown4" type="Sprite" parent="."]
+position = Vector2( -8510.76, -4776.92 )
+scale = Vector2( 0.822628, 0.891195 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown9" type="Sprite" parent="."]
+position = Vector2( -2660.18, 449.527 )
+scale = Vector2( 1.90799, 1.80292 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown11" type="Sprite" parent="."]
+position = Vector2( -1778.62, 441.629 )
+scale = Vector2( 1.90799, 1.80292 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown8" type="Sprite" parent="."]
+position = Vector2( -2626.74, -267.672 )
+scale = Vector2( 1.74928, 1.53664 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown10" type="Sprite" parent="."]
+position = Vector2( -1791.51, -273.787 )
+scale = Vector2( 1.74928, 1.53664 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown12" type="Sprite" parent="."]
+position = Vector2( -994.651, -46.1141 )
+scale = Vector2( 1.55946, 1.54387 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown14" type="Sprite" parent="."]
+position = Vector2( -1143.46, 443.049 )
+scale = Vector2( 0.403001, 0.449078 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown16" type="Sprite" parent="."]
+position = Vector2( -1334.11, 443.049 )
+scale = Vector2( 0.403001, 0.449078 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown15" type="Sprite" parent="."]
+position = Vector2( -817.968, 574.921 )
+scale = Vector2( 1.03007, 1.06292 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown17" type="Sprite" parent="."]
+position = Vector2( -349.57, 421.016 )
+scale = Vector2( 1.08575, 1.08822 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown19" type="Sprite" parent="."]
+position = Vector2( -716.017, -146.197 )
+scale = Vector2( 0.514649, 0.78868 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown18" type="Sprite" parent="."]
+position = Vector2( -361.462, -75.6672 )
+scale = Vector2( 1.13687, 1.27283 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="unknown13" type="Sprite" parent="."]
+position = Vector2( -1122.84, 705.195 )
+scale = Vector2( 0.724083, 0.728404 )
+texture = ExtResource( 5 )
+offset = Vector2( 22.0547, -2.4458 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = -8745.0
+margin_top = -4666.0
+margin_right = -8217.0
+margin_bottom = -4375.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+margin_left = -8594.33
+margin_top = -4735.98
+margin_right = -8066.33
+margin_bottom = -4444.98
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+margin_left = -8512.0
+margin_top = -5029.0
+margin_right = -8065.0
+margin_bottom = -4526.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+margin_left = -8606.18
+margin_top = -5013.02
+margin_right = -8414.18
+margin_bottom = -4914.02
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="pinup" type="Sprite" parent="."]
+position = Vector2( -683.307, -162.355 )
+rotation = -0.166994
+scale = Vector2( 1.35124, 1.42979 )
+texture = ExtResource( 10 )
+
+[node name="ladder1" type="Area2D" parent="."]
+script = SubResource( 1 )
+
+[node name="ladder_bottom" type="Sprite" parent="ladder1"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder1"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder1"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder1"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center4" type="Sprite" parent="ladder1"]
+position = Vector2( -1440.43, -267.226 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder1"]
+position = Vector2( -1440.43, -479.297 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder1"]
+position = Vector2( -1439.51, -125.057 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder1"]
+position = Vector2( -1441.56, -493.245 )
+shape = SubResource( 3 )
+
+[node name="ladder2" type="Area2D" parent="."]
+position = Vector2( -160.036, 321.083 )
+script = SubResource( 4 )
+
+[node name="ladder_bottom" type="Sprite" parent="ladder2"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder2"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder2"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder2"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center4" type="Sprite" parent="ladder2"]
+position = Vector2( -1440.43, -267.108 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder2"]
+position = Vector2( -1440.43, -350.93 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder2"]
+position = Vector2( -1439.41, -129.301 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder2"]
+position = Vector2( -1439.41, -348.28 )
+shape = SubResource( 6 )
+
+[node name="ladder3" type="Area2D" parent="."]
+position = Vector2( 346.007, 577.209 )
+script = SubResource( 7 )
+
+[node name="ladder_bottom" type="Sprite" parent="ladder3"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder3"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder3"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder3"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder3"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder3"]
+position = Vector2( -1440.75, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder3"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder4" type="Area2D" parent="."]
+position = Vector2( 223.117, 832.068 )
+script = SubResource( 9 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ladder_bottom" type="Sprite" parent="ladder4"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder4"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder4"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder4"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder4"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder4"]
+position = Vector2( -1439.16, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder4"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder5" type="Area2D" parent="."]
+position = Vector2( -418.983, 832.817 )
+script = SubResource( 10 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ladder_bottom" type="Sprite" parent="ladder5"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder5"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder5"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder5"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder5"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder5"]
+position = Vector2( -1439.16, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder5"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder6" type="Area2D" parent="."]
+position = Vector2( -911.329, 833.458 )
+script = SubResource( 11 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ladder_bottom" type="Sprite" parent="ladder6"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder6"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder6"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder6"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder6"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder6"]
+position = Vector2( -1439.16, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder6"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder7" type="Area2D" parent="."]
+position = Vector2( -1058.31, 579.34 )
+script = SubResource( 12 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ladder_bottom" type="Sprite" parent="ladder7"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder7"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder7"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder7"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder7"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder7"]
+position = Vector2( -1440.75, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder7"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder8" type="Area2D" parent="."]
+position = Vector2( -912.35, 321.722 )
+script = SubResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ladder_bottom" type="Sprite" parent="ladder8"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder8"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder8"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder8"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder8"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder8"]
+position = Vector2( -1440.75, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder8"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder9" type="Area2D" parent="."]
+position = Vector2( -1059.98, 66.1505 )
+script = SubResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ladder_bottom" type="Sprite" parent="ladder9"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder9"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder9"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder9"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder9"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder9"]
+position = Vector2( -1440.75, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder9"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="ladder10" type="Area2D" parent="."]
+position = Vector2( -923.038, -192.016 )
+script = SubResource( 15 )
+
+[node name="ladder_bottom" type="Sprite" parent="ladder10"]
+position = Vector2( -1440.43, -13.4893 )
+texture = ExtResource( 14 )
+
+[node name="ladder_center" type="Sprite" parent="ladder10"]
+position = Vector2( -1440.43, -77.011 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center2" type="Sprite" parent="ladder10"]
+position = Vector2( -1440.43, -141.083 )
+texture = ExtResource( 13 )
+
+[node name="ladder_center3" type="Sprite" parent="ladder10"]
+position = Vector2( -1440.43, -203.153 )
+texture = ExtResource( 13 )
+
+[node name="ladder_up" type="Sprite" parent="ladder10"]
+position = Vector2( -1440.43, -284.784 )
+texture = ExtResource( 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ladder10"]
+position = Vector2( -1440.75, -95.263 )
+shape = SubResource( 8 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ladder10"]
+position = Vector2( -1441.3, -287.174 )
+shape = SubResource( 6 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( -9126.41, -4761.75 )
+script = SubResource( 16 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D"]
+position = Vector2( 68.4941, 69.3271 )
+scale = Vector2( 0.241231, 0.25228 )
+frames = SubResource( 17 )
+speed_scale = 0.5
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="Area2D"]
+position = Vector2( 24.4063, 5.77148 )
+rotation = 0.00943437
+scale = Vector2( 0.151132, 0.161913 )
+frames = SubResource( 17 )
+animation = "error"
+frame = 1
+speed_scale = 0.2
+playing = true
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="Area2D"]
+position = Vector2( 113.953, 8.83984 )
+rotation = -0.126067
+scale = Vector2( 0.126976, 0.135253 )
+frames = SubResource( 17 )
+animation = "error"
+speed_scale = 0.4
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 68.585, 78.7393 )
+shape = SubResource( 18 )
+disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Area2D3" type="Area2D" parent="."]
+position = Vector2( -584.83, -154.167 )
+script = SubResource( 19 )
+
+[node name="AnimatedSprite888" type="AnimatedSprite" parent="Area2D3"]
+position = Vector2( 68.4941, 69.3271 )
+scale = Vector2( 0.241231, 0.25228 )
+frames = SubResource( 17 )
+speed_scale = 0.5
+playing = true
+
+[node name="AnimatedSprite0" type="AnimatedSprite" parent="Area2D3"]
+position = Vector2( 6.29639, 76.0247 )
+rotation = 0.0036599
+scale = Vector2( 0.115135, 0.123498 )
+frames = SubResource( 17 )
+animation = "error"
+frame = 2
+speed_scale = 0.3
+playing = true
+
+[node name="AnimatedSprite1" type="AnimatedSprite" parent="Area2D3"]
+position = Vector2( 52.0742, 14.6727 )
+rotation = -0.0768155
+scale = Vector2( 0.126976, 0.135253 )
+frames = SubResource( 17 )
+animation = "error"
+frame = 2
+speed_scale = 0.3
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="Area2D3"]
+position = Vector2( -2.33545, 35.7062 )
+rotation = 0.114526
+scale = Vector2( 0.151132, 0.161913 )
+frames = SubResource( 17 )
+animation = "error"
+frame = 2
+speed_scale = 0.4
+playing = true
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="Area2D3"]
+position = Vector2( 139.917, 53.2611 )
+rotation = -0.00647718
+scale = Vector2( 0.158816, 0.164655 )
+frames = SubResource( 17 )
+animation = "error"
+frame = 2
+speed_scale = 0.6
+playing = true
+
+[node name="AnimatedSprite4" type="AnimatedSprite" parent="Area2D3"]
+position = Vector2( 102.542, 9.24738 )
+rotation = -0.0388994
+scale = Vector2( 0.143603, 0.152042 )
+frames = SubResource( 17 )
+animation = "error"
+frame = 3
+speed_scale = 0.5
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2( 68.585, 78.7393 )
+shape = SubResource( 18 )
+
+[node name="Area2D4" type="Area2D" parent="."]
+position = Vector2( -972.892, -155.665 )
+script = SubResource( 20 )
+
+[node name="station" type="AnimatedSprite" parent="Area2D4"]
+position = Vector2( 31.4292, 61.8021 )
+scale = Vector2( 2.81063, 2.92224 )
+frames = SubResource( 21 )
+animation = "wait"
+frame = 2
+speed_scale = 0.5
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="passage" type="AnimatedSprite" parent="Area2D4"]
+position = Vector2( 141.985, 123.557 )
+frames = SubResource( 21 )
+animation = "passage"
+speed_scale = 0.6
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+position = Vector2( 31.1545, 97.2352 )
+shape = SubResource( 22 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area2D4"]
+anims/0 = SubResource( 23 )
+anims/1 = SubResource( 24 )
+anims/2 = SubResource( 25 )
+anims/3 = SubResource( 26 )
+anims/4 = SubResource( 27 )
+
+[node name="TileMap" parent="." instance=ExtResource( 1 )]
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+collision_layer = 15
+collision_mask = 15
+occluder_light_mask = 31
+tile_data = PoolIntArray( -5374121, 10, 2, -5374120, 10, 2, -5374119, 10, 2, -5374118, 10, 2, -5374117, 10, 2, -5374116, 10, 2, -5374115, 10, 2, -5374114, 10, 2, -5374113, 10, 2, -5374112, 10, 2, -5374111, 10, 2, -5374110, 10, 2, -5374109, 14, 2, -5374108, 14, 2, -5374107, 10, 2, -5374106, 10, 2, -5308578, 8, 1, -5308577, 8, 2, -5308576, 8, 2, -5308575, 8, 2, -5308571, 8, 2, -5308570, 10, 2, -5308569, 10, 2, -5308568, 10, 2, -5308567, 10, 2, -5308565, 8, 2, -5243041, 18, 0, -5243035, 8, 2, -5243034, 10, 2, -5243033, 10, 2, -5243032, 10, 2, -5243031, 10, 2, -5243030, 10, 2, -5243029, 10, 2, -5243028, 10, 2, -5243027, 10, 2, -5243026, 10, 2, -5243025, 10, 2, -5243024, 10, 2, -5177513, 10, 2, -5177512, 10, 2, -5177511, 10, 2, -5177510, 10, 2, -5177509, 10, 2, -5177508, 10, 2, -5177507, 10, 2, -5177506, 10, 2, -5177505, 20, 0, -5177504, 10, 2, -5177503, 10, 2, -5177502, 10, 2, -5177501, 10, 2, -5177500, 10, 2, -5177499, 10, 2, -5177498, 10, 2, -5177497, 10, 2, -5177496, 10, 2, -5177495, 10, 2, -5177494, 10, 2, -5177493, 10, 2, -5177492, 10, 2, -5177491, 10, 2, -5177490, 10, 2, -5177489, 10, 2, -5177488, 10, 2, -5177487, 10, 2, -5177486, 10, 2, -5177485, 10, 2, -5177484, 8, 2, -5111977, 10, 2, -5111976, 10, 2, -5111975, 10, 2, -5111974, 10, 2, -5111973, 10, 2, -5111972, 10, 2, -5111971, 10, 2, -5111970, 10, 2, -5111969, 10, 2, -5111968, 10, 2, -5111967, 10, 2, -5111966, 10, 2, -5111965, 10, 2, -5111964, 10, 2, -5111963, 10, 2, -5111962, 10, 2, -5111961, 10, 2, -5111960, 10, 2, -5111959, 10, 2, -5111958, 10, 2, -5111957, 10, 2, -5111956, 10, 2, -5111955, 10, 2, -5111954, 10, 2, -5111953, 10, 2, -5111952, 10, 2, -5111951, 10, 2, -5111950, 10, 2, -5111949, 10, 2, -5111948, 10, 2, -5111947, 10, 2, -5111946, 10, 2, -5111945, 10, 2, -5046441, 10, 2, -5046440, 10, 2, -5046439, 10, 2, -5046438, 10, 2, -5046437, 10, 2, -5046436, 10, 2, -5046435, 10, 2, -5046434, 10, 2, -5046433, 10, 2, -5046432, 10, 2, -5046431, 10, 2, -5046430, 10, 2, -5046429, 10, 2, -5046428, 10, 2, -5046427, 10, 2, -5046426, 10, 2, -5046425, 10, 2, -5046424, 10, 2, -5046423, 10, 2, -5046422, 10, 2, -5046421, 10, 2, -5046420, 10, 2, -5046419, 10, 2, -5046418, 10, 2, -5046417, 10, 2, -5046416, 10, 2, -5046415, 10, 2, -5046414, 10, 2, -5046413, 10, 2, -5046412, 10, 2, -5046411, 10, 2, -5046410, 10, 2, -5046409, 10, 2, -5046408, 14, 2, -5046407, 14, 2, -4980905, 10, 2, -4980904, 10, 2, -4980903, 10, 2, -4980902, 10, 2, -4980901, 10, 2, -4980900, 10, 2, -4980898, 8, 2, -4980897, 8, 2, -4980896, 8, 2, -4980891, 10, 2, -4980890, 10, 2, -4980889, 10, 2, -4980871, 14, 2, -4980870, 14, 2, -4915369, 10, 2, -4915368, 10, 2, -4915367, 10, 2, -4915366, 10, 2, -4915365, 10, 2, -4915364, 10, 2, -4915362, 8, 2, -4915361, 8, 1, -4915360, 8, 2, -4915354, 18, 0, -4915334, 14, 2, -4849833, 10, 2, -4849832, 10, 2, -4849831, 10, 2, -4849830, 10, 2, -4849829, 10, 2, -4849828, 10, 2, -4849826, 8, 1, -4849825, 8, 2, -4849824, 8, 2, -4849818, 19, 0, -4849798, 17, 2, -4784297, 10, 2, -4784296, 10, 2, -4784295, 10, 2, -4784294, 10, 2, -4784293, 10, 2, -4784292, 10, 2, -4784290, 8, 1, -4784289, 8, 2, -4784288, 8, 2, -4784282, 19, 0, -4784264, 25, 2, -4784263, 10, 2, -4784262, 10, 2, -4784261, 10, 2, -4718761, 10, 2, -4718760, 10, 2, -4718759, 10, 2, -4718758, 10, 2, -4718757, 10, 2, -4718756, 10, 2, -4718754, 8, 2, -4718753, 8, 2, -4718752, 8, 2, -4718746, 20, 0, -4718731, 15, 2, -4718730, 10, 2, -4718729, 10, 2, -4718728, 10, 2, -4718727, 10, 2, -4718726, 10, 2, -4718725, 10, 2, -4653225, 10, 2, -4653224, 10, 2, -4653223, 10, 2, -4653222, 10, 2, -4653221, 10, 2, -4653220, 10, 2, -4653219, 10, 2, -4653218, 10, 2, -4653217, 10, 2, -4653216, 10, 2, -4653215, 10, 2, -4653214, 10, 2, -4653213, 10, 2, -4653212, 10, 2, -4653211, 10, 2, -4653210, 10, 2, -4653209, 10, 2, -4653208, 10, 2, -4653207, 10, 2, -4653206, 10, 2, -4653205, 10, 2, -4653204, 10, 2, -4653203, 10, 2, -4653202, 10, 2, -4653201, 10, 2, -4653200, 10, 2, -4653199, 10, 2, -4653198, 10, 2, -4653197, 10, 2, -4653196, 10, 2, -4653195, 10, 2, -4653194, 10, 2, -4653193, 10, 2, -4653192, 10, 2, -4653191, 10, 2, -4653190, 10, 2, -4653189, 10, 2, -4653188, 8, 2, -4587689, 10, 2, -4587688, 10, 2, -4587687, 10, 2, -4587686, 10, 2, -4587685, 10, 2, -4587684, 10, 2, -4587683, 10, 2, -4587682, 10, 2, -4587681, 10, 2, -4587680, 10, 2, -4587679, 10, 2, -4587678, 10, 2, -4587677, 10, 2, -4587676, 10, 2, -4587675, 10, 2, -4587674, 10, 2, -4587673, 10, 2, -4587672, 10, 2, -4587671, 10, 2, -4587670, 10, 2, -4587669, 10, 2, -4587668, 10, 2, -4587667, 10, 2, -4587666, 10, 2, -4587665, 10, 2, -4587664, 10, 2, -4587663, 10, 2, -4587662, 10, 2, -4587661, 10, 2, -4587660, 10, 2, -4587659, 10, 2, -4587658, 10, 2, -4587657, 10, 2, -4587656, 10, 2, -4587655, 10, 2, -4587654, 10, 2, -4587653, 10, 2, -4587652, 8, 2, -4522153, 10, 2, -4522152, 10, 2, -4522151, 10, 2, -4522150, 10, 2, -4522149, 10, 2, -4522148, 10, 2, -4522147, 10, 2, -4522146, 10, 2, -4522145, 10, 2, -4522144, 10, 2, -4522143, 10, 2, -4522142, 10, 2, -4522141, 10, 2, -4522140, 10, 2, -4522139, 10, 2, -4522138, 10, 2, -4522137, 10, 2, -4522136, 10, 2, -4522135, 10, 2, -4522134, 10, 2, -4522133, 10, 2, -4522132, 10, 2, -4522131, 10, 2, -4522130, 10, 2, -4522129, 10, 2, -4522128, 10, 2, -4522127, 10, 2, -4522126, 10, 2, -4522125, 10, 2, -4522124, 10, 2, -4522123, 10, 2, -4522122, 10, 2, -4522121, 10, 2, -4522120, 10, 2, -4522119, 10, 2, -4522118, 10, 2, -4522117, 10, 2, -4522116, 8, 2, -4522115, 8, 1, -4456617, 10, 2, -4456616, 10, 2, -4456615, 10, 2, -4456614, 10, 2, -4456613, 10, 2, -4456612, 10, 2, -4456611, 10, 2, -4456610, 10, 2, -4456609, 10, 2, -4456608, 10, 2, -4456607, 10, 2, -4456606, 10, 2, -4456605, 10, 2, -4456604, 10, 2, -4456603, 10, 2, -4456602, 10, 2, -4456601, 10, 2, -4456600, 10, 2, -4456599, 10, 2, -4456598, 10, 2, -4456597, 10, 2, -4456596, 10, 2, -4456595, 10, 2, -4456594, 10, 2, -4456593, 10, 2, -4456592, 10, 2, -4456591, 10, 2, -4456590, 10, 2, -4456589, 10, 2, -4456588, 10, 2, -4456587, 10, 2, -4456586, 10, 2, -4456585, 10, 2, -4456584, 10, 2, -4456583, 10, 2, -4456582, 10, 2, -4456581, 10, 2, -4456580, 8, 2, -4391081, 10, 2, -4391080, 10, 2, -4391079, 10, 2, -4391078, 10, 2, -4391077, 10, 2, -4391076, 10, 2, -4391075, 10, 2, -4391074, 10, 2, -4391073, 10, 2, -4391072, 10, 2, -4391071, 10, 2, -4391070, 10, 2, -4391069, 10, 2, -4391068, 10, 2, -4391067, 10, 2, -4391066, 10, 2, -4391065, 10, 2, -4391064, 10, 2, -4391063, 10, 2, -4391062, 10, 2, -4391061, 10, 2, -4391060, 10, 2, -4391059, 10, 2, -4391058, 10, 2, -4391057, 10, 2, -4391056, 10, 2, -4391055, 10, 2, -4391054, 10, 2, -4391053, 10, 2, -4391052, 10, 2, -4391051, 10, 2, -4391050, 10, 2, -4391049, 10, 2, -4391048, 10, 2, -4391047, 10, 2, -4391046, 10, 2, -4325545, 10, 2, -4325544, 10, 2, -4325543, 10, 2, -4325542, 10, 2, -4325541, 10, 2, -4325540, 10, 2, -4325539, 10, 2, -4325538, 10, 2, -4325537, 10, 2, -4325536, 10, 2, -4325535, 10, 2, -4325534, 10, 2, -4325533, 10, 2, -4325532, 10, 2, -4325531, 10, 2, -4325530, 10, 2, -4325529, 10, 2, -4325528, 10, 2, -4325527, 10, 2, -4325526, 10, 2, -4325525, 10, 2, -4325524, 10, 2, -4325523, 10, 2, -4325522, 10, 2, -4325521, 10, 2, -4325520, 10, 2, -4325519, 10, 2, -4325518, 10, 2, -4325517, 10, 2, -4325516, 10, 2, -4325515, 10, 2, -4325514, 10, 2, -4325513, 10, 2, -4325512, 10, 2, -4325511, 10, 2, -4325510, 10, 2, -4260009, 10, 2, -4260008, 10, 2, -4260007, 10, 2, -4260006, 10, 2, -4260005, 10, 2, -4260004, 10, 2, -4260003, 10, 2, -4260002, 10, 2, -4260001, 10, 2, -4260000, 10, 2, -4259999, 10, 2, -4259998, 10, 2, -4259997, 10, 2, -4259996, 10, 2, -4259995, 10, 2, -4259994, 10, 2, -4259993, 10, 2, -4259992, 10, 2, -4259991, 10, 2, -4259990, 10, 2, -4259989, 10, 2, -4259988, 10, 2, -4259987, 10, 2, -4259986, 10, 2, -4259985, 10, 2, -4259984, 10, 2, -4259983, 10, 2, -4259982, 10, 2, -4259981, 10, 2, -4259980, 10, 2, -4259979, 10, 2, -4259978, 10, 2, -4259977, 10, 2, -4259976, 10, 2, -4259975, 10, 2, -4259974, 10, 2, -655405, 10, 0, -655404, 10, 0, -655403, 10, 1, -655402, 10, 0, -655401, 10, 1, -655400, 10, 2, -655399, 10, 2, -655398, 10, 2, -655397, 10, 2, -655396, 10, 2, -655395, 10, 2, -655394, 10, 1, -655393, 10, 1, -655392, 14, 1, -655391, 14, 2, -655390, 14, 1, -655389, 10, 2, -655388, 10, 2, -655387, 10, 2, -655386, 10, 0, -655385, 10, 2, -655384, 14, 2, -655383, 14, 2, -655382, 10, 2, -655381, 10, 0, -589871, 10, 2, -589870, 10, 0, -589869, 10, 1, -589860, 10, 2, -589859, 10, 2, -589858, 10, 2, -589853, 2, 2, -589852, 10, 2, -589851, 10, 1, -589850, 10, 0, -589849, 2, 2, -589848, 2, 2, -589847, 2, 2, -589846, 10, 2, -589845, 10, 1, -589844, 10, 2, -589843, 10, 2, -589842, 10, 2, -589839, 2, 2, -589838, 2, 2, -589837, 2, 2, -589836, 2, 2, -524336, 10, 2, -524335, 10, 2, -524334, 10, 2, -524333, 10, 2, -524323, 18, 0, -524321, 2, 2, -524320, 2, 2, -524319, 2, 2, -524318, 2, 2, -524317, 2, 2, -524316, 2, 0, -524314, 2, 0, -524313, 2, 2, -524312, 2, 2, -524311, 2, 2, -524310, 10, 1, -524309, 10, 2, -524308, 10, 0, -524307, 10, 1, -524306, 10, 1, -524305, 10, 0, -524304, 10, 2, -524303, 10, 2, -524302, 10, 2, -524301, 10, 2, -524300, 10, 2, -524299, 10, 2, -524298, 2, 2, -524297, 2, 2, -524296, 2, 2, -524295, 2, 2, -458801, 10, 2, -458800, 10, 0, -458799, 10, 2, -458798, 10, 0, -458797, 10, 2, -458788, 2, 0, -458787, 20, 0, -458786, 2, 0, -458785, 2, 2, -458784, 2, 2, -458783, 2, 2, -458782, 2, 2, -458781, 2, 2, -458780, 2, 0, -458779, 18, 0, -458778, 2, 0, -458777, 2, 2, -458776, 2, 2, -458775, 2, 2, -458774, 10, 2, -458773, 18, 0, -458772, 10, 0, -458771, 10, 0, -458770, 10, 2, -458769, 10, 2, -458768, 10, 1, -458767, 10, 0, -458766, 10, 2, -458765, 10, 2, -458764, 10, 2, -458763, 10, 0, -458762, 10, 2, -458761, 10, 2, -458760, 10, 1, -458759, 8, 1, -458758, 2, 0, -393266, 10, 2, -393265, 10, 2, -393264, 10, 0, -393263, 10, 1, -393262, 10, 2, -393261, 10, 2, -393260, 10, 2, -393259, 10, 0, -393258, 10, 0, -393257, 10, 1, -393256, 10, 2, -393255, 10, 0, -393254, 10, 1, -393253, 10, 0, -393252, 10, 2, -393250, 10, 2, -393249, 10, 2, -393248, 10, 2, -393247, 10, 1, -393246, 10, 1, -393245, 10, 2, -393244, 10, 2, -393243, 20, 0, -393242, 10, 2, -393241, 10, 0, -393240, 10, 2, -393239, 10, 1, -393238, 10, 2, -393237, 19, 0, -393236, 10, 2, -393235, 10, 2, -393234, 10, 2, -393233, 10, 2, -393232, 10, 2, -393231, 10, 2, -393230, 10, 2, -393229, 10, 1, -393228, 10, 1, -393227, 10, 2, -393226, 10, 2, -393225, 10, 1, -393224, 10, 2, -393223, 10, 2, -393222, 10, 2, -393221, 10, 0, -393220, 10, 0, -327730, 10, 2, -327729, 10, 2, -327728, 10, 2, -327727, 10, 0, -327723, 2, 0, -327722, 2, 2, -327721, 2, 2, -327720, 2, 2, -327716, 10, 2, -327714, 10, 2, -327713, 10, 0, -327712, 10, 2, -327711, 10, 2, -327710, 10, 2, -327709, 10, 0, -327708, 10, 1, -327706, 10, 2, -327705, 10, 1, -327704, 10, 2, -327703, 10, 1, -327702, 10, 1, -327701, 19, 0, -327700, 10, 0, -327699, 10, 0, -327698, 10, 2, -327697, 10, 1, -327696, 10, 0, -327695, 10, 2, -327694, 10, 2, -327693, 10, 2, -327692, 10, 2, -327691, 10, 2, -327690, 10, 2, -327689, 10, 0, -327688, 10, 0, -327687, 10, 2, -327686, 10, 1, -327685, 10, 2, -327684, 10, 2, -327683, 14, 1, -327682, 14, 1, -262194, 10, 0, -262193, 10, 0, -262192, 10, 2, -262191, 10, 2, -262187, 2, 0, -262180, 10, 0, -262179, 10, 2, -262178, 10, 2, -262177, 10, 2, -262176, 10, 2, -262175, 10, 0, -262174, 10, 1, -262173, 10, 0, -262172, 10, 2, -262171, 10, 0, -262170, 10, 2, -262169, 10, 1, -262168, 10, 2, -262167, 10, 2, -262166, 10, 2, -262165, 20, 0, -262164, 10, 0, -262146, 14, 1, -262145, 14, 0, -196659, 10, 2, -196658, 10, 2, -196657, 10, 2, -196656, 10, 0, -196655, 10, 2, -196653, 2, 0, -196651, 2, 0, -196644, 10, 1, -196643, 10, 2, -196642, 10, 0, -196641, 10, 2, -196640, 10, 0, -196639, 10, 1, -196638, 10, 2, -196637, 10, 2, -196636, 10, 2, -196635, 10, 2, -196634, 2, 0, -196609, 14, 1, -131123, 10, 2, -131122, 10, 2, -131121, 10, 1, -131120, 10, 2, -131119, 10, 1, -131118, 10, 0, -131117, 10, 2, -131116, 10, 0, -131115, 10, 0, -131114, 10, 2, -131113, 10, 2, -131112, 10, 1, -131111, 10, 1, -131110, 10, 2, -131109, 10, 2, -131108, 10, 0, -131107, 10, 2, -131106, 10, 2, -131105, 10, 2, -131104, 10, 2, -131103, 10, 0, -131102, 10, 0, -131101, 10, 0, -131100, 10, 2, -131099, 10, 2, -131098, 2, 0, -131073, 17, 2, -65587, 10, 2, -65586, 10, 0, -65585, 10, 0, -65584, 10, 0, -65581, 2, 0, -65579, 2, 0, -65572, 10, 2, -65571, 10, 0, -65570, 10, 1, -65569, 10, 0, -65568, 10, 2, -65567, 10, 2, -65566, 10, 2, -65565, 10, 2, -65564, 10, 2, -65563, 10, 1, -65562, 2, 2, -65561, 2, 0, -65539, 25, 2, -65538, 10, 2, -65537, 10, 2, -131072, 10, 1, -51, 10, 2, -50, 10, 1, -49, 10, 2, -48, 10, 1, -37, 2, 0, -36, 10, 2, -35, 10, 2, -34, 10, 0, -33, 10, 2, -32, 10, 2, -31, 10, 2, -30, 10, 1, -29, 10, 2, -27, 10, 2, -26, 2, 2, -25, 2, 0, -6, 15, 2, -5, 10, 2, -4, 10, 2, -3, 10, 2, -2, 10, 2, -1, 10, 0, -65536, 10, 2, 65484, 10, 2, 65485, 10, 0, 65486, 10, 1, 65487, 10, 0, 65488, 10, 2, 65493, 2, 0, 65499, 2, 0, 65500, 10, 0, 65501, 10, 2, 65502, 10, 0, 65503, 10, 2, 65504, 10, 2, 65505, 10, 2, 65506, 10, 0, 65507, 10, 2, 65509, 10, 2, 65510, 10, 2, 65511, 10, 2, 65512, 10, 0, 65513, 10, 0, 65514, 10, 1, 65515, 10, 0, 65516, 10, 2, 65517, 10, 2, 65518, 10, 1, 65519, 10, 2, 65520, 10, 0, 65521, 10, 2, 65522, 10, 2, 65523, 10, 2, 65524, 10, 1, 65525, 10, 1, 65526, 10, 2, 65527, 10, 2, 65528, 10, 2, 65529, 10, 2, 65530, 10, 1, 65531, 10, 2, 65532, 10, 1, 65533, 10, 2, 65534, 10, 2, 65535, 10, 1, 0, 10, 1, 131020, 10, 2, 131021, 10, 2, 131022, 10, 2, 131023, 10, 2, 131024, 10, 2, 131025, 10, 2, 131026, 10, 2, 131027, 10, 1, 131028, 10, 1, 131029, 10, 0, 131030, 10, 1, 131031, 10, 1, 131032, 10, 2, 131033, 10, 2, 131034, 10, 0, 131035, 10, 0, 131036, 10, 2, 131037, 10, 0, 131043, 10, 2, 131045, 10, 1, 131047, 2, 2, 131049, 10, 1, 131050, 10, 1, 131051, 10, 2, 131052, 2, 2, 131053, 2, 2, 131054, 2, 2, 131055, 2, 2, 131056, 2, 0, 131058, 2, 0, 131059, 2, 0, 131060, 2, 2, 131061, 2, 2, 131062, 2, 2, 131063, 2, 2, 131064, 2, 0, 131066, 8, 2, 131067, 10, 2, 131068, 10, 2, 131069, 10, 2, 131070, 6, 0, 131071, 10, 2, 65536, 10, 0, 196556, 10, 2, 196557, 10, 0, 196558, 10, 1, 196559, 10, 2, 196560, 10, 0, 196566, 2, 2, 196567, 2, 2, 196568, 2, 2, 196569, 2, 2, 196570, 2, 2, 196571, 2, 2, 196572, 10, 0, 196573, 10, 2, 196580, 18, 0, 196581, 2, 0, 196583, 2, 0, 196584, 2, 2, 196586, 2, 2, 196601, 2, 0, 196602, 2, 0, 196604, 10, 2, 196605, 10, 1, 196607, 10, 2, 131072, 10, 2, 131074, 8, 0, 262092, 10, 0, 262093, 10, 0, 262094, 10, 1, 262095, 10, 1, 262096, 10, 1, 262103, 2, 2, 262104, 2, 2, 262105, 2, 0, 262106, 2, 0, 262107, 2, 0, 262108, 10, 1, 262109, 10, 1, 262116, 19, 0, 262122, 2, 0, 262141, 10, 1, 262142, 18, 0, 262143, 10, 2, 196608, 10, 1, 196609, 8, 0, 327628, 10, 2, 327629, 10, 1, 327630, 10, 2, 327631, 10, 2, 327632, 10, 1, 327640, 2, 2, 327641, 2, 0, 327644, 10, 0, 327645, 10, 2, 327652, 20, 0, 327658, 18, 0, 327677, 10, 2, 327678, 19, 0, 327679, 10, 2, 393165, 10, 2, 393166, 10, 1, 393167, 10, 2, 393168, 10, 2, 393169, 10, 0, 393170, 10, 1, 393171, 10, 2, 393172, 10, 2, 393173, 10, 2, 393174, 10, 2, 393175, 10, 2, 393176, 10, 2, 393177, 10, 0, 393178, 10, 1, 393179, 10, 2, 393180, 10, 2, 393181, 10, 1, 393182, 10, 0, 393183, 10, 2, 393184, 10, 2, 393185, 10, 0, 393186, 10, 2, 393187, 10, 2, 393188, 10, 1, 393189, 10, 2, 393190, 10, 2, 393191, 10, 2, 393192, 10, 2, 393193, 10, 2, 393194, 19, 0, 393195, 10, 2, 393196, 10, 0, 393197, 10, 2, 393198, 10, 1, 393199, 10, 2, 393214, 19, 0, 458701, 10, 2, 458702, 10, 2, 458703, 10, 1, 458704, 10, 1, 458705, 10, 2, 458715, 2, 2, 458716, 10, 2, 458721, 2, 0, 458722, 2, 0, 458723, 2, 0, 458724, 2, 0, 458725, 2, 0, 458726, 10, 2, 458727, 10, 0, 458728, 10, 0, 458729, 10, 2, 458730, 20, 0, 458731, 10, 0, 458734, 2, 0, 458735, 2, 0, 458736, 2, 0, 458737, 2, 0, 458738, 2, 0, 458739, 2, 0, 458742, 2, 0, 458750, 20, 0, 524237, 10, 2, 524238, 10, 2, 524239, 10, 1, 524240, 10, 2, 524241, 10, 1, 524252, 10, 1, 524253, 2, 0, 524254, 2, 0, 524255, 2, 0, 524256, 2, 0, 524257, 2, 0, 524258, 2, 2, 524259, 2, 2, 524260, 2, 2, 524261, 2, 0, 524262, 10, 2, 524263, 10, 2, 524264, 10, 0, 524265, 10, 1, 524267, 10, 2, 524279, 2, 0, 589773, 10, 2, 589774, 10, 2, 589775, 10, 2, 589776, 10, 1, 589777, 10, 2, 589788, 10, 2, 589791, 2, 0, 589792, 2, 2, 589793, 2, 2, 589794, 2, 0, 589795, 2, 0, 589796, 2, 0, 589797, 2, 0, 589798, 10, 1, 589799, 10, 1, 589800, 10, 2, 589801, 10, 2, 589802, 10, 2, 589803, 10, 2, 655310, 10, 1, 655311, 10, 2, 655312, 10, 0, 655313, 10, 2, 655314, 10, 2, 655315, 10, 2, 655316, 10, 1, 655317, 10, 2, 655318, 10, 0, 655319, 10, 2, 655320, 10, 2, 655321, 10, 2, 655322, 10, 2, 655323, 10, 0, 655324, 10, 1, 655325, 25, 2, 655326, 25, 1, 655327, 25, 2, 655328, 25, 1, 655329, 25, 2, 655330, 10, 0, 655331, 10, 0, 655332, 2, 0, 655333, 2, 0, 655334, 10, 2, 655335, 10, 1, 655337, 10, 2, 655338, 10, 0, 655339, 10, 0, 655340, 10, 1, 655341, 10, 0, 655342, 10, 1, 655343, 10, 2, 655344, 10, 2, 655345, 10, 0, 655346, 10, 2, 655347, 10, 1, 655348, 10, 2, 655349, 10, 0, 655350, 10, 0, 655351, 10, 2, 655352, 10, 2, 655353, 10, 1, 655354, 10, 2, 655355, 10, 2, 655356, 10, 2, 655357, 10, 2, 655358, 10, 1, 655359, 8, 1, 720846, 10, 2, 720847, 10, 0, 720848, 10, 0, 720849, 10, 1, 720850, 10, 2, 720851, 10, 2, 720860, 10, 1, 720861, 10, 2, 720862, 10, 1, 720863, 10, 2, 720864, 10, 0, 720865, 10, 1, 720866, 10, 2, 720867, 10, 2, 720869, 2, 2, 720870, 2, 2, 720871, 10, 2, 720873, 10, 0, 720878, 10, 2, 720879, 10, 0, 720880, 10, 2, 720881, 10, 2, 720882, 10, 1, 720883, 10, 2, 720884, 10, 0, 720885, 10, 2, 720886, 10, 2, 720887, 10, 2, 720888, 10, 2, 720889, 10, 0, 720890, 10, 0, 720891, 10, 2, 720892, 10, 2, 720893, 10, 2, 720894, 10, 0, 786382, 10, 2, 786383, 10, 2, 786384, 10, 2, 786385, 10, 2, 786386, 10, 0, 786387, 10, 2, 786396, 10, 0, 786408, 18, 0, 786414, 10, 2, 786415, 10, 2, 786416, 10, 2, 786417, 10, 0, 786418, 10, 2, 786419, 10, 2, 786420, 10, 2, 786421, 10, 0, 786422, 10, 0, 786423, 10, 2, 786424, 10, 1, 786425, 10, 2, 786426, 10, 2, 786427, 10, 2, 786428, 10, 2, 851919, 10, 2, 851920, 10, 0, 851921, 10, 2, 851922, 10, 1, 851923, 10, 2, 851932, 10, 2, 851944, 20, 0, 851950, 10, 2, 851951, 10, 1, 851952, 10, 2, 851953, 10, 2, 851954, 10, 2, 851955, 10, 1, 851956, 10, 1, 851957, 10, 0, 851958, 10, 1, 851959, 10, 2, 851960, 10, 2, 851961, 8, 1, 917456, 10, 2, 917457, 10, 2, 917458, 10, 0, 917459, 10, 2, 917460, 10, 2, 917461, 10, 2, 917462, 10, 0, 917463, 10, 2, 917464, 10, 2, 917465, 10, 2, 917466, 10, 2, 917467, 10, 1, 917468, 10, 2, 917469, 25, 1, 917470, 25, 2, 917471, 25, 2, 917472, 25, 1, 917473, 25, 1, 917474, 10, 2, 917475, 10, 2, 917476, 10, 0, 917477, 10, 1, 917478, 10, 0, 917479, 10, 2, 917480, 10, 2, 917481, 10, 2, 917482, 10, 1, 917483, 10, 2, 917484, 10, 2, 917485, 10, 2, 917486, 10, 0, 917487, 10, 0, 917488, 10, 2, 917489, 10, 2, 917490, 10, 2, 917491, 10, 2, 917492, 10, 2, 917493, 10, 2, 982993, 10, 2, 982994, 10, 2, 982995, 10, 2, 982996, 10, 2, 982997, 10, 1, 982998, 10, 2, 982999, 10, 2, 983000, 10, 2, 983001, 10, 2, 983002, 10, 2, 983003, 10, 1, 983004, 10, 0, 983005, 10, 1, 983006, 10, 2, 983007, 10, 2, 983008, 10, 2, 983009, 10, 2, 983010, 10, 0, 983011, 10, 1, 983012, 10, 2, 983013, 10, 2, 983014, 10, 2, 983015, 10, 1, 983016, 10, 2, 983017, 10, 2, 983018, 10, 2, 983019, 10, 2, 983020, 10, 1, 983021, 10, 1, 983022, 10, 2, 983023, 10, 2, 983024, 8, 1, 1048531, 8, 2, 1048532, 8, 1, 1048533, 10, 2, 1048534, 10, 1, 1048535, 10, 2, 1048536, 10, 2, 1048537, 10, 0, 1048538, 10, 2, 1048539, 10, 2, 1048540, 10, 1, 1048541, 10, 1, 1048542, 10, 1, 1048543, 10, 1, 1048544, 10, 1, 1048545, 10, 2, 1048546, 10, 2, 1048547, 10, 2, 1048548, 10, 0, 1048549, 10, 1, 1048550, 10, 2, 1048551, 10, 2, 1048552, 10, 2, 1048553, 10, 1, 1048554, 10, 2, 1048555, 10, 1 )
+
+[node name="SettingData" type="Node" parent="."]
+script = ExtResource( 2 )
+map_settings = {
+"adding_to_statistics": true,
+"can_be_saved": true,
+"crafting": [ "remotedrill", "standart_bullet", "flask", "water" ],
+"creation_position": Vector2( -9650, -4800 ),
+"dehumidification_frequency": 0,
+"edit_save": false,
+"is_save": false,
+"number_of_clutches": 3,
+"revive": true,
+"specter": true,
+"taking_away_hunger": 1,
+"time_to_destruction": 60
+}
+transition_value = {
+"chest": 100,
+"copper": 14,
+"craft": 100,
+"details": 14,
+"door_bottom": 100,
+"door_center": 100,
+"door_up": 100,
+"glass": 100,
+"ground": 7,
+"iron": 14,
+"moss": 8,
+"stone": 14,
+"wall": 100,
+"water": 100
+}
+use_tile = {
+"craft": {
+"use_func": [ "/root/rootGame/Node/Player", "show_craft_menu" ]
+},
+"water": {
+"add_item": "water"
+}
+}
+
+[node name="ItemData" type="Node" parent="SettingData"]
+script = SubResource( 28 )
+
+[node name="ItemLogical" type="Node" parent="SettingData"]
+
+[node name="water" type="Node" parent="SettingData/ItemLogical"]
+script = SubResource( 29 )
+
+[node name="bread" type="Node" parent="SettingData/ItemLogical"]
+script = SubResource( 30 )
+
+[node name="moss" type="Node" parent="SettingData/ItemLogical"]
+script = SubResource( 44 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -9102.26
+margin_top = -4911.09
+margin_right = -8675.26
+margin_bottom = -4806.09
+custom_colors/font_color = Color( 0.592157, 0.592157, 0.592157, 1 )
+custom_fonts/font = SubResource( 31 )
+text = "Взаимодействие:
+  С объектами - \"Е\" рядом с ними
+  С блоками - СКМ по блоку"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+visible = false
+margin_left = -9552.24
+margin_top = -4761.45
+margin_right = -9074.24
+margin_bottom = -4620.45
+custom_colors/font_color = Color( 0.415686, 0.415686, 0.415686, 1 )
+custom_fonts/font = SubResource( 31 )
+text = "Чтобы использовать предмет
+нажмите СКМ на предмет в
+инвентаре, не все предметы 
+имеют реакцию на взаимодействие"
+
+[node name="Label4" type="Label" parent="."]
+visible = false
+margin_left = -9720.26
+margin_top = -4916.56
+margin_right = -9328.26
+margin_bottom = -4769.56
+custom_colors/font_color = Color( 0.513726, 0.513726, 0.513726, 1 )
+custom_fonts/font = SubResource( 32 )
+text = "Вы можете выбрасывить любой
+предмет из инвентаря, а некоторые
+ещё и установить как блоки.
+Вытащите из инвентаря предмет и
+нажмити нужную кнопку мыши."
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+margin_left = -9316.59
+margin_top = -4905.25
+margin_right = -9121.59
+margin_bottom = -4800.25
+custom_colors/font_color = Color( 0.721569, 0.721569, 0.721569, 1 )
+custom_fonts/font = SubResource( 33 )
+text = "Управление:
+  Q - инвентарь
+  ENTER - чат"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottom" type="Sprite" parent="."]
+position = Vector2( -2751.2, -479.283 )
+texture = ExtResource( 55 )
+
+[node name="bottom2" type="Sprite" parent="."]
+position = Vector2( -2619.54, -479.82 )
+texture = ExtResource( 55 )
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2( -2482.78, -530.779 )
+scale = Vector2( 0.18, 0.18 )
+script = SubResource( 34 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource( 35 )
+
+[node name="sphere_os_1" type="Sprite" parent="Area2D2"]
+position = Vector2( 0.233088, -0.0608953 )
+scale = Vector2( 1.01081, 1.01061 )
+texture = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D2"]
+frames = SubResource( 36 )
+speed_scale = 0.6
+playing = true
+
+[node name="top" type="Sprite" parent="."]
+position = Vector2( -2751.19, -543.231 )
+texture = ExtResource( 56 )
+
+[node name="bottom3" type="Sprite" parent="."]
+position = Vector2( -2619.57, -543.615 )
+texture = ExtResource( 55 )
+
+[node name="top2" type="Sprite" parent="."]
+position = Vector2( -2619.58, -606.744 )
+texture = ExtResource( 56 )
+
+[node name="bottom4" type="Sprite" parent="."]
+position = Vector2( -2879, -224 )
+texture = ExtResource( 55 )
+
+[node name="bottom5" type="Sprite" parent="."]
+position = Vector2( -2879, -287.898 )
+texture = ExtResource( 55 )
+
+[node name="top3" type="Sprite" parent="."]
+position = Vector2( -2879.02, -351.771 )
+texture = ExtResource( 56 )
+
+[node name="bottom6" type="Sprite" parent="."]
+position = Vector2( -2747.85, -223.935 )
+texture = ExtResource( 55 )
+
+[node name="top4" type="Sprite" parent="."]
+position = Vector2( -2747.84, -287.859 )
+texture = ExtResource( 56 )
+
+[node name="bottom7" type="Sprite" parent="."]
+position = Vector2( -2616.2, -224.024 )
+texture = ExtResource( 55 )
+
+[node name="bottom8" type="Sprite" parent="."]
+position = Vector2( -2616.22, -287.613 )
+texture = ExtResource( 55 )
+
+[node name="top5" type="Sprite" parent="."]
+position = Vector2( -2616.21, -351.577 )
+texture = ExtResource( 56 )
+
+[node name="bottom9" type="Sprite" parent="."]
+position = Vector2( -2943.82, 32.317 )
+texture = ExtResource( 55 )
+
+[node name="bottom10" type="Sprite" parent="."]
+position = Vector2( -2815.75, 32.5157 )
+texture = ExtResource( 55 )
+
+[node name="bottom11" type="Sprite" parent="."]
+position = Vector2( -2685.6, 32.0202 )
+texture = ExtResource( 55 )
+
+[node name="bottom14" type="Sprite" parent="."]
+position = Vector2( -2677.86, 286.363 )
+texture = ExtResource( 55 )
+
+[node name="bottom15" type="Sprite" parent="."]
+position = Vector2( -2877.54, 544.022 )
+texture = ExtResource( 55 )
+
+[node name="bottom18" type="Sprite" parent="."]
+position = Vector2( -2749.11, 800.018 )
+texture = ExtResource( 55 )
+
+[node name="bottom19" type="Sprite" parent="."]
+position = Vector2( -2615.96, 800.129 )
+texture = ExtResource( 55 )
+
+[node name="bottom20" type="Sprite" parent="."]
+position = Vector2( -2484.64, 800.365 )
+texture = ExtResource( 55 )
+
+[node name="top6" type="Sprite" parent="."]
+position = Vector2( -2943.82, -31.6831 )
+texture = ExtResource( 56 )
+
+[node name="bottom21" type="Sprite" parent="."]
+position = Vector2( -2815.77, -31.1558 )
+texture = ExtResource( 55 )
+
+[node name="top7" type="Sprite" parent="."]
+position = Vector2( -2815.77, -95.0215 )
+texture = ExtResource( 56 )
+
+[node name="top8" type="Sprite" parent="."]
+position = Vector2( -2685.58, -31.8155 )
+texture = ExtResource( 56 )
+
+[node name="bottom16" type="Sprite" parent="."]
+position = Vector2( -2744.86, 544.177 )
+texture = ExtResource( 55 )
+
+[node name="bottom17" type="Sprite" parent="."]
+position = Vector2( -2611.62, 544.16 )
+texture = ExtResource( 55 )
+
+[node name="bottom13" type="Sprite" parent="."]
+position = Vector2( -2808.07, 286.925 )
+texture = ExtResource( 55 )
+
+[node name="bottom12" type="Sprite" parent="."]
+position = Vector2( -2939.88, 287.52 )
+texture = ExtResource( 55 )
+
+[node name="bottom22" type="Sprite" parent="."]
+position = Vector2( -2940.31, 222.458 )
+texture = ExtResource( 55 )
+
+[node name="bottom23" type="Sprite" parent="."]
+position = Vector2( -2807.11, 224.242 )
+texture = ExtResource( 55 )
+
+[node name="bottom24" type="Sprite" parent="."]
+position = Vector2( -2678.09, 223.053 )
+texture = ExtResource( 55 )
+
+[node name="top9" type="Sprite" parent="."]
+position = Vector2( -2941.49, 160.619 )
+texture = ExtResource( 56 )
+
+[node name="top10" type="Sprite" parent="."]
+position = Vector2( -2807.71, 160.025 )
+texture = ExtResource( 56 )
+
+[node name="top11" type="Sprite" parent="."]
+position = Vector2( -2678.09, 159.43 )
+texture = ExtResource( 56 )
+
+[node name="top12" type="Sprite" parent="."]
+position = Vector2( -2877.51, 480.147 )
+texture = ExtResource( 56 )
+
+[node name="top13" type="Sprite" parent="."]
+position = Vector2( -2744.87, 480.201 )
+texture = ExtResource( 56 )
+
+[node name="bottom25" type="Sprite" parent="."]
+position = Vector2( -2611.61, 480.232 )
+texture = ExtResource( 55 )
+
+[node name="top14" type="Sprite" parent="."]
+position = Vector2( -2611.61, 416.681 )
+texture = ExtResource( 56 )
+
+[node name="bottom26" type="Sprite" parent="."]
+position = Vector2( -2749.11, 736.043 )
+texture = ExtResource( 55 )
+
+[node name="bottom27" type="Sprite" parent="."]
+position = Vector2( -2615.97, 736.132 )
+texture = ExtResource( 55 )
+
+[node name="top15" type="Sprite" parent="."]
+position = Vector2( -2484.62, 672.717 )
+texture = ExtResource( 56 )
+
+[node name="bottom28" type="Sprite" parent="."]
+position = Vector2( -2484.64, 736.675 )
+texture = ExtResource( 55 )
+
+[node name="top16" type="Sprite" parent="."]
+position = Vector2( -2749.11, 672.067 )
+texture = ExtResource( 56 )
+
+[node name="top17" type="Sprite" parent="."]
+position = Vector2( -2615.97, 672.132 )
+texture = ExtResource( 56 )
+
+[node name="Door Control" type="AnimatedSprite" parent="."]
+position = Vector2( -930.841, 476.56 )
+frames = SubResource( 37 )
+animation = "destroyed"
+playing = true
+
+[node name="Light Control" type="AnimatedSprite" parent="."]
+position = Vector2( -1119.83, -101.744 )
+frames = SubResource( 38 )
+animation = "destroyed"
+playing = true
+
+[node name="Climate Control" type="AnimatedSprite" parent="."]
+position = Vector2( -1546.1, -523.844 )
+frames = SubResource( 39 )
+animation = "destroyed"
+playing = true
+
+[node name="Atmospheres Control" type="AnimatedSprite" parent="."]
+position = Vector2( -1341.56, 753.364 )
+frames = SubResource( 40 )
+animation = "destroyed"
+playing = true
+
+[node name="Navigation Control" type="AnimatedSprite" parent="."]
+position = Vector2( -1940.88, -535.18 )
+frames = SubResource( 41 )
+animation = "destroyed"
+playing = true
+
+[node name="Label5" type="Label" parent="."]
+margin_left = -939.0
+margin_top = -265.0
+margin_right = -553.0
+margin_bottom = -225.0
+custom_fonts/font = SubResource( 42 )
+text = "Рубка управления"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="."]
+margin_left = -805.448
+margin_top = 327.163
+margin_right = -419.448
+margin_bottom = 367.163
+custom_fonts/font = SubResource( 42 )
+text = "Склад"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label7" type="Label" parent="."]
+margin_left = -1810.53
+margin_top = 727.456
+margin_right = -1561.53
+margin_bottom = 767.456
+custom_fonts/font = SubResource( 42 )
+text = "оружейная"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label8" type="Label" parent="."]
+margin_left = -2550.88
+margin_top = -620.0
+margin_right = -2308.88
+margin_bottom = -587.0
+custom_fonts/font = SubResource( 43 )
+text = "Криокапсулы"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 58 )
+volume_db = -15.0
+autoplay = true
+
+[node name="Guider" type="Node" parent="."]
+script = SubResource( 61 )
+
+[node name="Bot" type="Node2D" parent="Guider"]
+position = Vector2( -9488.74, -4720.21 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Guider/Bot"]
+frames = SubResource( 52 )
+animation = "def"
+frame = 4
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Guider"]
+autoplay = "1"
+anims/1 = SubResource( 53 )
+anims/2 = SubResource( 54 )
+anims/3 = SubResource( 55 )
+anims/4 = SubResource( 56 )
+anims/5 = SubResource( 57 )
+anims/6 = SubResource( 58 )
+anims/7 = SubResource( 59 )
+anims/8 = SubResource( 60 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Guider"]
+stream = ExtResource( 68 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="Guider"]
+position = Vector2( -8671.56, -4706.05 )
+script = SubResource( 62 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Guider/KinematicBody2D"]
+position = Vector2( -0.466797, 2.05518 )
+shape = SubResource( 63 )
+
+[node name="Mob" parent="." instance=ExtResource( 59 )]
+position = Vector2( -677.302, 553.745 )
+
+[node name="Mob3" parent="." instance=ExtResource( 59 )]
+position = Vector2( -1448.38, 300.783 )
+
+[node name="Mob4" parent="." instance=ExtResource( 59 )]
+position = Vector2( -416.597, 501.757 )
+
+[connection signal="tyt" from="Guider/KinematicBody2D" to="Guider" method="fife"]

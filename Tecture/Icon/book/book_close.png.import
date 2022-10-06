@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/book_close.png-66de8b3420bfd146da7c7cde76527dfc.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Tecture/Icon/book/book_close.png"
+dest_files=[ "res://.import/book_close.png-66de8b3420bfd146da7c7cde76527dfc.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
