@@ -267,11 +267,6 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "pass",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "error",
@@ -280,6 +275,11 @@ animations = [ {
 "frames": [ ExtResource( 15 ), ExtResource( 17 ), ExtResource( 22 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "ok",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "pass",
 "speed": 5.0
 } ]
 
@@ -1151,14 +1151,9 @@ func delet(dat: Dictionary): #{\"iron\": 7}
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ ExtResource( 37 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 38 ) ],
+"frames": [ ExtResource( 41 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 39 ) ],
 "loop": true,
-"name": "up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 32 ), ExtResource( 26 ), ExtResource( 33 ), ExtResource( 31 ) ],
-"loop": true,
-"name": "wait",
+"name": "down",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 51 ), ExtResource( 53 ), ExtResource( 52 ) ],
@@ -1171,19 +1166,24 @@ animations = [ {
 "name": "passage",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 30 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ) ],
-"loop": true,
-"name": "work",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 35 ), ExtResource( 34 ), ExtResource( 44 ), ExtResource( 34 ) ],
 "loop": true,
 "name": "straight",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 41 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 39 ) ],
+"frames": [ ExtResource( 37 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 38 ) ],
 "loop": true,
-"name": "down",
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ), ExtResource( 26 ), ExtResource( 33 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "wait",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 30 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ) ],
+"loop": true,
+"name": "work",
 "speed": 5.0
 } ]
 
@@ -1882,17 +1882,17 @@ animations = [ {
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "repaired",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "destroyed",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "in progress",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
 "speed": 5.0
 } ]
 
@@ -1900,17 +1900,17 @@ animations = [ {
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "repaired",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "destroyed",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "in progress",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
 "speed": 5.0
 } ]
 
@@ -1918,17 +1918,17 @@ animations = [ {
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "repaired",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "destroyed",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "in progress",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
 "speed": 5.0
 } ]
 
@@ -1936,17 +1936,17 @@ animations = [ {
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "repaired",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "destroyed",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "in progress",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
 "speed": 5.0
 } ]
 
@@ -1954,17 +1954,17 @@ animations = [ {
 animations = [ {
 "frames": [  ],
 "loop": true,
-"name": "repaired",
-"speed": 5.0
-}, {
-"frames": [  ],
-"loop": true,
 "name": "destroyed",
 "speed": 5.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "in progress",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "repaired",
 "speed": 5.0
 } ]
 
@@ -3081,7 +3081,7 @@ rotation = 0.00943437
 scale = Vector2( 0.151132, 0.161913 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 1
+frame = 3
 speed_scale = 0.2
 playing = true
 
@@ -3119,7 +3119,7 @@ rotation = 0.0036599
 scale = Vector2( 0.115135, 0.123498 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 2
+frame = 3
 speed_scale = 0.3
 playing = true
 
@@ -3129,7 +3129,7 @@ rotation = -0.0768155
 scale = Vector2( 0.126976, 0.135253 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 2
+frame = 3
 speed_scale = 0.3
 playing = true
 
@@ -3149,7 +3149,7 @@ rotation = -0.00647718
 scale = Vector2( 0.158816, 0.164655 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 2
+frame = 1
 speed_scale = 0.6
 playing = true
 
@@ -3241,14 +3241,6 @@ transition_value = {
 "stone": 14,
 "wall": 100,
 "water": 100
-}
-use_tile = {
-"craft": {
-"use_func": [ "/root/rootGame/Node/Player", "show_craft_menu" ]
-},
-"water": {
-"add_item": "water"
-}
 }
 
 [node name="ItemData" type="Node" parent="SettingData"]
@@ -3345,6 +3337,7 @@ texture = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D2"]
 frames = SubResource( 36 )
+frame = 3
 speed_scale = 0.6
 playing = true
 
@@ -3608,7 +3601,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Guider/Bot"]
 frames = SubResource( 52 )
 animation = "def"
-frame = 4
+frame = 2
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Guider"]
