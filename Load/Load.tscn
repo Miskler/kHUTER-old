@@ -38,10 +38,9 @@ func load_game():
 
 
 func animation_finished(_anim_name):
-	if path != \"\" and path != null:
-		get_tree().change_scene(path)
-	else:
-		get_tree().change_scene(\"res://Sceni/LVL/Meny.tscn\")
+	if path == \"\" or path == null:
+		path = \"res://Sceni/LVL/Meny.tscn\"
+	G.get_node(\"Load Screen\").select(path, false)
 "
 
 [sub_resource type="Animation" id=2]
@@ -54,10 +53,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 4.7, 6.7, 6.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+"values": [ Color( 0, 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Brend:visible_characters")
@@ -154,15 +153,15 @@ margin_top = 141.775
 margin_right = 842.439
 margin_bottom = 468.775
 custom_fonts/font = ExtResource( 1 )
-text = "Sphere
-Studio"
+text = "Sphere"
 align = 1
 valign = 1
+percent_visible = 0.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

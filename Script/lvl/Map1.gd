@@ -7,10 +7,13 @@ export var sistem = [false, false, false, false, false]
 func _ready():
 	if generat == false and(get_tree().network_peer == null or get_tree().is_network_server()):
 		generat = true
-		$TileMap.tiles = $TileMap.registration()
 		
-		$TileMap.generate(500, 100)
-		for i in [{"copper": 0.4}, {"details": 0.4}, {"moss": 0.4}, {"ice": 0.4}, {"iron": 0.4}]:
+		#$TileMap.unification($TileMap.pruning(, $TileMap.registration())
+		var size_world = Vector2(200, 100)
+		
+		$TileMap.tiles = $TileMap.unification($TileMap.pruning(size_world.x, size_world.y, $TileMap.generate(size_world.x, size_world.y)), $TileMap.registration($TileMap))
+		
+		for i in [{"andesite": 0.3}, {"copper": 0.4}, {"details": 0.4}, {"moss": 0.4}, {"ice": 0.4}, {"iron": 0.4}]:
 			$TileMap.ore($TileMap.tiles, i, 500, 100)
 		
 		var manual = [

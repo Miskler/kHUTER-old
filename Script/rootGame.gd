@@ -212,6 +212,7 @@ func set_scene(path):
 	else:
 		print("Распаковка полученной карты...")
 		print("Создание дерева нод...")
+		G.get_node("Load Screen").event_p(0)
 		for i in path:
 			var node_spavn = ClassDB.instance(i["node"])
 			var no_use = ["node", "script", "path", "tile_data", "filename"]
@@ -267,6 +268,8 @@ func set_scene(path):
 				node_spavn.rect_position = i["rect_position"]
 				node_spavn.rect_size = i["rect_size"]
 		
+		yield(get_tree(), "idle_frame")
+		G.get_node("Load Screen").event_p(20)
 		print("Установка переменных...")
 		for i in path:
 			var node = get_node(str(i["path"]) + "/" + i["name"])
@@ -297,17 +300,26 @@ func set_scene(path):
 				for k in range(i["script"]["vars"].size()):
 					node.set(vars_keys[k], i["script"]["vars"][vars_keys[k]])
 		
+		yield(get_tree(), "idle_frame")
+		G.get_node("Load Screen").event_p(40)
 		print("Установка сигналов...")
 		for i in path:
 			for signal_name in i["signals"].keys():
 				for signal_data in i["signals"][signal_name]:
 					get_node(str(i["path"]) + "/" + i["name"]).connect(signal_name, get_node(signal_data[1]), signal_data[0])
 		
+		yield(get_tree(), "idle_frame")
+		G.get_node("Load Screen").event_p(60)
 		print("Запуск виртуальных функций...")
 		connect_virtual_signals($"/root/rootGame", ["/root/rootGame/Timer", "/root/rootGame/Timer2"])
+		
+		G.get_node("Load Screen").event_p(80)
 		print("Запуск скриптов...")
 		ready_script_started($"/root/rootGame", ["/root/rootGame/Timer", "/root/rootGame/Timer2"])
-		print("Готово!")
+	yield(get_tree(), "idle_frame")
+	G.get_node("Load Screen").event_p(100)
+	print("Готово!")
+	G.get_node("Load Screen").not_select()
 
 func setter_param(node_spavn, path):
 	var no_use = ["node", "script", "path", "tile_data", "filename"]
@@ -332,7 +344,7 @@ remote func event_state(path, data):
 	if get_node_or_null(path) != null and path.begins_with("/root/rootGame/Node"):
 		get_node(path).event_state(data)
 
-remote func create_bullet(gan, bullet, pos, rot = 0, texture = "res://Tecture/Modeli/no_texture.png", damage = 1, attraction = 0, speed = 100, mode = false, source:Node = null): #Позиция, поворот, текстура, урон, притяжение к земле
+remote func create_bullet(gan, bullet, pos, rot = 0, texture = "res://Tecture/Modeli/no_texture.png", damage = 1, attraction = 0, speed = 100, mode:bool = false, output:int = 0, source:Node = null): #Позиция, поворот, текстура, урон, притяжение к земле
 	SD = get_node("/root/rootGame/Node/SettingData")
 	var bullet_load = load("res://Sceni/item/bullet.res").instance()
 	bullet_load.global_position = pos
@@ -344,6 +356,7 @@ remote func create_bullet(gan, bullet, pos, rot = 0, texture = "res://Tecture/Mo
 	bullet_load.setting_bullet["speed"] = speed
 	bullet_load.setting_bullet["instantly"] = mode
 	bullet_load.setting_bullet["source"] = source
+	bullet_load.setting_bullet["output"] = output
 	
 	bullet_load.gan = gan
 	bullet_load.bullet = bullet

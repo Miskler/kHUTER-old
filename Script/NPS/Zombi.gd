@@ -10,31 +10,46 @@ var stop = false
 
 func _process(_delta):
 	if stop == false and $Sing.i_am == $Sing.cur:
-		#printt($RayCast2D.is_colliding(), $RayCast2D2.is_colliding(), $RayCast2D3.is_colliding(), $RayCast2D4.is_colliding())
-		if $TextureRect.flip_h == false and(($RayCast2D2.is_colliding() and $RayCast2D5.is_colliding()) or (dead_mode == false and not $RayCast2D4.is_colliding())):
-			$TextureRect.flip_h = true
-		elif $TextureRect.flip_h == true and(($RayCast2D.is_colliding() and $RayCast2D6.is_colliding()) or (dead_mode == false and not $RayCast2D3.is_colliding())):
-			$TextureRect.flip_h = false
+		if stop == false:
+			$Anim.play("idle")
+		elif vec.y < 0.0:
+			if $Anim.animation != "jump":
+				$Anim.play("jump")
+		elif vec.y > 0.0:
+			if $Anim.animation != "fall":
+				$Anim.play("fall")
+		elif dead_mode == true:
+			$Anim.play("run")
+		else:
+			$Anim.play("walk")
 		
-		if is_on_floor() and (($TextureRect.flip_h == true and($RayCast2D.is_colliding() and not $RayCast2D6.is_colliding())) or ($TextureRect.flip_h == false and($RayCast2D2.is_colliding() and not $RayCast2D5.is_colliding()))):
+		
+		#printt($RayCast2D.is_colliding(), $RayCast2D2.is_colliding(), $RayCast2D3.is_colliding(), $RayCast2D4.is_colliding())
+		if $Anim.flip_h == false and(($RayCast2D2.is_colliding() and $RayCast2D5.is_colliding()) or (dead_mode == false and not $RayCast2D4.is_colliding())):
+			$Anim.flip_h = true
+		elif $Anim.flip_h == true and(($RayCast2D.is_colliding() and $RayCast2D6.is_colliding()) or (dead_mode == false and not $RayCast2D3.is_colliding())):
+			$Anim.flip_h = false
+		
+		if is_on_floor() and (($Anim.flip_h == true and($RayCast2D.is_colliding() and not $RayCast2D6.is_colliding())) or ($Anim.flip_h == false and($RayCast2D2.is_colliding() and not $RayCast2D5.is_colliding()))):
 			vec.y = -speed.y
 		
-		if $TextureRect.flip_h == false:
+		if $Anim.flip_h == false:
 			vec.x = speed.x
 		else: vec.x = -speed.x
 		
-		if dead_mode == true: 
+		if dead_mode == true:
 			vec.x = vec.x * 8
-			if is_on_floor(): vec.y = -speed.y
+			if is_on_floor(): 
+				vec.y = -speed.y
 		if not is_on_floor(): vec.y += speed.z
 		
 		vec = move_and_slide(vec, Vector2(0, -1))
 		if get_tree().network_peer != null:
-			get_node("/root/rootGame").rpc("event_state", [$TextureRect.flip_h, global_position])
+			get_node("/root/rootGame").rpc("event_state", [$Anim.flip_h, global_position])
 
 remote func event_state(dat):
 	global_position = dat[1]
-	$TextureRect.flip_h = dat[0]
+	$Anim.flip_h = dat[0]
 
 remote func damage(_setting_bullet):
 	if dead_mode == false:
