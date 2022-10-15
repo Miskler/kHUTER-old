@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Script/Global.gd" type="Script" id=1]
 [ext_resource path="res://Script/screenshot.gd" type="Script" id=2]
+[ext_resource path="res://Foud/20703.otf" type="DynamicFontData" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node
@@ -246,6 +247,147 @@ func send(nodes):
 	get_node(\"/root/rootGame\").rpc(\"file_select\", nodes, get_parent().player_roster, get_parent().live_player_roster)
 "
 
+[sub_resource type="GDScript" id=4]
+script/source = "extends CanvasLayer
+
+var evidence = [
+	\"Игра уже разрабатывается 3 года!\",
+	\"Игра создана на бесплатном Open Source движке Godot!\",
+	\"Блёбы мирные, а ты - блёбодёр!\"
+]
+
+var d = 1
+var ro = \"\"
+func select(scene, game:bool = true):
+	var roo = \"res://Sceni/rootGame.tscn\"
+	if not game: roo = scene
+	ro = roo
+	
+	printt(11111111111, ro, scene)
+	
+	$Control/RichTextLabel.text = evidence[int(round(rand_range(0.0, float(evidence.size()-1))))]
+	event_p()
+	G.loadSCN = scene
+	if scene.begins_with(\"res://\"):
+		$Animation.play(\"black\")
+		d = 0
+		#ЖДАТЬ КОНЦА АНИМАЦИИ
+		#get_tree().change_scene(roo)
+		#$Animation.play_backwards(\"black\")
+	else:
+		d = 1
+		$Animation.play(\"def\")
+		#ЖДАТЬ КОНЦА АНИМАЦИИ
+		#$Camera.current = true
+		#get_tree().change_scene(roo)
+func select2(_f):
+	if d in [0, 1]:
+		get_tree().change_scene(ro)
+		if d == 0:
+			$Animation.play_backwards(\"black\")
+		else:
+			$Animation.play_backwards(\"def\")
+			#$Camera.current = true
+		d = 2
+
+
+func not_select():
+	#$Camera.current = false
+	if $Hide.color.a != 255:
+		$Animation.play_backwards(\"def\")
+	else:
+		visible = false
+
+func event_p(p:int = 0):
+	$Control/ProgressBar.value = p
+"
+
+[sub_resource type="DynamicFont" id=6]
+size = 30
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "black"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hide:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1.06464, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Control:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "def"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hide:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true ]
+}
+
 [node name="Global" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
@@ -258,3 +400,64 @@ script = ExtResource( 2 )
 
 [node name="map_packer" type="Node" parent="."]
 script = SubResource( 1 )
+
+[node name="Load Screen" type="CanvasLayer" parent="."]
+visible = false
+script = SubResource( 4 )
+
+[node name="Control" type="Control" parent="Load Screen"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 7 )
+
+[node name="Background" type="ColorRect" parent="Load Screen/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Load Screen/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_right = 512.0
+margin_bottom = 465.0
+text = "Идёт загрузка, пожалуйста подождите..."
+align = 1
+valign = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Load Screen/Control"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 39.0
+margin_top = 38.0
+margin_right = -39.0
+margin_bottom = 300.0
+custom_colors/default_color = Color( 0.686275, 0.686275, 0.686275, 1 )
+text = "Игра разрабатывается около 3 лет!"
+
+[node name="ProgressBar" type="ProgressBar" parent="Load Screen/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -473.0
+margin_top = -20.0
+margin_right = 473.0
+margin_bottom = 20.0
+
+[node name="Hide" type="ColorRect" parent="Load Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="Animation" type="AnimationPlayer" parent="Load Screen"]
+anims/black = SubResource( 8 )
+anims/def = SubResource( 5 )
+
+[node name="Camera" type="Camera2D" parent="Load Screen"]
+limit_left = 0
+limit_top = 0
+
+[connection signal="animation_finished" from="Load Screen/Animation" to="Load Screen" method="select2"]

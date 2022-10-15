@@ -51,6 +51,8 @@ func _ready():
 	$Camera2D/interface.slots_off_and_on(1, false)
 	$Camera2D/interface.slots_off_and_on(2, false)
 	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(3, true)
+	
 
 func _input(event):
 	setting_event()
@@ -166,7 +168,7 @@ func movement():
 	
 	if player_settings["disable_physics"] == false:
 		if Input.is_action_pressed("s") and is_on_floor() and $Camera2D/interface/main.visible == true and $Camera2D/interface/chat.visible == false:
-			vec.x = (vec.x+1) / 2
+			vec.x = (vec.x+1) / 1.4
 			$CollisionShape2D.disabled = true
 			$sat_down.disabled = false
 			$Anim.play("duck")
@@ -235,13 +237,17 @@ func shoot():
 			if bullet_name != null: bullet_dat = SD.get_node("ItemData").get(str(bullet_name))
 			
 			if gan_dat != null and(gan_dat["type"] == "sword" or bullet_name != null) and($Camera2D/interface/clothes.data_clothes["bullet"][0] in [null or true] or bullet_name in gan_dat.get("bullets_needed")):
-				var dat = ["res://Tecture/Modeli/no_texture.png", 0, 0, 1000, false] #текстура, урон, придяжение, скорость, режим пули
+				var dat = ["res://Tecture/Modeli/no_texture.png", 0, 0, 1000, false, 0] #текстура, урон, придяжение, скорость, режим пули
 				
 				if bullet_dat != null: dat[0] = bullet_dat.get("special_animation")
 				if dat[0] == null: dat[0] = $Camera2D/interface/clothes/Control/AdditionalArmSlot/Texture.texture.get_path()
 				
 				if $Camera2D/interface/clothes/Control/AdditionalArmSlot/Texture.texture != null:
 					dat[0] = $Camera2D/interface/clothes/Control/AdditionalArmSlot/Texture.texture.get_path()
+				
+				if gan_dat.get("output") != null: 
+					dat[5] = gan_dat["output"]
+					vec += Vector2(gan_dat["output"], 0).rotated($Node2D.rotation-3.1415926535)
 				
 				if bullet_dat == null: bullet_dat = {}
 				var dop_dat = [gan_dat.get("number"), bullet_dat.get("number")]
@@ -253,9 +259,9 @@ func shoot():
 					dat[4] = true
 					dat[3] = 1
 				
-				get_node("/root/rootGame").create_bullet($Camera2D/interface/clothes.data_clothes["gan"], $Camera2D/interface/clothes.data_clothes["bullet"], $Node2D/Position2D.global_position, $Node2D.rotation, dat[0], dat[1], dat[2], dat[3], dat[4], self)
+				get_node("/root/rootGame").create_bullet($Camera2D/interface/clothes.data_clothes["gan"], $Camera2D/interface/clothes.data_clothes["bullet"], $Node2D/Position2D.global_position, $Node2D.rotation, dat[0], dat[1], dat[2], dat[3], dat[4], dat[5], self)
 				if get_tree().network_peer != null:
-					get_node("/root/rootGame").rpc("create_bullet", $Camera2D/interface/clothes.data_clothes["gan"], $Camera2D/interface/clothes.data_clothes["bullet"], $Node2D/Position2D.global_position, $Node2D.rotation, dat[0], dat[1], dat[2], dat[3], dat[4])
+					get_node("/root/rootGame").rpc("create_bullet", $Camera2D/interface/clothes.data_clothes["gan"], $Camera2D/interface/clothes.data_clothes["bullet"], $Node2D/Position2D.global_position, $Node2D.rotation, dat[0], dat[1], dat[2], dat[3], dat[4], dat[5])
 				
 				$Camera2D/interface/clothes.take_away_the_bullet()
 		elif get_node_or_null("/root/rootGame/Node/SettingData/ItemLogical/" + str(gan)).has_method("shoot"):
@@ -353,6 +359,7 @@ func show_main():
 	$Camera2D/interface.slots_off_and_on(1, false)
 	$Camera2D/interface.slots_off_and_on(2, false)
 	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(4, true)
 
 func show_dialogue(dialogue = null):
 	$Camera2D/interface/main.hide()
