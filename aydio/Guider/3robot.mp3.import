@@ -2,12 +2,12 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/3robot.mp3-031d3f963add5293dbd0a8d09b854072.mp3str"
+path="res://.import/3robot.mp3-e9b2d04668e50611a841aa567829403b.mp3str"
 
 [deps]
 
-source_file="res://aydio/Guider/3robot.mp3"
-dest_files=[ "res://.import/3robot.mp3-031d3f963add5293dbd0a8d09b854072.mp3str" ]
+source_file="res://Aydio/Guider/3robot.mp3"
+dest_files=[ "res://.import/3robot.mp3-e9b2d04668e50611a841aa567829403b.mp3str" ]
 
 [params]
 

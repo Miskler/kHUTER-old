@@ -321,8 +321,9 @@ func show_inventory():
 	$Camera2D/interface/menu.hide()
 	$Camera2D/interface/main.hide()
 	
-	$Camera2D/interface.slots_off_and_on(1, true)
-	$Camera2D/interface.slots_off_and_on(3, true)
+	$Camera2D/interface.slots_off_and_on(1, false)
+	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(4, true)
 
 func show_craft_menu():
 	$Camera2D/interface/inventory.show()
@@ -331,9 +332,10 @@ func show_craft_menu():
 	$Camera2D/interface/menu.hide()
 	$Camera2D/interface/main.hide()
 	
-	$Camera2D/interface.slots_off_and_on(0, true)
-	$Camera2D/interface.slots_off_and_on(1, true)
-	$Camera2D/interface.slots_off_and_on(3, true)
+	$Camera2D/interface.slots_off_and_on(0, false)
+	$Camera2D/interface.slots_off_and_on(1, false)
+	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(4, true)
 
 func show_chest(chest, name_var_data):
 	$Camera2D/interface/chest.connect_chest(chest, name_var_data)
@@ -343,9 +345,10 @@ func show_chest(chest, name_var_data):
 	$Camera2D/interface/menu.hide()
 	$Camera2D/interface/main.hide()
 	
-	$Camera2D/interface.slots_off_and_on(1, true)
-	$Camera2D/interface.slots_off_and_on(2, true)
-	$Camera2D/interface.slots_off_and_on(3, true)
+	$Camera2D/interface.slots_off_and_on(1, false)
+	$Camera2D/interface.slots_off_and_on(2, false)
+	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(4, true)
 
 func show_main():
 	$Camera2D/interface/main.show()
@@ -355,11 +358,11 @@ func show_main():
 	$Camera2D/interface/chest.hide()
 	$Camera2D/interface/menu.hide()
 	
-	$Camera2D/interface.slots_off_and_on(0, false)
-	$Camera2D/interface.slots_off_and_on(1, false)
-	$Camera2D/interface.slots_off_and_on(2, false)
-	$Camera2D/interface.slots_off_and_on(3, false)
-	$Camera2D/interface.slots_off_and_on(4, true)
+	$Camera2D/interface.slots_off_and_on(0, true)
+	$Camera2D/interface.slots_off_and_on(1, true)
+	$Camera2D/interface.slots_off_and_on(2, true)
+	$Camera2D/interface.slots_off_and_on(3, true)
+	$Camera2D/interface.slots_off_and_on(4, false)
 
 func show_dialogue(dialogue = null):
 	$Camera2D/interface/main.hide()
@@ -374,10 +377,11 @@ func show_dialogue(dialogue = null):
 	else:
 		$Camera2D/interface/dialogue.read_dialogue()
 	
-	$Camera2D/interface.slots_off_and_on(0, false)
-	$Camera2D/interface.slots_off_and_on(1, false)
-	$Camera2D/interface.slots_off_and_on(2, false)
-	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(0, true)
+	$Camera2D/interface.slots_off_and_on(1, true)
+	$Camera2D/interface.slots_off_and_on(2, true)
+	$Camera2D/interface.slots_off_and_on(3, true)
+	$Camera2D/interface.slots_off_and_on(4, true)
 
 func show_chat():
 	if $Camera2D/interface/Control.rect_position.y == 0:
@@ -395,10 +399,11 @@ func show_menu():
 	$Camera2D/interface/chest.hide()
 	$Camera2D/interface/menu.show()
 	
-	$Camera2D/interface.slots_off_and_on(0, false)
-	$Camera2D/interface.slots_off_and_on(1, false)
-	$Camera2D/interface.slots_off_and_on(2, false)
-	$Camera2D/interface.slots_off_and_on(3, false)
+	$Camera2D/interface.slots_off_and_on(0, true)
+	$Camera2D/interface.slots_off_and_on(1, true)
+	$Camera2D/interface.slots_off_and_on(2, true)
+	$Camera2D/interface.slots_off_and_on(3, true)
+	$Camera2D/interface.slots_off_and_on(4, true)
 
 func show_died(cause):
 	if $Camera2D/interface/died.visible == false:
@@ -421,6 +426,7 @@ func show_died(cause):
 		$Camera2D/interface.slots_off_and_on(1, false)
 		$Camera2D/interface.slots_off_and_on(2, false)
 		$Camera2D/interface.slots_off_and_on(3, false)
+		$Camera2D/interface.slots_off_and_on(4, false)
 		
 		var dat_items = $Camera2D/interface/inventory.get_items()
 		
