@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Damag.mp3-81e8a7a2211aa93a6fab1e4cd5651ef7.mp3str"
+
+[deps]
+
+source_file="res://Aydio/Tiles/Stone/Damag.mp3"
+dest_files=[ "res://.import/Damag.mp3-81e8a7a2211aa93a6fab1e4cd5651ef7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

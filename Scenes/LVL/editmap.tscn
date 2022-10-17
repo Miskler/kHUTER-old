@@ -1,0 +1,2493 @@
+[gd_scene load_steps=68 format=2]
+
+[ext_resource path="res://Scenes/Verstaci/Crovat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Verstaci/radio.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Verstaci/Verstac.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Foud/20703.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scenes/Verstaci/Stena.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Verstaci/StenaPerehod.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Verstaci/Vorota.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Tecture/Modeli/vopr.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/Verstaci/Door.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Verstaci/Pol.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Verstaci/well.res" type="PackedScene" id=11]
+[ext_resource path="res://Tecture/Modeli/hatl/no_open_hatl.png" type="Texture" id=12]
+[ext_resource path="res://Tecture/Icon/del.png" type="Texture" id=13]
+[ext_resource path="res://Tecture/Icon/cursor.png" type="Texture" id=14]
+[ext_resource path="res://aydio/cri/Drove Amaro - Dreeep.ogg" type="AudioStream" id=15]
+[ext_resource path="res://19104.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://Tecture/Icon/full.png" type="Texture" id=17]
+[ext_resource path="res://Tecture/Icon/arrow.png" type="Texture" id=18]
+[ext_resource path="res://Tecture/Icon/reload.png" type="Texture" id=19]
+[ext_resource path="res://Foud/def.theme" type="Theme" id=20]
+[ext_resource path="res://Tecture/Icon/4059940.png" type="Texture" id=21]
+[ext_resource path="res://Tecture/Icon/timer.png" type="Texture" id=22]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+func _process(_delta):
+	$Camera2D/CanvasLayer/Control/Control/Label2.text = \"Позиция курсора на карте: \" + str(get_global_mouse_position().round())
+
+func TextEdit_text_changed():
+	get_node(\"NodeScript\").get_script().source_code = $Camera2D/CanvasLayer/Control/edit/TextEdit.text
+	print(get_node(\"NodeScript\").get_script().source_code)
+
+func _ready():
+	get_text()
+
+func get_text():
+	$Camera2D/CanvasLayer/Control/edit/TextEdit.text = get_node(\"NodeScript\").get_script().source_code
+	print(get_node(\"NodeScript\").get_script().source_code)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Camera2D
+
+var speed = 10
+var zoom_speed = 0.1
+
+func _process(_delta):
+	if $CanvasLayer/Control/FileDialog.visible == false and $CanvasLayer/Control/FileDialog2.visible == false and $CanvasLayer/Control/edit.visible == false:
+		if Input.is_action_pressed(\"+\") and self.zoom.x < 10:
+			self.zoom.x += zoom_speed
+			self.zoom.y += zoom_speed
+			print(\"Зум камеры: \", zoom.x)
+		if Input.is_action_pressed(\"-\") and self.zoom.x > 1.1:
+			self.zoom.x -= zoom_speed
+			self.zoom.y -= zoom_speed
+			print(\"Зум камеры: \", zoom.x)
+		
+		
+		if Input.is_action_pressed(\"w\"):
+			position.y -= speed * zoom.x/2
+		elif Input.is_action_pressed(\"s\"):
+			position.y += speed * zoom.x/2
+		
+		if Input.is_action_pressed(\"d\"):
+			position.x += speed * zoom.x/2
+		elif Input.is_action_pressed(\"a\"):
+			position.x -= speed * zoom.x/2
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Control
+
+func _process(_delta):
+	$Control/Label.text = \"Позиция курсора на экране: \" + str(get_viewport().get_mouse_position().round())
+
+func _pressed_save():
+	$\"FileDialog2\".popup_centered()
+
+# Create the objects.
+var node = Node2D.new()
+onready var saveNode
+onready var Nd = get_node(\"../../../Node\")
+
+var scene = PackedScene.new()
+
+func _pressed_load():
+	$\"FileDialog\".popup_centered()
+
+func Button3_pressed():
+	get_tree().change_scene(\"res://Sceni/LVL/Meny.tscn\")
+
+func file_selected(path):
+	var p = load(path).instance()
+	
+	if p.get_node(\"SettingData\").this_is_save == true and p.get_node(\"SettingData\").edit_save == false:
+		$PopupDialog.popup_centered()
+		return
+	
+	yield(get_tree(),\"idle_frame\")
+	var old_node = get_node(\"/root/editmap/Node\")
+	old_node.queue_free()
+	print(get_node(\"/root/editmap/Node\").queue_free())
+	yield(get_tree(),\"idle_frame\")
+	
+	get_node(\"../../../NodeScript\").get_script().source_code = p.get_script().source_code
+	p.get_script().source_code = \"extends Node2D\"
+	p.name = \"Node\"
+	
+	get_node(\"/root/editmap\").add_child(p, false)
+	
+	DataScene.time = get_node(\"/root/editmap/Node/SettingData\").time
+	DataScene.time_change = get_node(\"/root/editmap/Node/SettingData\").time_change
+	DataScene.time_event = get_node(\"/root/editmap/Node/SettingData\").time_event
+	
+	DataScene.can_be_saved = get_node(\"/root/editmap/Node/SettingData\").can_be_saved
+	DataScene.edit_save = get_node(\"/root/editmap/Node/SettingData\").edit_save
+	DataScene.this_is_save = get_node(\"/root/editmap/Node/SettingData\").this_is_save
+	
+	DataScene.number_of_clutches = get_node(\"/root/editmap/Node/SettingData\").number_of_clutches
+	
+	DataScene.specter = get_node(\"/root/editmap/Node/SettingData\").specter
+	DataScene.re_spavn = get_node(\"/root/editmap/Node/SettingData\").revive
+	DataScene.spavn_x = get_node(\"/root/editmap/Node/SettingData\").creation_position_x
+	DataScene.spavn_y = get_node(\"/root/editmap/Node/SettingData\").creation_position_y
+	
+	DataScene.taking_away_hunger = get_node(\"/root/editmap/Node/SettingData\").taking_away_hunger
+	DataScene.dehumidification_frequency = get_node(\"/root/editmap/Node/SettingData\").dehumidification_frequency
+	
+	get_node(\"/root/editmap/Node/SettingData\").queue_free()
+	get_node(\"/root/editmap\").get_text()
+
+onready var DataScene = $DataScene
+
+func file_selected_save(path):
+	var g = load(\"res://Sceni/LVL/SettingData.res\").instance()
+	
+	g.time = DataScene.time
+	g.time_change = DataScene.time_change
+	g.time_event = DataScene.time_event
+	
+	g.can_be_saved = DataScene.can_be_saved
+	g.edit_save = DataScene.edit_save
+	g.this_is_save = DataScene.this_is_save
+	
+	g.number_of_clutches = DataScene.number_of_clutches
+	
+	g.specter = DataScene.specter
+	g.revive = DataScene.re_spavn
+	g.creation_position_x = DataScene.spavn_x
+	g.creation_position_y = DataScene.spavn_y
+	
+	g.taking_away_hunger = DataScene.taking_away_hunger
+	g.dehumidification_frequency = DataScene.dehumidification_frequency
+	
+	get_node(\"/root/editmap/Node\").add_child(g)
+	g.owner = get_node(\"/root/editmap/Node\")
+	
+	print(path)
+	
+	get_node(\"../../../Node\").get_script().source_code = get_node(\"../../../NodeScript\").get_script().source_code
+	
+	s(path)
+
+func s(pu): #Сохраняет карту!!!
+	Nd = get_node(\"../../../Node\")
+	saveNode = Nd
+	var result = scene.pack(saveNode)
+	if result == OK:
+		var error = ResourceSaver.save(pu + \"_HUTER.tscn\", scene)
+		if error != OK:
+			push_error(\"Произошла ошибка при сохранении сцены на диск.\")
+	
+	get_node(\"/root/editmap/Node/SettingData\").queue_free()
+
+func Button4_pressed():
+	$edit.popup_centered()
+
+func Button5_pressed():
+	$DataScene.popup_centered()
+"
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 11
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 15
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 6
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends ItemList
+
+onready var root_node = get_node(\"/root/editmap/Node\")
+var tree = self
+var nodes = []
+var d = 1 #Ребёнок над которым скрипт проводит операцию
+var select = []
+var status = false
+
+var j
+var h
+
+func _ready():
+	start()
+
+func _viever():
+	var info = $\"../Control2\"
+	if select.size() > 0 and status == true:
+		j = root_node.get_child(select[0])
+		h = j.get_class()
+		info.get_node(\"Label\").text = h
+		if h == \"Timer\":
+			print(\"паааб\")
+			info.get_node(\"Timer\").show()
+			info.get_node(\"Timer/SpinBox\").value = j.wait_time
+			info.get_node(\"Timer/CheckBox2\").pressed = j.one_shot
+			info.get_node(\"Timer/LineEdit\").text = \"$\" + str(j.name) + \".connect(\\\"timeout\\\", self, \\\"НАЗВАНИЕ_ВАШЕЙ_ФУНКЦИИ\\\")\"
+		else:
+			info.get_node(\"Timer\").hide()
+	else:
+		info.get_node(\"Label\").text = \"Неизвестная нода\"
+
+func start():
+	root_node = get_node(\"/root/editmap/Node\")
+	select = get_selected_items()
+	tree.clear()
+	nodes = []
+	if root_node.get_child_count() > 0:
+		d = 1 #Ребёнок над которым скрипт проводит операцию
+		for _i in range(root_node.get_child_count()): #Объявляем цикл, количевство вызовов которого зависит от количевства детей
+			nodes.append(tree.add_item(root_node.get_child(d - 1).get_name())) #Создаём объект в дереве и добавляем в массив
+			d += 1
+	if select.size() > 0 and nodes.size() >= select.size():
+		var f = select[0]
+		print(f)
+		select(f)
+		_viever()
+
+func node_up():
+	if select.size() > 0:
+		var f = select[0]
+		var n = root_node.get_child(f)
+		if (n.get_index()) > 0:
+			root_node.move_child(n, f - 1)
+			select(n.get_index())
+			start()
+
+func event():
+	start()
+
+func node_bottom():
+	if select.size() > 0:
+		var f = select[0]
+		var n = root_node.get_child(f)
+		if (n.get_index()) < nodes.size():
+			root_node.move_child(n, f + 1)
+			select(n.get_index())
+			start()
+
+func event_pressed():
+	start()
+
+func changed(value):
+	if value > 0:
+		$event.wait_time = value
+		$event.start()
+	else:
+		$event.stop()
+
+func node_del():
+	if select.size() > 0:
+		var f = select[0]
+		var n = root_node.get_child(f)
+		n.queue_free()
+		start()
+
+func full_setting_pressed():
+	status = not status
+	if status == false:
+		rect_size.y = 105
+		$\"../Control2\".hide()
+	else:
+		rect_size.y = 440
+		$\"../Control2\".show()
+
+func cent():
+	if select.size() > 0:
+		var f = select[0]
+		var n = root_node.get_child(f)
+		get_node(\"/root/editmap/Camera2D\").global_position = n.global_position
+
+func timer_make():
+	var timer = Timer.new()
+	root_node.add_child(timer)
+	timer.name = \"Timer\"
+
+
+func value_changed_timer(value):
+	j.wait_time = value
+
+func one_shot(value):
+	j.one_shot = value
+"
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=11]
+default_font = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=12]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 15
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends TabContainer
+
+func _ready():
+	for child in get_child_count():
+		var tabs = get_child(child)
+		if tabs.is_class('Tabs'):
+			set_tab_title(child, tabs.tab_name)
+
+
+func changed():
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends Tabs
+
+export (String) var tab_name
+"
+
+[sub_resource type="GDScript" id=16]
+script/source = "extends TextureButton
+
+func _pressed():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.object = \"res://Sceni/Verstaci/Crovat.tscn\"
+	i.mode = 1
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+"
+
+[sub_resource type="GDScript" id=17]
+script/source = "extends TextureButton
+
+func _pressed():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.object = \"res://Sceni/Verstaci/Verstac.tscn\"
+	i.mode = 1
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+"
+
+[sub_resource type="GDScript" id=18]
+script/source = "extends TextureButton
+
+export var Spavn = \"\"
+export var mode_del = false
+
+func _pressed():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.object = Spavn
+	i.mode = 1
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+"
+
+[sub_resource type="GDScript" id=19]
+script/source = "extends Tabs
+
+export (String) var tab_name
+"
+
+[sub_resource type="DynamicFont" id=20]
+size = 27
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=21]
+script/source = "extends Button
+
+var del_area = true
+var del_body = true
+
+func _pressed():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.under_mode_one = del_body
+	i.under_mode_two = del_area
+	i.mode = 5
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+
+func AreaDel_pressed():
+	del_area = not del_area
+
+func BodyDel_pressed():
+	del_body = not del_body
+"
+
+[sub_resource type="DynamicFont" id=22]
+size = 14
+extra_spacing_top = -4
+extra_spacing_char = -1
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=23]
+script/source = "extends Button
+
+var del_area = true
+var del_body = true
+
+func _pressed():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.under_mode_one = del_body
+	i.under_mode_two = del_area
+	i.mode = 4
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+
+func Area_pressed():
+	del_area = not del_area
+
+func Body_pressed():
+	del_body = not del_body
+"
+
+[sub_resource type="GDScript" id=24]
+script/source = "extends Control
+
+var CP = \"ffffff\"
+
+var SBvX = 1
+var SBvY = 1
+
+func _pressed_color_select():
+	$WindowDialog.popup()
+
+func _pressed_spavn():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.mode = 2
+	i.size_x = SBvX
+	i.size_y = SBvY
+	i.color = CP
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+	get_node(\"/root/editmap/Node\").move_child(i, 0)
+
+func SpinBox_value_changed(value):
+	SBvX = value
+
+func SpinBox2_value_changed(value):
+	SBvY = value
+
+func ColorPicker_color_changed(color):
+	CP = color
+"
+
+[sub_resource type="DynamicFont" id=25]
+size = 24
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+font_data = ExtResource( 16 )
+
+[sub_resource type="DynamicFont" id=26]
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=27]
+default_font = SubResource( 26 )
+
+[sub_resource type="DynamicFont" id=28]
+size = 18
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=29]
+size = 17
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=30]
+script/source = "extends Control
+
+var node_name = \"Area2D\"
+
+var SBvX = 1
+var SBvY = 1
+
+func SpinBox_value_changed(value):
+	SBvX = value
+
+func SpinBox2_value_changed(value):
+	SBvY = value
+
+func Button_pressed():
+	$WindowDialog.popup()
+
+func pressed_spavn():
+	var i = preload(\"res://Sceni/item/move_object.res\").instance()
+	i.mode = 3
+	i.name_area = node_name
+	i.size_x = SBvX
+	i.size_y = SBvY
+	i.position = get_viewport().get_mouse_position()
+	get_node(\"/root/editmap/Node\").add_child(i)
+
+func text_changed(new_text):
+	node_name = new_text
+"
+
+[sub_resource type="DynamicFont" id=31]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=32]
+size = 19
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=33]
+default_font = SubResource( 32 )
+
+[sub_resource type="DynamicFont" id=34]
+size = 20
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=35]
+script/source = "extends WindowDialog
+
+onready var t = $TextEdit
+
+export var red_string = []
+export var green_string = []
+export var blue_string = []
+export var sky_blue_string = []
+
+func _ready():
+	for i in red_string:
+		t.add_keyword_color (i, \"941616\")
+	for g in green_string:
+		t.add_keyword_color (g, \"37b833\")
+	for b in blue_string:
+		t.add_keyword_color (b, \"3127e0\")
+	for sb in sky_blue_string:
+		t.add_keyword_color (sb, \"27d7e0\")
+
+"
+
+[sub_resource type="DynamicFont" id=36]
+size = 20
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=37]
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=38]
+script/source = "extends WindowDialog
+
+var time = 12 #Стартовое время
+var time_change = true #Может ли время меняться
+var time_event = 10 #Раз во сколько секунд время меняеться
+
+var can_be_saved = true #Может ли карта сохраняться
+var edit_save = false #Можно ли редактировать сохранения
+
+var this_is_save = false #Эта копия являеться сохранением
+
+var number_of_clutches = 0
+
+var spavn_y = 0
+var spavn_x = 0
+var re_spavn = false
+var specter = false
+
+var taking_away_hunger = 12 #Раз во сколько секунд голод и здоровье меняеться
+var dehumidification_frequency = 10 #Раз во сколько секунд бодрость меняеться
+
+func get_setting_map():
+	print(\"get_setting_map сработал\")
+	$ScrollContainer/VBoxContainer/time/CheckBox.value = time
+	$ScrollContainer/VBoxContainer/time_change/CheckBox.pressed = time_change
+	$ScrollContainer/VBoxContainer/time_event/CheckBox.value = time_event
+	
+	$ScrollContainer/VBoxContainer/can_be_saved/CheckBox.pressed = can_be_saved
+	$ScrollContainer/VBoxContainer/edit_save/CheckBox.pressed = edit_save
+	
+	$ScrollContainer/VBoxContainer/number_of_clutches/CheckBox.value = number_of_clutches
+	
+	$ScrollContainer/VBoxContainer/spavn_x/CheckBox.value = spavn_x
+	$ScrollContainer/VBoxContainer/spavn_y/CheckBox.value = spavn_y
+	$ScrollContainer/VBoxContainer/re_spavn/CheckBox.pressed = re_spavn
+	$ScrollContainer/VBoxContainer/specter/CheckBox.pressed = specter
+	
+	$ScrollContainer/VBoxContainer/taking_away/CheckBox.value = taking_away_hunger
+	$ScrollContainer/VBoxContainer/dehumidification_frequency/CheckBox.value = dehumidification_frequency
+
+func set_setting_map():
+	print(\"set_setting_map сработал\")
+	time = $ScrollContainer/VBoxContainer/time/CheckBox.value
+	time_change = $ScrollContainer/VBoxContainer/time_change/CheckBox.pressed
+	time_event = $ScrollContainer/VBoxContainer/time_event/CheckBox.value
+	
+	can_be_saved = $ScrollContainer/VBoxContainer/can_be_saved/CheckBox.pressed
+	edit_save = $ScrollContainer/VBoxContainer/edit_save/CheckBox.pressed
+	
+	number_of_clutches = $ScrollContainer/VBoxContainer/number_of_clutches/CheckBox.value
+	
+	spavn_x = $ScrollContainer/VBoxContainer/spavn_x/CheckBox.value
+	spavn_y = $ScrollContainer/VBoxContainer/spavn_y/CheckBox.value
+	re_spavn = $ScrollContainer/VBoxContainer/re_spavn/CheckBox.pressed
+	specter = $ScrollContainer/VBoxContainer/specter/CheckBox.pressed
+	
+	taking_away_hunger = $ScrollContainer/VBoxContainer/taking_away/CheckBox.value
+	dehumidification_frequency = $ScrollContainer/VBoxContainer/dehumidification_frequency/CheckBox.value
+	
+	$ScrollContainer/VBoxContainer/edit_save/CheckBox.disabled = not can_be_saved
+	
+	$ScrollContainer/VBoxContainer/time_event/CheckBox.editable = time_change
+
+func popup_hide():
+	set_setting_map()
+
+func about_to_show():
+	get_setting_map()
+
+func changed():
+	set_setting_map()
+
+func CheckBox_pressed():
+	set_setting_map()
+"
+
+[sub_resource type="DynamicFont" id=39]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=40]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=41]
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=42]
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=43]
+default_font = SubResource( 42 )
+/fonts/ = SubResource( 41 )
+
+[sub_resource type="GDScript" id=44]
+script/source = "extends Node2D
+"
+
+[sub_resource type="GDScript" id=45]
+script/source = "extends Node2D
+
+# - все что идёт после него и до окончания строки игнорируется кодом
+
+# Объявите здесь переменные-значения. Примеры:
+# var a = true
+# var b = 2
+# var c = \"text\"
+
+
+# Вызывается, когда карта запускается. Вызываеться 1 раз.
+func _ready():
+	pass # Заменить на то что должна делать функция.
+
+
+# Вызывается каждый кадр. \"delta\" - это время, прошедшее с предыдущего кадра.
+#func _process(delta):
+#	pass # Заменить на то что должна делать функция.
+"
+
+[node name="editmap" type="Node2D"]
+pause_mode = 2
+script = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 7.55103, 1294.41 )
+current = true
+script = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+layer = 10
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -148.0
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="Camera2D/CanvasLayer/Control"]
+visible = false
+margin_left = 132.567
+margin_top = -339.515
+margin_right = 317.567
+margin_bottom = -14.5151
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/Control2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.137255, 0.133333, 0.160784, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/Control2"]
+margin_right = 185.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 4 )
+text = "Неизвестная нода"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Control" parent="Camera2D/CanvasLayer/Control/Control2"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/Control2/Timer"]
+margin_left = 16.0
+margin_top = 56.0
+margin_right = 169.0
+margin_bottom = 80.0
+max_value = 1e+14
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/Control2/Timer"]
+margin_top = 32.0
+margin_right = 185.0
+margin_bottom = 46.0
+custom_fonts/font = SubResource( 5 )
+text = "Отсчет таймера (в секундах):"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Camera2D/CanvasLayer/Control/Control2/Timer"]
+margin_top = 144.0
+margin_right = 185.0
+margin_bottom = 163.0
+custom_fonts/font = SubResource( 6 )
+text = "Подключение сигнала:"
+align = 1
+valign = 1
+
+[node name="CheckBox2" type="CheckBox" parent="Camera2D/CanvasLayer/Control/Control2/Timer"]
+margin_top = 91.0
+margin_right = 185.0
+margin_bottom = 119.0
+custom_fonts/font = SubResource( 7 )
+text = "Не зациклен"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Camera2D/CanvasLayer/Control/Control2/Timer"]
+margin_top = 169.0
+margin_right = 185.0
+margin_bottom = 187.0
+custom_fonts/font = SubResource( 8 )
+text = "$Timer.connect(\"timeout\", self, \"_on_Timer_timeout\")"
+align = 1
+editable = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 972.0
+margin_top = -449.0
+margin_right = 1021.0
+margin_bottom = -315.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Camera2D/CanvasLayer/Control/ColorRect"]
+margin_left = 3.81702
+margin_top = 3.61401
+margin_right = 44.82
+margin_bottom = 23.614
+focus_mode = 0
+enabled_focus_mode = 0
+text = "save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Camera2D/CanvasLayer/Control/ColorRect"]
+margin_left = 3.81702
+margin_top = 30.203
+margin_right = 44.82
+margin_bottom = 50.203
+focus_mode = 0
+enabled_focus_mode = 0
+text = "load"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="Camera2D/CanvasLayer/Control/ColorRect"]
+margin_left = 3.81702
+margin_top = 107.165
+margin_right = 44.82
+margin_bottom = 127.165
+focus_mode = 0
+enabled_focus_mode = 0
+text = "quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="Camera2D/CanvasLayer/Control/ColorRect"]
+margin_left = 3.81702
+margin_top = 57.0
+margin_right = 44.82
+margin_bottom = 77.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "edit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Button" parent="Camera2D/CanvasLayer/Control/ColorRect"]
+margin_left = 4.0
+margin_top = 82.0
+margin_right = 45.0
+margin_bottom = 102.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "setti"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tree" type="ItemList" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 1.0
+margin_top = -450.0
+margin_right = 127.0
+margin_bottom = -345.0
+script = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="event" type="Timer" parent="Camera2D/CanvasLayer/Control/Tree"]
+wait_time = 0.5
+
+[node name="full_setting" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 128.31
+margin_top = -449.932
+margin_right = 652.31
+margin_bottom = 68.0684
+rect_scale = Vector2( 0.0799985, 0.0799999 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="node_del" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 150.265
+margin_top = -405.947
+margin_right = 202.265
+margin_bottom = -359.947
+rect_scale = Vector2( 0.384847, 0.443625 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cent" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 171.511
+margin_top = -449.685
+margin_right = 311.511
+margin_bottom = -315.685
+rect_scale = Vector2( 0.143018, 0.151102 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="timer_make" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 172.062
+margin_top = -428.963
+margin_right = 696.062
+margin_bottom = 89.0371
+rect_scale = Vector2( 0.0378722, 0.0392312 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="node_up" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 127.805
+margin_top = -406.172
+margin_right = 651.805
+margin_bottom = 111.828
+rect_scale = Vector2( 0.0399961, 0.0399999 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="node_bottom" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 148.784
+margin_top = -363.62
+margin_right = 672.784
+margin_bottom = 154.38
+rect_rotation = 180.0
+rect_scale = Vector2( 0.0399961, 0.0399999 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="node_bottom2" type="Button" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 170.179
+margin_top = -363.977
+margin_right = 1206.18
+margin_bottom = 666.023
+rect_rotation = 180.0
+rect_scale = Vector2( 0.0195342, 0.0198864 )
+focus_mode = 0
+theme = ExtResource( 20 )
+enabled_focus_mode = 0
+icon = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 128.0
+margin_top = -363.0
+margin_right = 202.0
+margin_bottom = -333.0
+rect_scale = Vector2( 0.568599, 0.59739 )
+hint_tooltip = "Авто обновление списка.
+Если установел 0 - авто обновление отключено"
+theme = SubResource( 11 )
+max_value = 10.0
+exp_edit = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 592.0
+margin_top = -448.0
+margin_right = -56.0
+margin_bottom = -539.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/Control"]
+margin_left = 33.0
+margin_top = 7.0
+margin_right = 337.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 12 )
+text = "Позиция курсора на экране: 999 999"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Camera2D/CanvasLayer/Control/Control"]
+margin_left = 33.0
+margin_top = 34.0
+margin_right = 260.0
+margin_bottom = 54.0
+custom_fonts/font = SubResource( 12 )
+text = "Позиция курсора на карте: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cursor" type="Sprite" parent="Camera2D/CanvasLayer/Control/Control"]
+position = Vector2( 30.0297, 31.2831 )
+scale = Vector2( 1.53492, 1.51738 )
+texture = ExtResource( 14 )
+
+[node name="TabContainer" type="TabContainer" parent="Camera2D/CanvasLayer/Control"]
+anchor_top = -0.054
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.008
+custom_fonts/font = SubResource( 13 )
+tab_align = 0
+script = SubResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="Tabs" parent="Camera2D/CanvasLayer/Control/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 37.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = SubResource( 15 )
+tab_name = "Верстаки"
+
+[node name="CenterContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs"]
+margin_right = 1019.0
+margin_bottom = 114.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer"]
+margin_right = 1136.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 1000, 100 )
+
+[node name="crovat" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_right = 110.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/crovat"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Crovar" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/crovat" instance=ExtResource( 1 )]
+position = Vector2( 55.2368, 51.6929 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/crovat"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 16 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="verstac" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 114.0
+margin_right = 224.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/verstac"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Verstac" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/verstac" instance=ExtResource( 3 )]
+position = Vector2( 54.7903, 55.2357 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/verstac"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 17 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="radio" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 228.0
+margin_right = 338.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/radio"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="radio" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/radio" instance=ExtResource( 2 )]
+position = Vector2( 40.1393, 49.6143 )
+scale = Vector2( 2.31999, 2.55011 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/radio"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/radio.tscn"
+
+[node name="door" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 342.0
+margin_right = 452.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/door"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Door" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/door" instance=ExtResource( 9 )]
+position = Vector2( 53, 5 )
+scale = Vector2( 1, 0.879995 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/door"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/Door.tscn"
+
+[node name="pol" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 456.0
+margin_right = 566.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/pol"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Pol" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/pol" instance=ExtResource( 10 )]
+position = Vector2( 103.289, 39.2544 )
+scale = Vector2( 0.292276, -0.411076 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/pol"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/Pol.tscn"
+
+[node name="stena" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 570.0
+margin_right = 680.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/stena"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Stena" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/stena" instance=ExtResource( 5 )]
+position = Vector2( 40.3553, 10.2203 )
+scale = Vector2( 0.760005, 0.359998 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/stena"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/Stena.tscn"
+
+[node name="stenaMin" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 684.0
+margin_right = 794.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/stenaMin"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="StenaPerehod" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/stenaMin" instance=ExtResource( 6 )]
+position = Vector2( 43.5312, 10.2204 )
+scale = Vector2( 0.840005, 0.56 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/stenaMin"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/StenaPerehod.tscn"
+
+[node name="randomBloc" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 798.0
+margin_right = 908.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/randomBloc"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="vopr" type="Sprite" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/randomBloc"]
+position = Vector2( 55, 50 )
+scale = Vector2( 2.75, 2.5 )
+texture = ExtResource( 8 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/randomBloc"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/RandomBloc.tscn"
+
+[node name="vorota" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 912.0
+margin_right = 1022.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/vorota"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Vorota" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/vorota" instance=ExtResource( 7 )]
+position = Vector2( 56.6593, 39.2544 )
+scale = Vector2( 0.36, 0.519998 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/vorota"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/Vorota.tscn"
+
+[node name="well" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer"]
+margin_left = 1026.0
+margin_right = 1136.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/well"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="well" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/well" instance=ExtResource( 11 )]
+position = Vector2( 60.8834, 62.8068 )
+scale = Vector2( 0.60836, 0.674588 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs/CenterContainer/HBoxContainer/well"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/well.res"
+
+[node name="Tabs2" type="Tabs" parent="Camera2D/CanvasLayer/Control/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 37.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = SubResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+tab_name = "Сущности (не работает)"
+
+[node name="CenterContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2"]
+margin_right = 1022.0
+margin_bottom = 103.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer"]
+margin_right = 1000.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 1000, 100 )
+
+[node name="hatl" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer"]
+visible = false
+margin_left = 114.0
+margin_right = 224.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer/hatl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer/hatl"]
+position = Vector2( 55.1641, 50.4499 )
+scale = Vector2( 0.515479, 0.454499 )
+texture = ExtResource( 12 )
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer/hatl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/Verstaci/hatl.tscn"
+
+[node name="zombi" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer"]
+visible = false
+margin_left = 228.0
+margin_right = 338.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer/zombi"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer/zombi"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 29.0
+margin_top = 10.0
+margin_right = -33.0
+margin_bottom = -12.0
+color = Color( 0.00784314, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs2/CenterContainer/HBoxContainer/zombi"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+Spavn = "res://Sceni/NPS/Zombi.tscn"
+
+[node name="Tabs3" type="Tabs" parent="Camera2D/CanvasLayer/Control/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 37.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = SubResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+tab_name = "Инструменты"
+
+[node name="CenterContainer2" type="ScrollContainer" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3"]
+margin_right = 1017.0
+margin_bottom = 118.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2"]
+margin_right = 1000.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 1000, 100 )
+
+[node name="del" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer"]
+margin_right = 110.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+hint_tooltip = "Инструмет удаления"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del"]
+position = Vector2( 81.9549, 73.5837 )
+scale = Vector2( 1.74408, 1.6375 )
+texture = ExtResource( 13 )
+
+[node name="ButtonOK" type="Button" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 57.0
+margin_right = -59.0
+margin_bottom = -3.0
+custom_fonts/font = SubResource( 20 )
+text = "ок"
+script = SubResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AreaDel" type="CheckBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del"]
+margin_left = -4.0
+margin_right = 111.0
+margin_bottom = 24.0
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 22 )
+pressed = true
+enabled_focus_mode = 0
+text = "удаление зон"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BodyDel" type="CheckBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del"]
+margin_left = -4.0
+margin_top = 28.1657
+margin_right = 111.0
+margin_bottom = 52.1657
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 22 )
+pressed = true
+enabled_focus_mode = 0
+text = "удаление тел"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="show_in_tree" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer"]
+margin_left = 114.0
+margin_right = 224.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+hint_tooltip = "Инструмет удаления"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.266667, 0.815686, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree"]
+position = Vector2( 81.9549, 71.2713 )
+scale = Vector2( 1.28159, 1.31954 )
+texture = ExtResource( 8 )
+
+[node name="ButtonOK" type="Button" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 57.0
+margin_right = -59.0
+margin_bottom = -3.0
+custom_fonts/font = SubResource( 20 )
+text = "ок"
+script = SubResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AreaDel" type="CheckBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree"]
+margin_left = -4.0
+margin_right = 107.0
+margin_bottom = 24.0
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 22 )
+pressed = true
+enabled_focus_mode = 0
+text = "видеть зоны"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BodyDel" type="CheckBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree"]
+margin_left = -4.0
+margin_top = 28.0
+margin_right = 104.0
+margin_bottom = 52.0
+focus_mode = 0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover_pressed = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 22 )
+pressed = true
+enabled_focus_mode = 0
+text = "видеть тела"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fon" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer"]
+margin_left = 228.0
+margin_right = 338.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+hint_tooltip = "Инструмент создания фонов"
+theme = ExtResource( 20 )
+script = SubResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+margin_left = 77.0
+margin_top = 4.0
+margin_right = 101.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 25 )
+text = ".x
+.y"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 74.0
+margin_bottom = 31.0
+theme = SubResource( 27 )
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox2" type="SpinBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+margin_left = 1.0
+margin_top = 31.0
+margin_right = 74.0
+margin_bottom = 61.0
+theme = SubResource( 27 )
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+margin_left = 3.17825
+margin_top = 64.0096
+margin_right = 62.1783
+margin_bottom = 93.0096
+custom_fonts/font = SubResource( 28 )
+text = "Цвет"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+margin_left = 70.6964
+margin_top = 65.1799
+margin_right = 104.696
+margin_bottom = 95.1799
+custom_fonts/font = SubResource( 29 )
+text = "ок"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WindowDialog" type="WindowDialog" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon"]
+margin_left = 97.0
+margin_top = -450.0
+margin_right = 421.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 324, 484 )
+
+[node name="ColorPicker" type="ColorPicker" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon/WindowDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.113
+margin_top = -97.841
+margin_right = 276.887
+margin_bottom = 396.159
+theme = SubResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="area" type="Control" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer"]
+margin_left = 342.0
+margin_right = 452.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 110, 0 )
+hint_tooltip = "Инструмент создания зон"
+theme = ExtResource( 20 )
+script = SubResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.407843, 0.407843, 0.407843, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+margin_left = 77.0
+margin_top = 4.0
+margin_right = 101.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 25 )
+text = ".x
+.y"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 75.0
+margin_bottom = 31.0
+theme = SubResource( 27 )
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox2" type="SpinBox" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+margin_left = 1.0
+margin_top = 31.0
+margin_right = 75.0
+margin_bottom = 61.0
+theme = SubResource( 27 )
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+margin_left = 3.17825
+margin_top = 64.0096
+margin_right = 62.1783
+margin_bottom = 93.0096
+custom_fonts/font = SubResource( 28 )
+text = "Имя"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+margin_left = 70.6964
+margin_top = 65.1799
+margin_right = 104.696
+margin_bottom = 95.1799
+custom_fonts/font = SubResource( 29 )
+text = "ок"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WindowDialog" type="WindowDialog" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area"]
+margin_left = 20.0
+margin_top = -1.0
+margin_right = 420.0
+margin_bottom = 54.0
+custom_fonts/title_font = SubResource( 31 )
+window_title = "Название области (только на латинском!!)"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area/WindowDialog"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 396.0
+margin_bottom = 52.0
+text = "Area2D"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="WindowDialog" type="WindowDialog" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 319.0
+margin_top = -366.0
+margin_right = 719.0
+margin_bottom = 104.0
+custom_fonts/title_font = SubResource( 31 )
+window_title = "Название области (только на латинском!!)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="Camera2D/CanvasLayer/Control/WindowDialog"]
+anchor_top = -0.155963
+anchor_bottom = -0.155963
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 396.0
+margin_bottom = 52.0
+text = "Area2D"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorPicker" type="ColorPicker" parent="Camera2D/CanvasLayer/Control/WindowDialog"]
+margin_left = 178.633
+margin_top = 201.184
+margin_right = 548.633
+margin_bottom = 663.184
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 40.0
+margin_top = -416.0
+margin_right = 985.0
+margin_bottom = 132.0
+theme = SubResource( 33 )
+window_title = "Открыть файл"
+mode = 0
+access = 2
+current_dir = "/Users/ПК/Documents/Huter vet E"
+current_path = "/Users/ПК/Documents/Huter vet E/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog2" type="FileDialog" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 14.0
+margin_top = -423.0
+margin_right = 1012.0
+margin_bottom = 140.0
+theme = SubResource( 33 )
+window_title = "Сохранить файл"
+access = 2
+current_dir = "/Users/ПК/Documents/Huter vet E"
+current_path = "/Users/ПК/Documents/Huter vet E/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="edit" type="WindowDialog" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 14.0
+margin_top = -410.0
+margin_right = 1008.0
+margin_bottom = 129.0
+custom_fonts/title_font = SubResource( 34 )
+window_title = "Редактор кода карты"
+script = SubResource( 35 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+red_string = [ "var", "print", "extends", "export", "onready", "func", "pass" ]
+green_string = [ "Node", "Node2D", "$" ]
+blue_string = [ "add_keyword_color" ]
+sky_blue_string = [ "_ready" ]
+
+[node name="TextEdit" type="TextEdit" parent="Camera2D/CanvasLayer/Control/edit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 4.0
+margin_right = -2.0
+margin_bottom = -4.0
+custom_fonts/font = SubResource( 36 )
+text = "extends Node2D
+"
+highlight_current_line = true
+syntax_highlighting = true
+show_line_numbers = true
+draw_tabs = true
+draw_spaces = true
+breakpoint_gutter = true
+override_selected_font_color = true
+minimap_draw = true
+minimap_width = 90
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DataScene" type="WindowDialog" parent="Camera2D/CanvasLayer/Control"]
+margin_left = 291.0
+margin_top = -422.0
+margin_right = 732.0
+margin_bottom = 129.0
+custom_fonts/title_font = SubResource( 37 )
+window_title = "Настройки карты"
+script = SubResource( 38 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/Control/DataScene"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 3.05176e-05
+margin_bottom = 3.05176e-05
+rect_min_size = Vector2( 441, 470 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer"]
+margin_right = 441.0
+margin_bottom = 737.0
+rect_min_size = Vector2( 441, 470 )
+
+[node name="Time" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_right = 441.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/Time"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 39 )
+text = "Время"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 34.0
+margin_right = 441.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -3.05176e-05
+margin_bottom = -1.0
+custom_fonts/font = SubResource( 39 )
+text = "Начальное время (час)"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+max_value = 23.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_change" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 441.0
+margin_bottom = 98.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="CheckBox" type="CheckBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time_change"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 40 )
+pressed = true
+text = "Изменение времени"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_event" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 102.0
+margin_right = 441.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 441, 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time_event"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -3.05176e-05
+margin_bottom = -1.0
+custom_fonts/font = SubResource( 39 )
+text = "Продолжительность часа (в секундах)"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time_event"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="none" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 136.0
+margin_right = 441.0
+margin_bottom = 166.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="player" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 170.0
+margin_right = 441.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/player"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 39 )
+text = "Игрок"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="number_of_clutches" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 204.0
+margin_right = 441.0
+margin_bottom = 246.0
+rect_min_size = Vector2( 441, 42 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/number_of_clutches"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -3.05176e-05
+margin_bottom = 0.999996
+custom_fonts/font = SubResource( 39 )
+text = "Сколько раз можно сделать прыжок от 
+стен"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/number_of_clutches"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+max_value = 9999.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="none4" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 250.0
+margin_right = 441.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Save" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 284.0
+margin_right = 441.0
+margin_bottom = 314.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/Save"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 39 )
+text = "Сохронения"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="can_be_saved" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 318.0
+margin_right = 441.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="CheckBox" type="CheckBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/can_be_saved"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 40 )
+pressed = true
+text = "Можно ли сохронять карту? (прогресс игры)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="edit_save" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 352.0
+margin_right = 441.0
+margin_bottom = 382.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="CheckBox" type="CheckBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/edit_save"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 40 )
+text = "Можно редактировать сохранённую версию?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="none2" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 386.0
+margin_right = 441.0
+margin_bottom = 416.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Spavn" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 420.0
+margin_right = 441.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/Spavn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 39 )
+text = "Спавн"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spavn_y" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 454.0
+margin_right = 441.0
+margin_bottom = 484.0
+rect_min_size = Vector2( 441, 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/spavn_y"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -3.05176e-05
+margin_bottom = -1.0
+custom_fonts/font = SubResource( 39 )
+text = "Позиция спавна (по Y)"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/spavn_y"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+min_value = -999999.0
+max_value = 999999.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spavn_x" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 488.0
+margin_right = 441.0
+margin_bottom = 518.0
+rect_min_size = Vector2( 441, 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/spavn_x"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -3.05176e-05
+margin_bottom = -1.0
+custom_fonts/font = SubResource( 39 )
+text = "Позиция спавна (по X)"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/spavn_x"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+min_value = -999999.0
+max_value = 999999.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="re_spavn" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 522.0
+margin_right = 441.0
+margin_bottom = 552.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="CheckBox" type="CheckBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/re_spavn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 40 )
+text = "Можно ли игроку перерождатся"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="specter" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 556.0
+margin_right = 441.0
+margin_bottom = 586.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="CheckBox" type="CheckBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/specter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 40 )
+text = "Можно ли игроку быть наблюдателем"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="none3" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 590.0
+margin_right = 441.0
+margin_bottom = 620.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="HungerLove" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 624.0
+margin_right = 441.0
+margin_bottom = 654.0
+rect_min_size = Vector2( 441, 30 )
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/HungerLove"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 39 )
+text = "Голод,  здоровье и жажда"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="taking_away" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 658.0
+margin_right = 441.0
+margin_bottom = 703.0
+rect_min_size = Vector2( 441, 45 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/taking_away"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -3.05176e-05
+margin_bottom = -1.0
+custom_fonts/font = SubResource( 39 )
+text = "Частота отнимания голода и здоровья
+ (в секундах)"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/taking_away"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dehumidification_frequency" type="Control" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer"]
+margin_top = 707.0
+margin_right = 441.0
+margin_bottom = 737.0
+rect_min_size = Vector2( 441, 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/dehumidification_frequency"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 74.0
+custom_fonts/font = SubResource( 39 )
+text = "Частота прихода жажды (в секундах)"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="SpinBox" parent="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/dehumidification_frequency"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -367.0
+margin_bottom = -1.90735e-06
+min_value = 1.0
+max_value = 9999.0
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupDialog" type="AcceptDialog" parent="Camera2D/CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -177.0
+margin_top = -348.0
+margin_right = 181.0
+margin_bottom = -140.0
+theme = SubResource( 43 )
+window_title = "Внимание!"
+dialog_text = "При помощи нашей экспериментальной
+нейросети мы обнаружили, что файл 
+который вы собираетесь запустить
+является сохранением. Более того там
+написано, что его нельзя редактировать!
+
+Приносим свои глубочайшие печальки :("
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Camera2D"]
+stream = ExtResource( 15 )
+volume_db = -18.353
+autoplay = true
+
+[node name="NodeScript" type="Node2D" parent="."]
+script = SubResource( 44 )
+
+[node name="Node" type="Node2D" parent="."]
+script = SubResource( 45 )
+
+[node name="Timer" type="Timer" parent="Node"]
+wait_time = 8.661
+
+[node name="Timer2" type="Timer" parent="Node"]
+wait_time = 8.661
+
+[connection signal="value_changed" from="Camera2D/CanvasLayer/Control/Control2/Timer/SpinBox" to="Camera2D/CanvasLayer/Control/Tree" method="value_changed_timer"]
+[connection signal="toggled" from="Camera2D/CanvasLayer/Control/Control2/Timer/CheckBox2" to="Camera2D/CanvasLayer/Control/Tree" method="one_shot"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/ColorRect/Button" to="Camera2D/CanvasLayer/Control" method="_pressed_save"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/ColorRect/Button2" to="Camera2D/CanvasLayer/Control" method="_pressed_load"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/ColorRect/Button3" to="Camera2D/CanvasLayer/Control" method="Button3_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/ColorRect/Button4" to="Camera2D/CanvasLayer/Control" method="Button4_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/ColorRect/Button5" to="Camera2D/CanvasLayer/Control" method="Button5_pressed"]
+[connection signal="timeout" from="Camera2D/CanvasLayer/Control/Tree/event" to="Camera2D/CanvasLayer/Control/Tree" method="event"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/full_setting" to="Camera2D/CanvasLayer/Control/Tree" method="full_setting_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/node_del" to="Camera2D/CanvasLayer/Control/Tree" method="node_del"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/cent" to="Camera2D/CanvasLayer/Control/Tree" method="cent"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/timer_make" to="Camera2D/CanvasLayer/Control/Tree" method="timer_make"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/node_up" to="Camera2D/CanvasLayer/Control/Tree" method="node_up"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/node_bottom" to="Camera2D/CanvasLayer/Control/Tree" method="node_bottom"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/node_bottom2" to="Camera2D/CanvasLayer/Control/Tree" method="event_pressed"]
+[connection signal="value_changed" from="Camera2D/CanvasLayer/Control/SpinBox" to="Camera2D/CanvasLayer/Control/Tree" method="changed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del/AreaDel" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del/ButtonOK" method="AreaDel_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del/BodyDel" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/del/ButtonOK" method="BodyDel_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree/AreaDel" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree/ButtonOK" method="Area_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree/BodyDel" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/show_in_tree/ButtonOK" method="Body_pressed"]
+[connection signal="value_changed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon/SpinBox" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon" method="SpinBox_value_changed"]
+[connection signal="value_changed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon/SpinBox2" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon" method="SpinBox2_value_changed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon/Button" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon" method="_pressed_color_select"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon/Button2" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon" method="_pressed_spavn"]
+[connection signal="color_changed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon/WindowDialog/ColorPicker" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/fon" method="ColorPicker_color_changed"]
+[connection signal="value_changed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area/SpinBox" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area" method="SpinBox_value_changed"]
+[connection signal="value_changed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area/SpinBox2" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area" method="SpinBox2_value_changed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area/Button" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area" method="Button_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area/Button2" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area" method="pressed_spavn"]
+[connection signal="text_changed" from="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area/WindowDialog/LineEdit" to="Camera2D/CanvasLayer/Control/TabContainer/Tabs3/CenterContainer2/HBoxContainer/area" method="text_changed"]
+[connection signal="file_selected" from="Camera2D/CanvasLayer/Control/FileDialog" to="Camera2D/CanvasLayer/Control" method="file_selected"]
+[connection signal="file_selected" from="Camera2D/CanvasLayer/Control/FileDialog2" to="Camera2D/CanvasLayer/Control" method="file_selected_save"]
+[connection signal="text_changed" from="Camera2D/CanvasLayer/Control/edit/TextEdit" to="." method="TextEdit_text_changed"]
+[connection signal="about_to_show" from="Camera2D/CanvasLayer/Control/DataScene" to="Camera2D/CanvasLayer/Control/DataScene" method="about_to_show"]
+[connection signal="popup_hide" from="Camera2D/CanvasLayer/Control/DataScene" to="Camera2D/CanvasLayer/Control/DataScene" method="popup_hide"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time/CheckBox" to="Camera2D/CanvasLayer/Control/TabContainer" method="changed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time_change/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="CheckBox_pressed"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/time_event/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="changed"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/number_of_clutches/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="changed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/can_be_saved/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="CheckBox_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/edit_save/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="CheckBox_pressed"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/spavn_y/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="changed"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/spavn_x/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="changed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/re_spavn/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="CheckBox_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/specter/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="CheckBox_pressed"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/taking_away/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="changed"]
+[connection signal="changed" from="Camera2D/CanvasLayer/Control/DataScene/ScrollContainer/VBoxContainer/dehumidification_frequency/CheckBox" to="Camera2D/CanvasLayer/Control/DataScene" method="changed"]

@@ -71,8 +71,22 @@ func _ready():
 				{"tile_clear": {"shift": Vector2(2, -3)}},
 			]
 		]
-		
 		$TileMap.tiles = $TileMap.structure($TileMap.tiles, manual, 1)
+		
+		manual = [
+			[
+				{"position": {"mode": 1, "value": Vector2(10, 0)}},
+				{"tile": {"mode": 0, "shift": Vector2(0, 0), "value": {"tile_name": "ground"}}}, 
+				{"tile": {"mode": 0, "shift": Vector2(0, -1), "value": false}},
+				{"tile": {"mode": 0, "shift": Vector2(-1, -1), "value": false}},
+				{"tile": {"mode": 0, "shift": Vector2(1, -1), "value": false}}
+			], 
+			[
+				{"object": {"path": "res://Sceni/NPS/Mob.res"}}#"pos": Vector2(32, -64), 
+			]
+		]
+		
+		$TileMap.structure($TileMap.tiles, manual, 90)
 		
 		$TileMap.render()
 

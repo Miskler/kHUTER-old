@@ -24,7 +24,7 @@ config/windows_native_icon="res://Texture/Other/ava_v.ico"
 
 [autoload]
 
-G="*res://Sceni/Global.tscn"
+G="*res://Scenes/Global.tscn"
 
 [debug]
 
