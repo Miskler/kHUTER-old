@@ -440,7 +440,7 @@ func show_died(cause):
 		
 		for i in dat_items:
 			if i[1].size() > 0:
-				var random_bloc = load("res://Sceni/item/ItemInWorld.scn").instance()
+				var random_bloc = load("res://Scenes/Items/ItemInWorld.scn").instance()
 				
 				var f_name = "SlotInWorld_" + str(rand_range(0, 1))
 				

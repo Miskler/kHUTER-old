@@ -345,7 +345,7 @@ remote func event_state(path, data):
 		get_node(path).event_state(data)
 
 remote func create_bullet(gan, bullet, pos, rot = 0, texture = "res://Tecture/Modeli/no_texture.png", damage = 1, attraction = 0, speed = 100, mode:bool = false, output:int = 0, source:Node = null): #Позиция, поворот, текстура, урон, притяжение к земле
-	SD = get_node("/root/rootGame/Node/SettingData")
+	#SD = get_node("/root/rootGame/Node/SettingData")
 	var bullet_load = load("res://Scenes/Items/bullet.res").instance()
 	bullet_load.global_position = pos
 	bullet_load.rotation = rot
@@ -363,6 +363,16 @@ remote func create_bullet(gan, bullet, pos, rot = 0, texture = "res://Tecture/Mo
 	
 	get_node("Node").add_child(bullet_load)
 	return bullet_load
+
+remote func create_item(item, data:Dictionary = {}):
+	var node = load(item).instance()
+	
+	for key in data.keys():
+		node.set(key, data[key])
+	
+	get_node("Node").add_child(node)
+	return node
+
 
 func _on_Timer2_timeout():
 	print("Добавление новой пешки на карту: " + str(id_d))

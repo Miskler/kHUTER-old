@@ -16,7 +16,7 @@ _global_script_class_icons={
 
 config/name="Huter"
 config/description="Небольшой проект...."
-run/main_scene="res://Load/Load.tscn"
+run/main_scene="res://Scenes/Load.tscn"
 boot_splash/use_filter=false
 config/icon="res://Texture/Other/logo.png"
 config/macos_native_icon="res://Texture/Other/mac_os.icns"
