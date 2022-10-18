@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Installation.mp3-e2e101fd4715feccfdea19e077014e0d.mp3str"
+
+[deps]
+
+source_file="res://Aydio/Tiles/Ice/Installation.mp3"
+dest_files=[ "res://.import/Installation.mp3-e2e101fd4715feccfdea19e077014e0d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

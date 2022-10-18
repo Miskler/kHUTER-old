@@ -3439,6 +3439,7 @@ script = SubResource( 19 )
 position = Vector2( 68.4941, 69.3271 )
 scale = Vector2( 0.241231, 0.25228 )
 frames = SubResource( 17 )
+frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -3448,6 +3449,7 @@ rotation = 0.0036599
 scale = Vector2( 0.115135, 0.123498 )
 frames = SubResource( 17 )
 animation = "error"
+frame = 1
 speed_scale = 0.3
 playing = true
 
@@ -3457,6 +3459,7 @@ rotation = -0.0768155
 scale = Vector2( 0.126976, 0.135253 )
 frames = SubResource( 17 )
 animation = "error"
+frame = 1
 speed_scale = 0.3
 playing = true
 
@@ -3476,7 +3479,7 @@ rotation = -0.00647718
 scale = Vector2( 0.158816, 0.164655 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 2
+frame = 1
 speed_scale = 0.6
 playing = true
 
@@ -3486,7 +3489,7 @@ rotation = -0.0388994
 scale = Vector2( 0.143603, 0.152042 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 3
+frame = 2
 speed_scale = 0.5
 playing = true
 
@@ -3502,6 +3505,7 @@ script = SubResource( 16 )
 position = Vector2( 68.4941, 69.3271 )
 scale = Vector2( 0.241231, 0.25228 )
 frames = SubResource( 17 )
+frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -3511,7 +3515,7 @@ rotation = 0.00943437
 scale = Vector2( 0.151132, 0.161913 )
 frames = SubResource( 17 )
 animation = "error"
-frame = 1
+frame = 3
 speed_scale = 0.2
 playing = true
 
@@ -3542,7 +3546,7 @@ position = Vector2( 31.4292, 61.8021 )
 scale = Vector2( 2.81063, 2.92224 )
 frames = SubResource( 21 )
 animation = "wait"
-frame = 2
+frame = 1
 speed_scale = 0.5
 playing = true
 __meta__ = {
@@ -3581,6 +3585,7 @@ position = Vector2( 30.2206, 93.8387 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 75 )
 animation = "def"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D5"]
@@ -3723,6 +3728,7 @@ texture = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Area2D2"]
 frames = SubResource( 36 )
+frame = 3
 speed_scale = 0.6
 playing = true
 
@@ -3979,6 +3985,7 @@ position = Vector2( -9704.05, -4675.48 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 75 )
 animation = "def"
+frame = 1
 playing = true
 
 [node name="Guider" type="Node" parent="."]
@@ -3993,7 +4000,7 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Guider/Bot"]
 frames = SubResource( 52 )
 animation = "def"
-frame = 2
+frame = 5
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Guider"]

@@ -21,10 +21,8 @@ func _ready():
 			var data = str2var(file.get_as_text())
 			file.close()
 			set_scene(data)
-			#print("Node found: " + str($"/root/rootGame/Node/Player/Camera2D/interface/menu/Control/Label".get("theme").get("default_font").get("font_data").get("font_path")))
 		else:
 			set_scene(G.loadSCN)
-		print(get_tree().get_network_peer())
 		if get_node_or_null("Node/Player") == null:
 			revive_player(get_tree().get_network_unique_id())
 		print("Cцена инициализированна!")
@@ -40,11 +38,7 @@ func get_map():
 	G.rpc_id(1, "_player_connected", get_tree().get_network_unique_id(), G.game_settings["player_name"])
 
 func spavn_players():
-	print(G.player_roster)
 	for i in G.player_roster.keys():
-		print(i)
-		print("G.live_player_roster.has(i): ", G.live_player_roster.has(i))
-		print("i != network_id: ", str(i) != str(get_tree().get_network_unique_id()))
 		if G.live_player_roster.has(i) and str(i) != str(get_tree().get_network_unique_id()):
 			print("Добавление новой пешки на карту: " + str(i))
 			var GG = load("res://Scenes/NPS/Player_puppet.res").instance()
@@ -124,7 +118,6 @@ remote func revive_player(id):
 		get_node("Node").add_child(player)
 		player.name = "Player"
 		yield(get_tree(), "idle_frame")
-		print(player.position)
 	else:
 		var player_puppet = load("res://Scenes/NPS/Player_puppet.res").instance()
 		player_puppet.name = str(id)
@@ -157,8 +150,6 @@ remote func file_select(nodes, pl_rs, l_pl_rs):
 	G.player_roster = pl_rs
 	G.live_player_roster = l_pl_rs
 	
-	print(G.player_roster)
-	
 	for i in range(pl_rs.size()):
 		var user_id = pl_rs.keys()[i]
 		if user_id != get_tree().get_network_unique_id():
@@ -184,13 +175,10 @@ func connect_virtual_signals(root: Node = $"/root", ignor: Array = []):
 		if not (node.get_path() in ignor):
 			if node.script != null:
 				if node.has_method("_process"):
-					print(1)
 					node.set_process(true)
 				if node.has_method("_physics_process"):
-					print(2)
 					node.set_physics_process(true)
 				if node.has_method("_input"):
-					print(3)
 					node.set_process_input(true)
 			connect_virtual_signals(node, ignor)
 
@@ -198,7 +186,7 @@ func scripts_reload(root, ignored):
 	for node in root.get_children():
 		var path = node.get_path()
 		if node.script:
-			print("script reload: " + node.get_path())
+			print("Скрипт перезагружен: " + node.get_path())
 			node.script.reload()
 			ready_script_started(node, ignored)
 
@@ -244,7 +232,6 @@ func set_scene(path):
 							atla.flags = i["frames"][j]["animation_frames"][d]["flags"]
 							
 							SF.add_frame(j, atla, d)
-				print(SF)
 				node_spavn.frames = SF
 			
 			setter_param(node_spavn, i)

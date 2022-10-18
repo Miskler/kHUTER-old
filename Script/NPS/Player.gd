@@ -321,6 +321,7 @@ func show_inventory():
 	$Camera2D/interface/menu.hide()
 	$Camera2D/interface/main.hide()
 	
+	print("")
 	$Camera2D/interface.slots_off_and_on(1, false)
 	$Camera2D/interface.slots_off_and_on(3, false)
 	$Camera2D/interface.slots_off_and_on(4, true)
@@ -332,6 +333,7 @@ func show_craft_menu():
 	$Camera2D/interface/menu.hide()
 	$Camera2D/interface/main.hide()
 	
+	print("")
 	$Camera2D/interface.slots_off_and_on(0, false)
 	$Camera2D/interface.slots_off_and_on(1, false)
 	$Camera2D/interface.slots_off_and_on(3, false)
@@ -345,6 +347,7 @@ func show_chest(chest, name_var_data):
 	$Camera2D/interface/menu.hide()
 	$Camera2D/interface/main.hide()
 	
+	print("")
 	$Camera2D/interface.slots_off_and_on(1, false)
 	$Camera2D/interface.slots_off_and_on(2, false)
 	$Camera2D/interface.slots_off_and_on(3, false)
@@ -358,6 +361,7 @@ func show_main():
 	$Camera2D/interface/chest.hide()
 	$Camera2D/interface/menu.hide()
 	
+	print("")
 	$Camera2D/interface.slots_off_and_on(0, true)
 	$Camera2D/interface.slots_off_and_on(1, true)
 	$Camera2D/interface.slots_off_and_on(2, true)
@@ -377,6 +381,7 @@ func show_dialogue(dialogue = null):
 	else:
 		$Camera2D/interface/dialogue.read_dialogue()
 	
+	print("")
 	$Camera2D/interface.slots_off_and_on(0, true)
 	$Camera2D/interface.slots_off_and_on(1, true)
 	$Camera2D/interface.slots_off_and_on(2, true)
@@ -399,6 +404,7 @@ func show_menu():
 	$Camera2D/interface/chest.hide()
 	$Camera2D/interface/menu.show()
 	
+	print("")
 	$Camera2D/interface.slots_off_and_on(0, true)
 	$Camera2D/interface.slots_off_and_on(1, true)
 	$Camera2D/interface.slots_off_and_on(2, true)
@@ -422,6 +428,8 @@ func show_died(cause):
 		$Camera2D/interface/dialogue.hide()
 		$Camera2D/interface/died.show()
 		
+		print("Игрок: Игрок умер по причине \""+str(cause)+"\"")
+		print("")
 		$Camera2D/interface.slots_off_and_on(0, false)
 		$Camera2D/interface.slots_off_and_on(1, false)
 		$Camera2D/interface.slots_off_and_on(2, false)
