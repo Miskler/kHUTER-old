@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Resources/20703.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Script/Global.gd" type="Script" id=2]
@@ -429,6 +429,114 @@ tracks/2/keys = {
 "values": [ false, true, true, true ]
 }
 
+[sub_resource type="GDScript" id=20]
+script/source = "extends CanvasLayer
+
+func new_notification(title:String, text:String, main_color:Color = Color(\"007d08\"), secondary_color:Color = Color(\"a000ff00\")):
+	var node = $\"Control/Notifications/Sample*\".duplicate()
+	
+	node.get_node(\"Title\").text = title
+	node.get_node(\"Text\").text = text
+	
+	node.get_node(\"Progress\").custom_styles.fg.bg_color = main_color
+	node.get_node(\"Progress\").custom_styles.bg.bg_color = secondary_color
+	
+	node.name = \"Notification\"
+	node.visible = true
+	
+	$Control/Notifications.add_child(node, true)
+"
+
+[sub_resource type="GDScript" id=19]
+script/source = "extends TextureButton
+
+var mode = false
+
+func _ready():
+	if name != \"Sample*\":
+		$Pass.play(\"def\")
+		$Visible.play_backwards(\"def\")
+
+func _pressed():
+	$Visible.play(\"def\")
+	mode = true
+
+
+
+func _finished(_anim_name):
+	if mode:
+		queue_free()
+
+func _start_hide(_anim_name):
+	_pressed()
+"
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0.490196, 0.0313726, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 1, 0, 0.627451 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=10]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=11]
+default_font = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 15
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=15]
+default_font = SubResource( 14 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0, 0, 0.235294 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id=17]
+resource_name = "def"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Progress:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 100.0 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "def"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="Global" type="Node"]
 pause_mode = 2
 script = ExtResource( 2 )
@@ -501,4 +609,73 @@ anims/def = SubResource( 5 )
 limit_left = 0
 limit_top = 0
 
+[node name="Global Interface" type="CanvasLayer" parent="."]
+script = SubResource( 20 )
+
+[node name="Control" type="Control" parent="Global Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Notifications" type="VBoxContainer" parent="Global Interface/Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -245.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+mouse_filter = 2
+
+[node name="Sample*" type="TextureButton" parent="Global Interface/Control/Notifications"]
+visible = false
+margin_right = 240.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 90 )
+script = SubResource( 19 )
+
+[node name="Progress" type="ProgressBar" parent="Global Interface/Control/Notifications/Sample*"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
+value = 50.0
+percent_visible = false
+
+[node name="Title" type="Label" parent="Global Interface/Control/Notifications/Sample*"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = -5.0
+theme = SubResource( 11 )
+text = "Загрузка"
+align = 1
+
+[node name="Text" type="RichTextLabel" parent="Global Interface/Control/Notifications/Sample*"]
+margin_left = 1.0
+margin_top = 37.0
+margin_right = 238.0
+margin_bottom = 89.0
+theme = SubResource( 15 )
+custom_styles/normal = SubResource( 16 )
+text = "
+                 Карта загружена.
+
+Я Скиппи! Тут слишком много текста, мотай в низ.
+
+
+
+
+Урод!"
+
+[node name="Pass" type="AnimationPlayer" parent="Global Interface/Control/Notifications/Sample*"]
+playback_speed = 0.1
+anims/def = SubResource( 17 )
+
+[node name="Visible" type="AnimationPlayer" parent="Global Interface/Control/Notifications/Sample*"]
+playback_speed = 0.5
+anims/def = SubResource( 18 )
+
 [connection signal="animation_finished" from="Load Screen/Animation" to="Load Screen" method="select2"]
+[connection signal="animation_finished" from="Global Interface/Control/Notifications/Sample*/Pass" to="Global Interface/Control/Notifications/Sample*" method="_start_hide"]
+[connection signal="animation_finished" from="Global Interface/Control/Notifications/Sample*/Visible" to="Global Interface/Control/Notifications/Sample*" method="_finished"]
