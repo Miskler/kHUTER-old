@@ -1,0 +1,681 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Resources/20703.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Script/Global.gd" type="Script" id=2]
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Node
+
+var SCREENfile
+export var file_prefix = \"\"
+
+var _tag = \"\"
+var _index = 0
+
+func _ready():
+	var dir = Directory.new()
+	print(OS.get_system_dir(OS.SYSTEM_DIR_PICTURES))
+	
+	SCREENfile = str(OS.get_system_dir(OS.SYSTEM_DIR_PICTURES)) + \"/Huter\"
+	
+	if not dir.dir_exists(SCREENfile):
+		dir.make_dir_recursive(SCREENfile)
+	
+	dir.open(SCREENfile)
+	
+	if not SCREENfile[-1] == \"/\":
+		SCREENfile += \"/\"
+	if not file_prefix.empty():
+		file_prefix += \"_\"
+	set_process_input(true)
+
+func _input(_event):
+	if Input.is_action_just_pressed(\"F12\"):
+		make_screenshot()
+
+func make_screenshot():
+	var image = get_viewport().get_texture().get_data()
+	image.flip_y()
+	
+	_update_tags()
+	image.save_png(\"%s%s%s_%s-индекс.png\" % [SCREENfile, file_prefix, _tag, _index])
+
+func _update_tags():
+	var time
+	
+	time = OS.get_datetime()
+	time = \"%s-%02d-%02d-%02d\" % [time['year'], time['month'], time['day'], time['hour']]
+	if (_tag == time): _index += 1
+	else:
+		_index = 0
+	_tag = time
+"
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+func save_game(name_save):
+	if get_node_or_null(\"/root/rootGame/Node\") != null:
+		var dirSAV = Directory.new()
+		var path = \"user://SaveGame/Worlds/\" + str(name_save)
+		if !dirSAV.dir_exists(path):
+			dirSAV.make_dir_recursive(path)
+		
+		#Делаем скриншот
+		var image = get_viewport().get_texture().get_data()
+		image.flip_y()
+		image.save_png(path + \"/screenshot.png\")
+		
+		#Сохраняем мир
+		get_node(\"/root/rootGame/Node/SettingData\").map_settings[\"is_save\"] = true
+		var file_t = File.new()
+		var ignor = [\"/root/rootGame/Timer\", \"/root/rootGame/Timer2\"]
+		var list_nodes = get_nodes($\"/root/rootGame\", ignor)
+		var nodes = list_param(list_nodes)
+		file_t.open(path + \"/map.huter\", File.WRITE)
+		file_t.store_line(var2str(nodes))
+		file_t.close()
+		get_node(\"/root/rootGame/Node/SettingData\").map_settings[\"is_save\"] = false
+		
+		#Делаем .json файл с данными о времени, версии и т.д..
+		var file = File.new()
+		var array_to_save = [get_parent().game_settings[\"version\"], get_parent().game_settings[\"player_name\"], OS.get_datetime()]
+		file.open(path + \"/data.json\", File.WRITE)
+		file.store_line(to_json(array_to_save))
+		file.close()
+
+func get_params(node:Object, node_list = {}):
+	if node is Object and is_instance_valid(node):
+		for h in node.get_property_list():
+			var no_add = [\"custom_multiplayer\", \"multiplayer\", \"Node\", \"script\", \"tile_set\", \"frames\"]
+			if node.get_script():
+				for j in node.get_script().get_script_property_list():
+					no_add.append(j[\"name\"])
+			if !h[\"name\"] in no_add:
+				var node_property = node.get(h[\"name\"])
+				if !node_property is Object:
+					node_list[h[\"name\"]] = node_property
+				elif node_property is Object and !is_instance_valid(node_property):
+					node_list[h[\"name\"]] = null
+				elif node_property is AtlasTexture:
+					node_list[h[\"name\"]][\"original_image\"] = node_property.atlas.get_path()
+					node_list[h[\"name\"]][\"region\"] = node_property.region
+					node_list[h[\"name\"]][\"margin\"] = node_property.margin
+					node_list[h[\"name\"]][\"filter_clip\"] = node_property.filter_clip
+					node_list[h[\"name\"]][\"flags\"] = node_property.flags
+				else:
+					var end = str(node_property.get_path())
+					if end.ends_with(\".png\") or end.ends_with(\".jpg\") or end.ends_with(\".otf\") or end.ends_with(\".mp3\"):
+						node_list[h[\"name\"]] = node_property.get_path()
+					else:
+						var set_node = get_params(node_property)
+						node_list[h[\"name\"]] = set_node
+						node_list[h[\"name\"]][\"use_setter_param\"] = true
+			node_list[\"node\"] = node.get_class()
+	else: node_list = null
+	
+	return node_list
+
+func list_param(nodes_list = []):
+	for i in range(nodes_list.size()):
+		var node = get_node(nodes_list[i][\"path\"])
+		
+		nodes_list[i] = get_params(node, nodes_list[i])
+		nodes_list[i][\"path\"] = node.get_parent().get_path() #Родитель ноды (нужен расшифровщику, чтобы знал кому добавить ноду)
+		
+		if node is TileMap and node.tile_set != null:
+			nodes_list[i][\"tile_set\"] = node.tile_set.get_path()
+			#nodes_list[i][\"tile_set\"] = {}
+			#for id in node.tile_set.get_tiles_ids():
+			#	var tile_dat = {}
+			#	
+			#	tile_dat[\"tile_mode\"] = node.tile_set.tile_get_tile_mode(id) #ТИП ТАЙЛА
+			#	
+			#	tile_dat[\"texture\"] = node.tile_set.tile_get_texture(id) #ТЕКСТУРА
+			#	if tile_dat[\"texture\"] != null: tile_dat[\"texture\"] = tile_dat[\"texture\"].resource_path
+			#	
+			#	tile_dat[\"normal_map\"] = node.tile_set.tile_get_normal_map(id) #НОРМАЛ МАП
+			#	if tile_dat[\"normal_map\"] != null: tile_dat[\"normal_map\"] = tile_dat[\"normal_map\"].resource_path
+			#	
+			#	tile_dat[\"material\"] = get_params(node.tile_set.tile_get_material(id)) #МАТЕРИАЛ
+			#	tile_dat[\"name\"] = node.tile_set.tile_get_name(id) #ИМЯ
+			#	
+			#	if tile_dat[\"tile_mode\"] == 0: #ТАЙЛ:
+			#		tile_dat[\"region\"] = node.tile_set.tile_get_region(id) #РЕГИОН
+			#		
+			#		tile_dat[\"shapes\"] = node.tile_set.tile_get_shapes(id) #ШЕЙП
+			#		for h in range(tile_dat[\"shapes\"].size()):
+			#			tile_dat[\"shapes\"][h][\"shape\"] = get_params(tile_dat[\"shapes\"][h][\"shape\"])
+			#		
+			#		tile_dat[\"light_occluder\"] = get_params(node.tile_set.tile_get_light_occluder(id)) #СВЕТ ШЕЙП
+			#		tile_dat[\"navigation_polygon\"] = get_params(node.tile_set.tile_get_navigation_polygon(id)) #НАВИГАЦИЯ ШЕЙП
+			#		tile_dat[\"z_index\"] = node.tile_set.tile_get_z_index(id) #Z-ИНДЕКС
+			#	else: #ДРУГОЕ:
+			#		
+			#		tile_dat[\"icon\"] = node.tile_set.autotile_get_icon_coordinate(id) #ИКОНКА
+			#		tile_dat[\"spacing\"] = node.tile_set.autotile_get_spacing(id) #Пробел между тайлами
+			#		
+			#		
+			#		tile_dat[\"sub_tiles\"] = {}
+			#		
+			#		for x in range(node.tile_set.tile_get_texture(id).get_size().x / node.cell_size.x): #ПОДТАЙЛЫ:
+			#			tile_dat[\"sub_tiles\"][x] = {}
+			#			for y in range(node.tile_set.tile_get_texture(id).get_size().y / node.cell_size.y): #ПОДТАЙЛЫ:
+			#				tile_dat[\"sub_tiles\"][x][y] = {}
+			#				
+			#				tile_dat[\"sub_tiles\"][x][y][\"z_index\"] = node.tile_set.autotile_get_z_index(id, Vector2(x, y)) #Z-ИНДЕКС
+			#				tile_dat[\"sub_tiles\"][x][y][\"priority\"] = node.tile_set.autotile_get_subtile_priority(id, Vector2(x, y)) #ПРИОРИТЕТ
+			#				
+			#				tile_dat[\"sub_tiles\"][x][y][\"shapes\"] = node.tile_set.tile_get_shapes(id) #РАБОТАЕТ ЧЕРЕЗ ЖОПУ #ШЕЙП
+			#				for h in range(tile_dat[\"sub_tiles\"][x][y][\"shapes\"].size()):
+			#					tile_dat[\"sub_tiles\"][x][y][\"shapes\"][h][\"shape\"] = get_params(tile_dat[\"sub_tiles\"][x][y][\"shapes\"][h][\"shape\"])
+			#				
+			#				tile_dat[\"sub_tiles\"][x][y][\"light_occluder\"] = get_params(node.tile_set.autotile_get_light_occluder(id, Vector2(x, y))) #СВЕТ ШЕЙП
+			#				tile_dat[\"sub_tiles\"][x][y][\"navigation_polygon\"] = get_params(node.tile_set.autotile_get_navigation_polygon(id, Vector2(x, y))) #НАВИГАЦИЯ ШЕЙП
+			#				
+			#				if tile_dat[\"tile_mode\"] == 1: #АВТОТИЛЬ:
+			#					tile_dat[\"sub_tiles\"][x][y][\"bitmask\"] = node.tile_set.autotile_get_bitmask(id, Vector2(x, y)) #БИТОВАЯ МАСКА
+			#	
+			#	nodes_list[i][\"tile_set\"][id] = tile_dat
+			
+			nodes_list[i][\"tile_data\"] = []
+			for b in node.get_used_cells():
+				var j = {\"position\": b, \"atlas\": node.get_cellv(b), \"position_in_atlas\": node.get_cell_autotile_coord(b.x, b.y)}
+				nodes_list[i][\"tile_data\"].append(j)
+		elif node is Timer:
+			nodes_list[i][\"is_stopped\"] = node.is_stopped()
+			nodes_list[i][\"time_left\"] = node.time_left
+		elif node is AudioStreamPlayer or node is AudioStreamPlayer2D:
+			nodes_list[i][\"playback_position\"] = node.get_playback_position()
+		elif node is AnimatedSprite and node.get_sprite_frames() != null:
+			var frames_object = node.get_sprite_frames()
+			nodes_list[i][\"frames\"] = {}
+			for j in frames_object.get_animation_names():
+				nodes_list[i][\"frames\"][j] = {
+					\"animation_loop\": frames_object.get_animation_loop(j),
+					\"animation_speed\": frames_object.get_animation_speed(j),
+					\"animation_frames\": []
+				}
+				for k in range(frames_object.get_frame_count(j)):
+					var par = frames_object.get_frame(j, k)
+					if par is AtlasTexture:
+						var f = {}
+						
+						f[\"original_image\"] = par.atlas.get_path()
+						f[\"region\"] = par.region
+						f[\"margin\"] = par.margin
+						f[\"filter_clip\"] = par.filter_clip
+						f[\"flags\"] = par.flags
+						
+						par = f
+					else: par = par.get_path()
+					
+					nodes_list[i][\"frames\"][j][\"animation_frames\"].append(par)
+		elif node is AnimationPlayer and node.get_animation_list().size() > 0:
+			nodes_list[i][\"animations\"] = []
+			for j in range(node.get_animation_list().size()):
+				nodes_list[i][\"animations\"].append({})
+				var anim = node.get_animation(node.get_animation_list()[j])
+				nodes_list[i][\"animations\"][j][\"name\"] = node.get_animation_list()[j]
+				nodes_list[i][\"animations\"][j][\"length\"] = anim.get_length()
+				nodes_list[i][\"animations\"][j][\"loop\"] = anim.has_loop()
+				nodes_list[i][\"animations\"][j][\"step\"] = anim.get_step()
+				nodes_list[i][\"animations\"][j][\"tracks\"] = []
+				for k in anim.get_track_count():
+					nodes_list[i][\"animations\"][j][\"tracks\"].append({})
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"interpolation\"] = anim.track_get_interpolation_type(k)
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"type\"] = anim.track_get_type(k)
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"enabled\"] = anim.track_is_enabled(k)
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"imported\"] = anim.track_is_imported(k)
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"interpolation_loop\"] = anim.track_get_interpolation_loop_wrap(k)
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"path\"] = anim.track_get_path(k)
+					
+					nodes_list[i][\"animations\"][j][\"tracks\"][k][\"keys\"] = []
+					for f in anim.track_get_key_count(k):
+						nodes_list[i][\"animations\"][j][\"tracks\"][k][\"keys\"].append({})
+						nodes_list[i][\"animations\"][j][\"tracks\"][k][\"keys\"][f][\"position\"] = anim.track_get_key_time(k, f)
+						nodes_list[i][\"animations\"][j][\"tracks\"][k][\"keys\"][f][\"value\"] = anim.track_get_key_value(k, f)
+		
+		if is_instance_valid(node.get_script()):
+			nodes_list[i][\"script\"] = {}
+			nodes_list[i][\"script\"][\"code\"] = to_json(node.get_script().source_code)
+			nodes_list[i][\"script\"][\"vars\"] = {}
+			
+			var node_vars = node.get_script().get_script_property_list()
+			for g in node_vars:
+				if !(node.get(g[\"name\"]) is Object):
+					nodes_list[i][\"script\"][\"vars\"][g[\"name\"]] = node.get(g[\"name\"])
+				elif is_instance_valid(node.get(g[\"name\"])):
+					nodes_list[i][\"script\"][\"vars\"][g[\"name\"]] = node.get(g[\"name\"]).get_path()
+		
+		nodes_list[i][\"signals\"] = {}
+		for d in node.get_signal_list():
+			var dats = node.get_signal_connection_list(d[\"name\"])
+			
+			nodes_list[i][\"signals\"][d[\"name\"]] = []
+			
+			if dats.size() > 0:
+				for r in dats:
+					nodes_list[i][\"signals\"][d[\"name\"]].append([r[\"method\"], r[\"target\"].get_path()])
+	return nodes_list
+
+remote func send_map(user_id, user_name):
+	if !G.player_roster.has(user_id):
+		G.player_roster[user_id] = user_name
+		G.live_player_roster[user_id] = user_name
+	yield(get_tree(), \"idle_frame\")
+	print(\"Передача запущенной карты по запросу \\\"\"+str(user_name)+\"\\\" (\"+str(user_id)+\")\")
+	
+	var ignor = [\"/root/rootGame/Node/Player\", \"/root/rootGame/Timer\", \"/root/rootGame/Timer2\"]
+	
+	for i in get_parent().live_player_roster.keys():
+		ignor.append(\"/root/rootGame/Node/\" + str(i))
+	
+	make_nodes($\"/root/rootGame\", ignor)
+
+func get_nodes(root: Node, ignored = [], list = []):
+	for node in root.get_children():
+		var path = node.get_path()
+		if !path in ignored and not str(node.name).begins_with(\"@@\"):
+			list.append({\"path\": path})
+			get_nodes(node, ignored, list)
+	return list
+
+func make_nodes(root, ignored):
+	var list_nodes = get_nodes(root, ignored)
+	var nodes = list_param(list_nodes)
+	send(nodes)
+
+func send(nodes):
+	print(\"Передача карты размером - \" + str(nodes.size()))
+	get_node(\"/root/rootGame\").rpc(\"file_select\", nodes, get_parent().player_roster, get_parent().live_player_roster)
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends CanvasLayer
+
+var evidence = [
+	\"Игра уже разрабатывается 3 года!\",
+	\"Игра создана на бесплатном Open Source движке Godot!\",
+	\"Блёбы мирные, а ты - блёбодёр!\"
+]
+
+var d = 1
+var ro = \"\"
+func select(scene, game:bool = true):
+	var roo = \"res://Scenes/rootGame.tscn\"
+	if not game: roo = scene
+	ro = roo
+	
+	if game:
+		print(\"Изменение на игровую сцену: \\\"\" + str(scene)+\"\\\"\")
+	else:
+		print(\"Изменение на не игровую сцену: \\\"\" + str(scene)+\"\\\"\")
+	
+	$Control/RichTextLabel.text = evidence[int(round(rand_range(0.0, float(evidence.size()-1))))]
+	event_p()
+	G.loadSCN = scene
+	if scene.begins_with(\"res://\"):
+		$Animation.play(\"black\")
+		d = 0
+	else:
+		d = 1
+		$Animation.play(\"def\")
+func select2(_f):
+	if d in [0, 1]:
+		get_tree().change_scene(ro)
+		if d == 0:
+			$Animation.play_backwards(\"black\")
+		else:
+			$Animation.play_backwards(\"def\")
+			#$Camera.current = true
+		d = 2
+
+
+func not_select():
+	#$Camera.current = false
+	if $Hide.color.a != 255:
+		$Animation.play_backwards(\"def\")
+	else:
+		visible = false
+
+func event_p(p:int = 0):
+	$Control/ProgressBar.value = p
+"
+
+[sub_resource type="DynamicFont" id=6]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "black"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hide:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 1, 1.1 ),
+"transitions": PoolRealArray( 1, 1.06464, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Control:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "def"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hide:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true ]
+}
+
+[sub_resource type="GDScript" id=20]
+script/source = "extends CanvasLayer
+
+func new_notification(title:String, text:String, main_color:Color = Color(\"007d08\"), secondary_color:Color = Color(\"a000ff00\")):
+	var node = $\"Control/Notifications/Sample*\".duplicate()
+	
+	node.get_node(\"Title\").text = title
+	node.get_node(\"Text\").text = text
+	
+	node.get_node(\"Progress\").custom_styles.fg.bg_color = main_color
+	node.get_node(\"Progress\").custom_styles.bg.bg_color = secondary_color
+	
+	node.name = \"Notification\"
+	node.visible = true
+	
+	$Control/Notifications.add_child(node, true)
+"
+
+[sub_resource type="GDScript" id=19]
+script/source = "extends TextureButton
+
+var mode = false
+
+func _ready():
+	if name != \"Sample*\":
+		$Pass.play(\"def\")
+		$Visible.play_backwards(\"def\")
+
+func _pressed():
+	$Visible.play(\"def\")
+	mode = true
+
+
+
+func _finished(_anim_name):
+	if mode:
+		queue_free()
+
+func _start_hide(_anim_name):
+	_pressed()
+"
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0.490196, 0.0313726, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 1, 0, 0.627451 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=10]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=11]
+default_font = SubResource( 10 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 15
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=15]
+default_font = SubResource( 14 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0, 0, 0.235294 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Animation" id=17]
+resource_name = "def"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Progress:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 100.0 ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "def"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Global" type="Node"]
+pause_mode = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "35fggffg"
+}
+
+[node name="screenshot" type="Node" parent="."]
+script = SubResource( 9 )
+
+[node name="map_packer" type="Node" parent="."]
+script = SubResource( 1 )
+
+[node name="Load Screen" type="CanvasLayer" parent="."]
+visible = false
+script = SubResource( 4 )
+
+[node name="Control" type="Control" parent="Load Screen"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 7 )
+
+[node name="Background" type="ColorRect" parent="Load Screen/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Load Screen/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_right = 512.0
+margin_bottom = 465.0
+text = "Идёт загрузка, пожалуйста подождите..."
+align = 1
+valign = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Load Screen/Control"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 39.0
+margin_top = 38.0
+margin_right = -39.0
+margin_bottom = 300.0
+custom_colors/default_color = Color( 0.686275, 0.686275, 0.686275, 1 )
+text = "Игра разрабатывается около 3 лет!"
+
+[node name="ProgressBar" type="ProgressBar" parent="Load Screen/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -473.0
+margin_top = -20.0
+margin_right = 473.0
+margin_bottom = 20.0
+
+[node name="Hide" type="ColorRect" parent="Load Screen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.555556 )
+
+[node name="Animation" type="AnimationPlayer" parent="Load Screen"]
+anims/black = SubResource( 8 )
+anims/def = SubResource( 5 )
+
+[node name="Camera" type="Camera2D" parent="Load Screen"]
+limit_left = 0
+limit_top = 0
+
+[node name="Global Interface" type="CanvasLayer" parent="."]
+script = SubResource( 20 )
+
+[node name="Control" type="Control" parent="Global Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Notifications" type="VBoxContainer" parent="Global Interface/Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -245.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+mouse_filter = 2
+
+[node name="Sample*" type="TextureButton" parent="Global Interface/Control/Notifications"]
+visible = false
+margin_right = 240.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 90 )
+script = SubResource( 19 )
+
+[node name="Progress" type="ProgressBar" parent="Global Interface/Control/Notifications/Sample*"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
+value = 50.0
+percent_visible = false
+
+[node name="Title" type="Label" parent="Global Interface/Control/Notifications/Sample*"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = -5.0
+theme = SubResource( 11 )
+text = "Загрузка"
+align = 1
+
+[node name="Text" type="RichTextLabel" parent="Global Interface/Control/Notifications/Sample*"]
+margin_left = 1.0
+margin_top = 37.0
+margin_right = 238.0
+margin_bottom = 89.0
+theme = SubResource( 15 )
+custom_styles/normal = SubResource( 16 )
+text = "
+                 Карта загружена.
+
+Я Скиппи! Тут слишком много текста, мотай в низ.
+
+
+
+
+Урод!"
+
+[node name="Pass" type="AnimationPlayer" parent="Global Interface/Control/Notifications/Sample*"]
+playback_speed = 0.1
+anims/def = SubResource( 17 )
+
+[node name="Visible" type="AnimationPlayer" parent="Global Interface/Control/Notifications/Sample*"]
+playback_speed = 0.5
+anims/def = SubResource( 18 )
+
+[connection signal="animation_finished" from="Load Screen/Animation" to="Load Screen" method="select2"]
+[connection signal="animation_finished" from="Global Interface/Control/Notifications/Sample*/Pass" to="Global Interface/Control/Notifications/Sample*" method="_start_hide"]
+[connection signal="animation_finished" from="Global Interface/Control/Notifications/Sample*/Visible" to="Global Interface/Control/Notifications/Sample*" method="_finished"]
