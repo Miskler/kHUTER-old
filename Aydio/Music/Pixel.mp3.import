@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Pixel.mp3-45eaa2a44c9b88f0c5dfe2ae485f4fe6.mp3str" ]
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

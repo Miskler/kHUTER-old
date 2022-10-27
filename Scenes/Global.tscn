@@ -277,6 +277,10 @@ func get_nodes(root: Node, ignored = [], list = []):
 	for node in root.get_children():
 		var path = node.get_path()
 		if !path in ignored and not str(node.name).begins_with(\"@@\"):
+			if \"@\" in node.name:
+				node.name = node.name.replace(\"@\", \"\") #Ремонтируем имя
+				path = node.get_path()
+			
 			list.append({\"path\": path})
 			get_nodes(node, ignored, list)
 	return list
@@ -307,18 +311,15 @@ func select(scene, game:bool = true):
 	if not game: roo = scene
 	ro = roo
 	
-	if game:
-		print(\"Изменение на игровую сцену: \\\"\" + str(scene)+\"\\\"\")
-	else:
-		print(\"Изменение на не игровую сцену: \\\"\" + str(scene)+\"\\\"\")
-	
 	$Control/RichTextLabel.text = evidence[int(round(rand_range(0.0, float(evidence.size()-1))))]
 	event_p()
 	G.loadSCN = scene
-	if scene.begins_with(\"res://\"):
+	if scene.begins_with(\"res://\") and scene != \"res://Scenes/rootGame.tscn\":
+		print(\"Изменение на не игровую сцену: \\\"\" + str(scene)+\"\\\"\")
 		$Animation.play(\"black\")
 		d = 0
 	else:
+		print(\"Изменение на игровую сцену: \\\"\" + str(scene)+\"\\\"\")
 		d = 1
 		$Animation.play(\"def\")
 func select2(_f):
@@ -432,17 +433,25 @@ tracks/2/keys = {
 [sub_resource type="GDScript" id=20]
 script/source = "extends CanvasLayer
 
-func new_notification(title:String, text:String, main_color:Color = Color(\"007d08\"), secondary_color:Color = Color(\"a000ff00\")):
+func new_notification(title:String, text:String, main_color:Color = Color(\"007d08\"), secondary_color:Color = Color(\"a000ff00\"), speed:float = 0.1):
 	var node = $\"Control/Notifications/Sample*\".duplicate()
 	
 	node.get_node(\"Title\").text = title
 	node.get_node(\"Text\").text = text
 	
-	node.get_node(\"Progress\").custom_styles.fg.bg_color = main_color
-	node.get_node(\"Progress\").custom_styles.bg.bg_color = secondary_color
+	var dat = node.get_node(\"Progress\").get(\"custom_styles/fg\")
+	dat.bg_color = main_color
+	
+	node.get_node(\"Progress\").set(\"custom_styles/fg\", dat)
+	
+	dat = node.get_node(\"Progress\").get(\"custom_styles/bg\")
+	dat.bg_color = secondary_color
+	node.get_node(\"Progress\").set(\"custom_styles/bg\", dat)
 	
 	node.name = \"Notification\"
 	node.visible = true
+	
+	node.get_node(\"Pass\").playback_speed = speed
 	
 	$Control/Notifications.add_child(node, true)
 "
@@ -555,7 +564,6 @@ visible = false
 script = SubResource( 4 )
 
 [node name="Control" type="Control" parent="Load Screen"]
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = SubResource( 7 )
@@ -599,7 +607,7 @@ margin_bottom = 20.0
 [node name="Hide" type="ColorRect" parent="Load Screen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.555556 )
+color = Color( 0, 0, 0, 0 )
 
 [node name="Animation" type="AnimationPlayer" parent="Load Screen"]
 anims/black = SubResource( 8 )
@@ -610,6 +618,7 @@ limit_left = 0
 limit_top = 0
 
 [node name="Global Interface" type="CanvasLayer" parent="."]
+layer = 10
 script = SubResource( 20 )
 
 [node name="Control" type="Control" parent="Global Interface"]
@@ -640,7 +649,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 custom_styles/fg = SubResource( 12 )
 custom_styles/bg = SubResource( 13 )
-value = 50.0
 percent_visible = false
 
 [node name="Title" type="Label" parent="Global Interface/Control/Notifications/Sample*"]

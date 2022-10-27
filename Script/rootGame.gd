@@ -62,10 +62,10 @@ remote func send(user_id, user_name):
 		elif get_node_or_null("Node/Player/Camera2D") != null:
 			get_node("Node/Player/Camera2D/interface/chat").chat_event("Игрок " + str(user_name) + " подключился")
 
-remote func sms(text, nam = null):
+remote func sms(text, nam = null, mode:bool = true):
 	if get_node_or_null("Node/Player/Camera2D_specter") != null:
 		get_node("Node/Player/Camera2D_specter/CanvasLayer/main").chat_event(text, nam)
-	else:
+	elif mode:
 		get_node("Node/Player/Camera2D/interface/chat").chat_event(str(text))
 
 var id_d
@@ -207,60 +207,60 @@ func set_scene(path):
 			
 			node_spavn.name = i["name"]
 			
-			if i.get("path") != null:
+			if i.get("path") != null and get_node_or_null(i["path"]) != null:
 				get_node(i["path"]).add_child(node_spavn)
-			
-			if i.has("tile_data"):
-				for f in range(i["tile_data"].size()):
-					node_spavn.set_cell(i["tile_data"][f]["position"].x, i["tile_data"][f]["position"].y, i["tile_data"][f]["atlas"], false, false, false, i["tile_data"][f]["position_in_atlas"])
-			elif i.has("frames"):
-				var SF = SpriteFrames.new()
-				for j in i["frames"].keys():
-					SF.add_animation(j)
-					SF.set_animation_loop(j, i["frames"][j]["animation_loop"])
-					SF.set_animation_speed(j, i["frames"][j]["animation_speed"])
-					for d in range(i["frames"][j]["animation_frames"].size()):
-						if i["frames"][j]["animation_frames"][d] is String:
-							SF.add_frame(j, load(i["frames"][j]["animation_frames"][d]), d)
-						else:
-							var atla = AtlasTexture.new()
-							
-							atla.atlas = load(i["frames"][j]["animation_frames"][d]["original_image"])
-							atla.region = i["frames"][j]["animation_frames"][d]["region"]
-							atla.margin = i["frames"][j]["animation_frames"][d]["margin"]
-							atla.filter_clip = i["frames"][j]["animation_frames"][d]["filter_clip"]
-							atla.flags = i["frames"][j]["animation_frames"][d]["flags"]
-							
-							SF.add_frame(j, atla, d)
-				node_spavn.frames = SF
-			
-			setter_param(node_spavn, i)
-			
-			if i.has("is_stopped") and i.get("is_stopped") == false:
-				node_spavn.start(i["time_left"])
-			elif i.has("stream") and i["stream"] != null and i["playing"] == true:
-				node_spavn.play(i["playback_position"])
-			
-			if i.has("script"):
-				var script = GDScript.new()
-				var parse_res = JSON.parse(i["script"]["code"]).result
-				script.source_code = parse_res
-				script.reload()
-				node_spavn.set_script(script)
-			
-			if i.has("global_position"):
-				node_spavn.set_global_position(i["global_position"])
-				node_spavn.rotation = i["rotation"]
-			elif i.has("rect_position"):
-				node_spavn.rect_position = i["rect_position"]
-				node_spavn.rect_size = i["rect_size"]
+				
+				if i.has("tile_data"):
+					for f in range(i["tile_data"].size()):
+						node_spavn.set_cell(i["tile_data"][f]["position"].x, i["tile_data"][f]["position"].y, i["tile_data"][f]["atlas"], false, false, false, i["tile_data"][f]["position_in_atlas"])
+				elif i.has("frames"):
+					var SF = SpriteFrames.new()
+					for j in i["frames"].keys():
+						SF.add_animation(j)
+						SF.set_animation_loop(j, i["frames"][j]["animation_loop"])
+						SF.set_animation_speed(j, i["frames"][j]["animation_speed"])
+						for d in range(i["frames"][j]["animation_frames"].size()):
+							if i["frames"][j]["animation_frames"][d] is String:
+								SF.add_frame(j, load(i["frames"][j]["animation_frames"][d]), d)
+							else:
+								var atla = AtlasTexture.new()
+								
+								atla.atlas = load(i["frames"][j]["animation_frames"][d]["original_image"])
+								atla.region = i["frames"][j]["animation_frames"][d]["region"]
+								atla.margin = i["frames"][j]["animation_frames"][d]["margin"]
+								atla.filter_clip = i["frames"][j]["animation_frames"][d]["filter_clip"]
+								atla.flags = i["frames"][j]["animation_frames"][d]["flags"]
+								
+								SF.add_frame(j, atla, d)
+					node_spavn.frames = SF
+				
+				setter_param(node_spavn, i)
+				
+				if i.has("is_stopped") and i.get("is_stopped") == false:
+					node_spavn.start(i["time_left"])
+				elif i.has("stream") and i["stream"] != null and i["playing"] == true:
+					node_spavn.play(i["playback_position"])
+				
+				if i.has("script"):
+					var script = GDScript.new()
+					var parse_res = JSON.parse(i["script"]["code"]).result
+					script.source_code = parse_res
+					script.reload()
+					node_spavn.set_script(script)
+				
+				if i.has("global_position"):
+					node_spavn.set_global_position(i["global_position"])
+					node_spavn.rotation = i["rotation"]
+				elif i.has("rect_position"):
+					node_spavn.rect_position = i["rect_position"]
+					node_spavn.rect_size = i["rect_size"]
 		
 		yield(get_tree(), "idle_frame")
 		G.get_node("Load Screen").event_p(20)
 		print("Установка переменных...")
 		for i in path:
-			var node = get_node(str(i["path"]) + "/" + i["name"])
-			if i.has("animations"):
+			var node = get_node_or_null(str(i["path"]) + "/" + i["name"])
+			if i.has("animations") and node != null:
 				
 				for anim in i["animations"]:
 					var A = Animation.new()
@@ -292,8 +292,10 @@ func set_scene(path):
 		print("Установка сигналов...")
 		for i in path:
 			for signal_name in i["signals"].keys():
-				for signal_data in i["signals"][signal_name]:
-					get_node(str(i["path"]) + "/" + i["name"]).connect(signal_name, get_node(signal_data[1]), signal_data[0])
+				var node = get_node_or_null(str(i["path"]) + "/" + i["name"])
+				if node != null:
+					for signal_data in i["signals"][signal_name]:
+						node.connect(signal_name, get_node(signal_data[1]), signal_data[0])
 		
 		yield(get_tree(), "idle_frame")
 		G.get_node("Load Screen").event_p(60)
@@ -356,6 +358,8 @@ remote func create_item(item, data:Dictionary = {}):
 	
 	for key in data.keys():
 		node.set(key, data[key])
+	
+	node.name = G.name_generate("SlotInWorld", "/root/rootGame/Node")
 	
 	get_node("Node").add_child(node)
 	return node

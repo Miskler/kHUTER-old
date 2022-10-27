@@ -3,7 +3,7 @@ extends Node
 #НОВЫЕ
 
 export var game_settings = {
-	"version": "0.2.1",
+	"version": "0.2.1.02",
 	"boot_menu": true,
 	"bad_graphics": false,
 	"FPS": 60,
@@ -58,6 +58,14 @@ func typeto(variable, type:int = 0):
 			return str(variable)
 	return variable
 
+func name_generate(standart_name:String, path:String):
+	var node = get_node_or_null(path)
+	if node != null:
+		var out_name = standart_name+"_1"
+		while node.get_node_or_null(out_name) != null:
+			out_name = standart_name+"_"+str(randf()*1000000)
+		return out_name
+	return false
 
 func comparison(one, two, mode:int = 0):
 	mode = clamp(mode, -1, 1)

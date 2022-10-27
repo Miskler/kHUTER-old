@@ -14,7 +14,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Huter"
+config/name="kHUTER"
 config/description="Небольшой проект...."
 run/main_scene="res://Scenes/Load.tscn"
 boot_splash/use_filter=false
@@ -32,8 +32,10 @@ G="*res://Scenes/Global.tscn"
 
 [debug]
 
+settings/profiler/max_functions=40000
 settings/crash_handler/message="Пожалуйста, укажите это при сообщении об ошибке на https://github.com/godotengine/godot/issues"
-settings/gdscript/max_call_stack=4096
+settings/gdscript/max_call_stack=4000
+settings/visual_script/max_call_stack=2048
 
 [display]
 
