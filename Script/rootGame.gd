@@ -36,6 +36,7 @@ func idl():
 func get_map():
 	print("Отправлен запрос на получения карты...")
 	G.rpc_id(1, "_player_connected", get_tree().get_network_unique_id(), G.game_settings["player_name"])
+	G.get_node("Load Screen").event_p(5)
 
 func spavn_players():
 	for i in G.player_roster.keys():
@@ -143,6 +144,7 @@ remote func player_died(id):
 
 remote func file_select(nodes, pl_rs, l_pl_rs):
 	print("Загрузка полученной карты размером " + str(nodes.size()) + " нод.")
+	G.get_node("Load Screen").event_p(10)
 	yield(get_tree(), "idle_frame")
 	
 	set_scene(nodes)

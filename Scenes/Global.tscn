@@ -306,15 +306,16 @@ var evidence = [
 
 var d = 1
 var ro = \"\"
-func select(scene, game:bool = true):
+func select(scene, game:bool = false):
 	var roo = \"res://Scenes/rootGame.tscn\"
-	if not game: roo = scene
-	ro = roo
+	if not game: ro = scene
+	else: ro = roo
 	
 	$Control/RichTextLabel.text = evidence[int(round(rand_range(0.0, float(evidence.size()-1))))]
 	event_p()
 	G.loadSCN = scene
-	if scene.begins_with(\"res://\") and scene != \"res://Scenes/rootGame.tscn\":
+	printt(scene.begins_with(\"res://\"), scene != ro, scene, roo)
+	if scene.begins_with(\"res://\") and scene == ro and scene != roo:
 		print(\"Изменение на не игровую сцену: \\\"\" + str(scene)+\"\\\"\")
 		$Animation.play(\"black\")
 		d = 0
@@ -327,8 +328,8 @@ func select2(_f):
 		get_tree().change_scene(ro)
 		if d == 0:
 			$Animation.play_backwards(\"black\")
-		else:
-			$Animation.play_backwards(\"def\")
+		#else:
+		#	$Animation.play_backwards(\"def\")
 			#$Camera.current = true
 		d = 2
 

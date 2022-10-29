@@ -40,7 +40,7 @@ func load_game():
 func animation_finished(_anim_name):
 	if path == \"\" or path == null:
 		path = \"res://Scenes/Menu.scn\"
-	G.get_node(\"Load Screen\").select(path, false)
+	G.get_node(\"Load Screen\").select(path)
 "
 
 [sub_resource type="Animation" id=2]
