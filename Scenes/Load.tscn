@@ -27,6 +27,8 @@ func _ready():
 		animation_finished(-1)
 
 func load_game():
+	var v = G.game_settings[\"version\"]
+	
 	var file = File.new()
 	if not file.file_exists(G.ways[\"settings\"]):
 		return
@@ -34,6 +36,8 @@ func load_game():
 	var data = parse_json(file.get_as_text())
 	if data is Dictionary and data.size() > 0:
 		G.game_settings = data
+	G.game_settings[\"old_version\"] = G.game_settings[\"version\"]
+	G.game_settings[\"version\"] = v
 	file.close()
 
 

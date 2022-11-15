@@ -2,8 +2,8 @@ extends Node
 
 #НОВЫЕ
 
-export var game_settings = {
-	"version": "0.2.1.02",
+var game_settings = {
+	"version": "0.2.2",
 	"boot_menu": true,
 	"bad_graphics": false,
 	"FPS": 60,
@@ -14,7 +14,8 @@ export var game_settings = {
 export var ways = {
 	"main": "C:/Users/ПК/AppData/Roaming/Godot/app_userdata/Huter/SaveGame",
 	"settings": "user://SaveGame/setting_data.json",
-	"data_servers": "user://SaveGame/servers_data.json"
+	"data_servers": "user://SaveGame/servers_data.json",
+	"server": "127.0.0.1"#"5.44.41.50",
 }
 
 var player_roster = {}

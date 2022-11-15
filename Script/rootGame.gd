@@ -196,7 +196,9 @@ func set_scene(path):
 	if path is String:
 		print("Установка полученной карты...")
 		G.loadSCN = path
-		var p = load(path).instance()
+		var p = load(path)
+		
+		p = p.instance()
 		p.name = "Node"
 		add_child(p, false)
 	else:
