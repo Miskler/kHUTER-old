@@ -8,14 +8,16 @@ var game_settings = {
 	"bad_graphics": false,
 	"FPS": 60,
 	"port": 7732,
+	"render_bonus": 3,
 	"player_name": "Player1234",
+	"mobile": false,
 }
 
 export var ways = {
 	"main": "C:/Users/ПК/AppData/Roaming/Godot/app_userdata/Huter/SaveGame",
 	"settings": "user://SaveGame/setting_data.json",
 	"data_servers": "user://SaveGame/servers_data.json",
-	"server": "127.0.0.1"#"5.44.41.50",
+	"server": "5.44.41.50", #"127.0.0.1"
 }
 
 var player_roster = {}

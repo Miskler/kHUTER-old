@@ -43,6 +43,15 @@ func _process(_delta):
 				vec.y = -speed.y
 		if not is_on_floor(): vec.y += speed.z
 		
+		
+		if vec.y > 0.0 and is_on_floor() and not stop:
+			$JumpUP.play()
+		elif vec.y < 0.0 and is_on_floor() and not stop:
+			$Jump.play()
+		
+		$Crawling.stream_paused = !is_on_floor() or int(vec.x) == 0 or stop
+		
+		
 		vec = move_and_slide(vec, Vector2(0, -1))
 		if get_tree().network_peer != null:
 			get_node("/root/rootGame").rpc("event_state", [$Anim.flip_h, global_position])
@@ -54,13 +63,15 @@ remote func event_state(dat):
 remote func damage(_setting_bullet):
 	if dead_mode == false:
 		dead_mode = true
+		$BeforeExplosion.play()
 		$Timer.connect("timeout", self, "bum")
 		$Timer.start()
 
 func bum():
 	stop = true
+	$BeforeExplosion.stop()
+	$Explosion.play()
 	$TextureRect.hide()
-	$AnimatedSprite.connect("animation_finished", self, "del")
 	$AnimatedSprite.show()
 	
 	$AnimatedSprite.play("bum")
@@ -77,6 +88,10 @@ func bum():
 		spavn_lyt(count, name_)
 		if get_tree().network_peer != null:
 			rpc("spavn_lyt", count, name_)
+	
+	$Explosion.connect("finished", self, "del")
+	yield($Anim, "animation_finished")
+	$Anim.hide()
 
 remote func spavn_lyt(count, name_):
 	if count > 0:

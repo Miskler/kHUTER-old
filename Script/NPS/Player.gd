@@ -4,7 +4,8 @@ onready var SD = get_node("/root/rootGame/Node/SettingData")
 
 export var clutches:int
 
-export var speed = Vector2(20, 520)
+export var speed = Vector2(30, 520)
+export var speed_max = Vector2(400, 2000)
 
 var gan_on = null
 
@@ -103,7 +104,11 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	if $Camera2D/interface/died.visible == false and player_settings["disable_physics"] == false:
-		movement()
+		if $Camera2D/interface/main/Run.vec != Vector2.ZERO:
+			not_real_movement($Camera2D/interface/main/Run.vec)
+		else:
+			movement()
+		post_move($Camera2D/interface/main/Run.vec)
 		vec = move_and_slide(vec, Floor, true)
 
 func event():
@@ -113,6 +118,33 @@ func event():
 		else: mode = true
 		get_node("/root/rootGame").rpc("event_state", "/root/rootGame/Node/" + str(get_tree().get_network_unique_id()), [get_tree().get_network_unique_id(), global_position, $Node2D.rotation_degrees, gan_on, $Node2D/Sprite.flip_v, $Anim.animation, $Anim.flip_h, mode, player_settings["invisibility_to_players"]])
 
+
+var jamp_ui_use = true
+func not_real_movement(vector):
+	if not is_on_floor(): 
+		vector.x = vector.x/2
+	
+	if vector.x > 1 or vector.x < -1:
+		#printt(vector.x, vec.x, speed.x)
+		vec.x += vector.x
+		$Anim.play("run")
+		$Anim.flip_h = vector.x < -1
+	
+	if is_on_floor():
+		if vector.y < -speed_max.y/2:
+			vec.y -= speed.y
+			$Anim.play("jump")
+		elif vector.y < -speed_max.y/2:
+			pass
+	elif vector.y <= -speed_max.y/2 and is_on_wall() and clutches > 0 and jamp_ui_use:
+		jamp_ui_use = false
+		clutches -= 1
+		vec.y -= speed.y
+		$Anim.play("jump")
+		
+		$Wait_ui.start()
+		yield($Wait_ui, "timeout")
+		jamp_ui_use = true
 func movement():
 	if is_on_floor() and Input.is_action_pressed("a") and Input.is_action_pressed("d") and $Camera2D/interface/chat.visible == false:
 		if vec.x > 30:
@@ -154,7 +186,8 @@ func movement():
 		$Anim.play("jump")
 	elif Input.is_action_pressed("s") and !is_on_floor() and $Camera2D/interface/main.visible == true and $Camera2D/interface/chat.visible == false:
 		vec.y += speed.y/10
-	
+
+func post_move(vector):
 	if is_on_floor():
 		clutches = SD.map_settings["number_of_clutches"]
 	
@@ -163,11 +196,11 @@ func movement():
 	
 	vec.y += speed.y/21
 	
-	vec.x = clamp(vec.x, -400, 400)
-	vec.y = clamp(vec.y, -2000, 2000)
+	vec.x = clamp(vec.x, -speed_max.x, speed_max.x)
+	vec.y = clamp(vec.y, -speed_max.y, speed_max.y)
 	
 	if player_settings["disable_physics"] == false:
-		if Input.is_action_pressed("s") and is_on_floor() and $Camera2D/interface/main.visible == true and $Camera2D/interface/chat.visible == false:
+		if (Input.is_action_pressed("s") or vector.y > speed_max.y/2) and is_on_floor() and $Camera2D/interface/main.visible == true and $Camera2D/interface/chat.visible == false:
 			vec.x = (vec.x+1) / 1.4
 			$CollisionShape2D.disabled = true
 			$sat_down.disabled = false
@@ -268,11 +301,12 @@ func shoot():
 			get_node_or_null("/root/rootGame/Node/SettingData/ItemLogical/" + str(gan)).shoot($Camera2D/interface/clothes/Control/MainArmSlot, $Camera2D/interface/clothes/Control/AdditionalArmSlot, self)
 
 func weapon_turn():
-	$Node2D.look_at(get_global_mouse_position())
-	if $Node2D.rotation_degrees > 360:
-		$Node2D.rotation_degrees -= 360
-	elif $Node2D.rotation_degrees < -360:
-		$Node2D.rotation_degrees += 360
+	if not G.game_settings["mobile"]:
+		$Node2D.look_at(get_global_mouse_position())
+		if $Node2D.rotation_degrees > 360:
+			$Node2D.rotation_degrees -= 360
+		elif $Node2D.rotation_degrees < -360:
+			$Node2D.rotation_degrees += 360
 	
 	if $Node2D.rotation_degrees > 90 or $Node2D.rotation_degrees < -90:
 		$Node2D/Sprite.flip_v = true
@@ -313,7 +347,7 @@ remote func damage(setting_bullet):
 # Элементы интерфейса
 
 func edit_items(item_s, quantity_s):
-	$Camera2D/interface/inventory.edit_items(item_s, quantity_s)
+	return $Camera2D/interface/inventory.edit_items(item_s, quantity_s)
 
 func show_inventory():
 	$Camera2D/interface/inventory.show()

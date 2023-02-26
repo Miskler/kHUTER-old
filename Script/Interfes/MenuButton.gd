@@ -42,7 +42,7 @@ func OPEN(node_path):
 	$"/root/Menu/Animations".play("BlackScreen")
 
 func SHOW(anim):
-	$"/root/Menu/Animations".play(anim)
+	$"/root/Menu/AnimationsMenedger".visible_p = anim
 
 func HIDE(anim):
-	$"/root/Menu/Animations".play_backwards(anim)
+	$"/root/Menu/AnimationsMenedger".visible_p = ""

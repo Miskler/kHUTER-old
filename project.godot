@@ -8,10 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[  ]
-_global_script_class_icons={
-}
-
 [application]
 
 config/name="kHUTER"
@@ -41,6 +37,7 @@ settings/visual_script/max_call_stack=2048
 
 mouse_cursor/custom_image="res://Texture/Other/cursor.png"
 window/stretch/mode="2d"
+window/stretch/aspect="expand"
 
 [global]
 
@@ -179,6 +176,10 @@ F5={
  ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [layer_names]
 
 2d_physics/layer_1="Player"
@@ -198,5 +199,4 @@ file_logging/max_log_files=20
 [rendering]
 
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
 environment/default_clear_color=Color( 0.2, 0.239216, 0.305882, 1 )

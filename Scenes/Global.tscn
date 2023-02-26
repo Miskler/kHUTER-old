@@ -16,7 +16,7 @@ func _ready():
 	var dir = Directory.new()
 	print(OS.get_system_dir(OS.SYSTEM_DIR_PICTURES))
 	
-	SCREENfile = str(OS.get_system_dir(OS.SYSTEM_DIR_PICTURES)) + \"/Huter\"
+	SCREENfile = str(OS.get_system_dir(OS.SYSTEM_DIR_PICTURES)) + \"/kHUTER\"
 	
 	if not dir.dir_exists(SCREENfile):
 		dir.make_dir_recursive(SCREENfile)

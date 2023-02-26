@@ -35,7 +35,8 @@ func load_game():
 	file.open(G.ways[\"settings\"], File.READ)
 	var data = parse_json(file.get_as_text())
 	if data is Dictionary and data.size() > 0:
-		G.game_settings = data
+		for i in data.keys():
+			G.game_settings[i] = data[i]
 	G.game_settings[\"old_version\"] = G.game_settings[\"version\"]
 	G.game_settings[\"version\"] = v
 	file.close()
@@ -44,6 +45,7 @@ func load_game():
 func animation_finished(_anim_name):
 	if path == \"\" or path == null:
 		path = \"res://Scenes/Menu.scn\"
+	
 	G.get_node(\"Load Screen\").select(path)
 "
 
@@ -123,6 +125,9 @@ script = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 autoplay = "def"
@@ -132,18 +137,29 @@ anims/def = SubResource( 2 )
 stream = ExtResource( 2 )
 volume_db = 13.388
 
-[node name="SphereBack" type="Sprite" parent="."]
-position = Vector2( 512.003, 300.004 )
-scale = Vector2( 0.74315, 0.435456 )
+[node name="SphereBack" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="HuterWorld" type="TextureRect" parent="."]
-margin_left = 227.0
-margin_top = 19.0
-margin_right = 802.0
-margin_bottom = 582.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -287.5
+margin_top = -281.5
+margin_right = 287.5
+margin_bottom = 281.5
 texture = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="ColorRect3" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -151,10 +167,14 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Brend" type="Label" parent="."]
-margin_left = 209.439
-margin_top = 141.775
-margin_right = 842.439
-margin_bottom = 468.775
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -316.5
+margin_top = -163.5
+margin_right = 316.5
+margin_bottom = 163.5
 custom_fonts/font = ExtResource( 1 )
 text = "Sphere"
 align = 1
@@ -165,8 +185,5 @@ percent_visible = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="animation_finished" from="Animation" to="." method="animation_finished"]
