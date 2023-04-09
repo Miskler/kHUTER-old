@@ -1,0 +1,1 @@
+jarsigner -verbose -keystore debug.keystore -storepass android -keypass android "kHUTER.apk" androiddebugkey
